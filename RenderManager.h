@@ -14,10 +14,24 @@ private:
 	//keep a copy of the game manager
 	GameManager *gameManager;
 
+	Ogre::Root *root;
+	Ogre::RenderWindow *window;
+    Ogre::SceneManager* sceneManager;
+    Ogre::Camera* camera;
+    Ogre::Viewport* viewport;
+
+    size_t windowHandle;
+    Ogre::Real frameTimeElapsed;
+
+    std::string groupLoaded;
+
 public:
 
 	RenderManager(GameManager *gman);
 	virtual ~RenderManager();
+
+	//build a scene manually, for testing stuff
+	void buildSceneManually();
 
 };
 
