@@ -28,9 +28,7 @@ RenderManager::RenderManager(GameManager *gman){
 
 	try {
 
-		cout << "Creating root..." << endl;
 		root = OGRE_NEW Ogre::Root("","");
-		cout << "Loading OpenGL..." << endl;
 		root->loadPlugin("RenderSystem_GL");
 
 		Ogre::RenderSystem *renderer = root->getRenderSystemByName("OpenGL Rendering Subsystem");
@@ -42,12 +40,11 @@ RenderManager::RenderManager(GameManager *gman){
 
 		}
 
-		cout << "Setting renderer..." << endl;
 		root->setRenderSystem(renderer);
 		
 		//set some options and make the window
 		renderer->setConfigOption("Full Screen", "No");
-        renderer->setConfigOption("Video Mode", "1280 x 1024 @ 32-bit colour");
+        renderer->setConfigOption("Video Mode", "1024 x 768 @ 32-bit colour");
         window = root->initialise(true, "CSC 4903: Game Engine Programming");
         window->getCustomAttribute("WINDOW", &windowHandle);
 
