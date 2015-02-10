@@ -7,8 +7,8 @@ INC_DIRS=-I./ -I$(GAME_DRIVE_LETTER)/Ogre/include/ -I$(GAME_DRIVE_LETTER)/boost/
 LIB_DIRS=-L./ -L$(GAME_DRIVE_LETTER)/Ogre/lib/ -L$(GAME_DRIVE_LETTER)/boost/lib/ -L$(GAME_DRIVE_LETTER)/tinyxml/lib/
 LIBS=-lboost_system-mgw48-mt-1_57 -lOgreMain -ltinyxml
 
-COMPILE = $(CC) $(INC_DIRS) -c 
-LINK = $(CC) $(LIB_DIRS) -o
+COMPILE = $(CC) $(INC_DIRS) -g -c 
+LINK = $(CC) $(LIB_DIRS) -g -o
 
 GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp
 GAME_OBJ = main.o GameManager.o RenderManager.o

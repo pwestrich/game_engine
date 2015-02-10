@@ -25,12 +25,35 @@ private:
 
     std::string groupLoaded;
 
+    //build a scene manually, for testing stuff
+
+
 public:
 
+	//constructors and destructors
 	RenderManager(GameManager *gman);
 	virtual ~RenderManager();
 
-	//build a scene manually, for testing stuff
+	//a ton of getter methods
+	size_t getRenderWindowHandle();
+
+	int getRenderWindowWidth();
+	int getRenderWindowHeight();
+
+	Ogre::RenderWindow *getRenderWindow();
+	Ogre::SceneManager *getSceneManager();
+
+	//the setter methods
+	void setTimeSinceLastFrame(Ogre::Real timeElapsed);
+
+	//and actions
+	void startRendering();
+	void stopRendering();
+
+	void loadResourcesFromXML(const std::string &filename);
+	void buildSceneFromXML(const std::string &filename);
+
+	void loadResourcesManually();
 	void buildSceneManually();
 
 };
