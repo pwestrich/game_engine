@@ -61,6 +61,8 @@ RenderManager::~RenderManager(){
 	//stop rendering things
 	stopRendering();
 
+  unloadResources();
+
 	//clear the scene
 	sceneManager->destroyAllCameras();
 	sceneManager->clearScene();
@@ -123,18 +125,10 @@ void RenderManager::stopRendering(){
 
 }
 
-void RenderManager::loadResourcesFromXML(const std::string &filename){}
-void RenderManager::buildSceneFromXML(const std::string &filename){}
+void RenderManager::loadResourcesFromXML(const std::string &filename, const std::string &group_name){
 
-//private methods here-----------------------------------------------------------------------------
-
-void RenderManager::loadResourcesManually(){
-
-	std::string file_name = "./xml/resources.xml";
-	std::string group_name = "0";
-
-	  //use tiny xml to parse an xml file with the ogre paths in it
-   TiXmlDocument doc(file_name.c_str());
+    //use tiny xml to parse an xml file with the ogre paths in it
+   TiXmlDocument doc(filename.c_str());
    if (doc.LoadFile())
    {
       Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
@@ -196,10 +190,28 @@ void RenderManager::loadResourcesManually(){
    }
    else 
    {
-      //log the fact that the resource metadata file was not found
+      cerr << "ERROR: Resource file not found: " << filename << endl;
    }
 
 }
+
+void RenderManager::buildSceneFromXML(const std::string &filename){}
+
+void RenderManager::unloadResources(){
+
+  if (groupLoaded == ""){
+
+    return;
+
+  }
+
+  Ogre::ResourceGroupManager &resourceManager = Ogre::ResourceGroupManager::getSingleton();
+  resourceManager.destroyResourceGroup(groupLoaded);
+  groupLoaded = "";
+
+}
+
+//private methods here-----------------------------------------------------------------------------
 
 
 void RenderManager::buildSceneManually(){

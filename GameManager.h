@@ -2,6 +2,8 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#include <string>
+
 using namespace std;
 
 //forward-declare the other managers
@@ -23,6 +25,13 @@ public:
 
 	//return a pointer to the game manager
 	static GameManager *getGameManager();
+
+	//methods to make the RenderManager do things
+	void loadResourcesFromXML(const std::string &filename, const std::string &group);
+	void buildSceneFromXML(const std::string &filename);
+
+	void startRendering();
+	void stopRendering();
 
 };
 

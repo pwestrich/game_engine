@@ -2,6 +2,8 @@
 #ifndef RENDER_MANAGER_H
 #define RENDER_MANAGER_H
 
+#include <string>
+
 #include "Ogre.h"
 #include "tinyxml.h"
 
@@ -25,9 +27,6 @@ private:
 
     std::string groupLoaded;
 
-    //build a scene manually, for testing stuff
-
-
 public:
 
 	//constructors and destructors
@@ -50,10 +49,11 @@ public:
 	void startRendering();
 	void stopRendering();
 
-	void loadResourcesFromXML(const std::string &filename);
+	void loadResourcesFromXML(const std::string &filename, const std::string &group_name);
 	void buildSceneFromXML(const std::string &filename);
 
-	void loadResourcesManually();
+	void unloadResources();
+
 	void buildSceneManually();
 
 };

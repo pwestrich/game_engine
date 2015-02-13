@@ -1,0 +1,14 @@
+
+<ogre_groups>
+	<group>
+		<name>1</name>
+		<paths>
+			<path>./assets/models</path>
+			<path>./assets/materials/scripts</path>
+		</paths>
+
+		<meshes>
+			<mesh></mesh>
+		</meshes>
+	</group>
+</ogre_groups>
