@@ -195,7 +195,43 @@ void RenderManager::loadResourcesFromXML(const std::string &filename, const std:
 
 }
 
-void RenderManager::buildSceneFromXML(const std::string &filename){}
+void RenderManager::buildSceneFromXML(const std::string &filename){
+
+	//first, try to open the file
+	TiXmlDocument file(filename.c_str());
+
+	if (file.LoadFile()){
+
+		//the first tag should be <scene>
+		TiXmlNode *sceneTree = file.FirstChild("scene");
+
+		if (sceneTree){
+
+			//now loop through the differnt things a scene has
+			for (TiXmlNode *item = sceneTree->FirstChild(); item; item = item->NextSibling()){
+
+				TiXmlElement *sceneElement = item->ToElement();
+
+				
+
+			}
+			
+
+		} else {
+
+			cerr << "Error: Invalid configuration format." << endl;
+			exit(EXIT_FAILURE);
+
+		}
+
+	} else {
+
+		cerr << "Error: Invalid scene file: " << filename << endl;
+		exit(EXIT_FAILURE);
+
+	}
+
+}
 
 void RenderManager::unloadResources(){
 
@@ -211,12 +247,14 @@ void RenderManager::unloadResources(){
 
 }
 
-//private methods here-----------------------------------------------------------------------------
-
-
 void RenderManager::buildSceneManually(){
 
 	camera = sceneManager->createCamera("Camera");
+
+	camera->setPosition(Ogre::Vector3(0, 0, 10));
+    camera->lookAt(Ogre::Vector3(0, 0, 0));
+    camera->setNearClipDistance(2);
+    camera->setFarClipDistance(50);
 
     //z-order (for possible overlapping), left, top, width, height
     viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);  //assign a camera to a viewport (can have many cameras and viewports in a single window)
@@ -226,11 +264,6 @@ void RenderManager::buildSceneManually(){
     float actual_height = Ogre::Real(viewport->getActualHeight());
     float aspect_ratio = actual_width/actual_height;
     camera->setAspectRatio(aspect_ratio);
-
-    camera->setPosition(Ogre::Vector3(0, 0, 10));
-    camera->lookAt(Ogre::Vector3(0, 0, 0));
-    camera->setNearClipDistance(2);
-    camera->setFarClipDistance(50);
     
     sceneManager->setAmbientLight(Ogre::ColourValue(.05,.05,.05));
     Ogre::Light* light = sceneManager->createLight("Light");
@@ -356,4 +389,3 @@ void RenderManager::buildSceneManually(){
     submarine_node->rotate(submarine_quat);
 
 }
-

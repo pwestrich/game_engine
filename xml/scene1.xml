@@ -1,56 +1,42 @@
 
-<ogre_groups>
-	<group>
-		<name>Group 1</name>
-		<paths>
-			<path>./assets/models</path>
-			<path>./assets/materials</path>
-			<path>./assets/scripts</path>s
-		</paths>
-		<meshes>
-			<mesh></mesh>
-		</meshes>
-		<cameras>
-			<camera>
-				<position>-3,3,3</position>
-				<look_at>0,0,0</look_at>
-				<near_clip>0.001</near_clip>
-				<far_clip>50</far_clip>
-			</camera>
-		</cameras>
-		<lights>
-			<light>
-				<type>ambient</type>
-				<location>3,3,3</location>
-				<color>1,1,1</color>
-				<direction>0,0,0</direction>
-			</light>
-		</lights>
+<scene>
+	<name>Scene1</name>
+
+	<cameras>
+		<camera>
+			<name>Camera1</name>
+			<location>1,1,1</location>
+			<lookAt>0,0,0</lookAt>
+			<nearClip>1</nearClip>
+			<farClip>100</farClip>
+		</camera>
+	</cameras>
+
+	<lights>
+		<light>
+			<name>Light1</name>
+			<type>directional</type>
+			<color>1,1,1</color>
+			<direction>0,-1,0</direction>
+			<location>0,5,0</location>
+		</light>
+	</lights>
+
+	<viewports>
+		<viewport>
+			<camera>Camera1></camera>
+			<start>0,0,0</start>
+			<end>1,1</end>
+			<color>0,0,0</color>
+		</viewport>
+	</viewports>
+
+	<nodes>
 		<node>
-			<name>root</name>
+			<name>Node1</name>
 			<children>
-				<node>
-					<name>something</name>
-					<type>scene</type>
-					<scale>1,1,1</scale>
-					<rotate>1,1,1,90</rotate>
-					<translate>1,1,1</translate>
-					<children>
-						<node>
-							<name></name>
-							<type></type>
-							<entity>
-								<name></name>
-								<mesh></mesh>
-								<material></material>
-							</entity>
-						</node>
-					</children>
-				</node>
+				<node></node>
 			</children>
 		</node>
-	</group>
-</ogre_groups>
-
-
-
+	</nodes>
+</scene>
