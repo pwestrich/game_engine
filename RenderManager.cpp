@@ -268,15 +268,76 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								if (item->GetText() == "ambient"){
 
-
+									//this just ahs a color
+									TiXmlElement *color = (TiXmlElement*) lightNode->FirstChild("color");
+									float colors[3];
+									parseFloats(string(color->GetText()), colors);
+									sceneManager->setAmbientLight(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
 								} else if (item->GetText() == "directional"){
 
+									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+									Ogre::Light *light = sceneManager->createLight(name->GetText());
+									light->setType(Ogre::Light::LT_DIRECTIONAL);
 
+									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+									float colors[3];
+									parseFloats(string(dColor->GetText()), colors);
+									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
+
+									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+									parseFloats(string(dColor->GetText()), colors);
+									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
+
+									TiXmlElement *direction = (TiXmlElement*) lightNode->FirstChild("direction");
+									parseFloats(string(direction->GetText()), colors);
+									light->setDirection(Vector3(colors[0], colors[1], colors[2]));
 
 								} else if (item->GetText() == "point"){
 
+									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+									Ogre::Light *light = sceneManager->createLight(name->GetText());
+									light->setType(Ogre::Light::LT_POINT);
 
+									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+									float colors[3];
+									parseFloats(string(dColor->GetText()), colors);
+									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
+
+									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+									parseFloats(string(dColor->GetText()), colors);
+									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
+
+									TiXmlElement *location = (TiXmlElement*) lightNode->FirstChild("location");
+									parseFloats(string(location->GetText()), colors);
+									light->setPosition(Vector3(colors[0], colors[1], colors[2]));
+
+								} else if (item->GetText() == "spot"){
+
+									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+									Ogre::Light *light = sceneManager->createLight(name->GetText());
+									light->setType(Ogre::Light::LT_SPOTLIGHT);
+
+									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+									float colors[3];
+									parseFloats(string(dColor->GetText()), colors);
+									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
+
+									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+									parseFloats(string(dColor->GetText()), colors);
+									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
+
+									TiXmlElement *direction = (TiXmlElement*) lightNode->FirstChild("direction");
+									parseFloats(string(direction->GetText()), colors);
+									light->setDirection(Vector3(colors[0], colors[1], colors[2]));
+
+									TiXmlElement *location = (TiXmlElement*) lightNode->FirstChild("location");
+									parseFloats(string(location->GetText()), colors);
+									light->setPosition(Vector3(colors[0], colors[1], colors[2]));
+
+									TiXmlElement *range = (TiXmlElement*) lightNode->FirstChild("range");
+									parseFloats(string(range->GetText()), colors);
+									light->setSpotlightRange(Ogre::Degree(colors[0]), Ogre::Degree(colors[1]));
 
 								} else {
 
@@ -284,7 +345,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									continue;
 
 								}
-
 
 							}
 
@@ -294,9 +354,25 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 						}
 
-
 						//then viewports
+						TiXmlNode *viewTree = scenes->FirstChild("lights");
 
+						for (TiXmlNode *viewportNode = viewTree->FirstChild(); viewportNode; viewportNode = viewportNode->NextSibling()){
+
+							TiXmlElement *cameraNameItem = (TiXmlElement*) viewportNode->FirstChild("camera");
+							string cameraName = cameraNameItem->GetText();
+
+							Ogre::Camera *camera = sceneManager->getCamera(cameraName);
+							Ogre::Viewport *viewport = window->addViewport(camera);
+
+							camera->setAspectRatio(viewport->getActualWidth() / viewport->getActualHeight());
+
+							TiXmlElement *color = (TiXmlElement*) viewportNode->FirstChild("color");
+							float colors[3];
+							parseFloats(string(color->GetText()), colors);
+							viewport->setBackgroundColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
+
+						}
 
 						//and the nodes in the tree
 
