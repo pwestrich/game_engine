@@ -1,7 +1,7 @@
 
 <ogre_groups>
 	<group>
-		<name>1</name>
+		<name>0</name>
 		<paths>
 			<path>./assets/models</path>
 			<path>./assets/materials/scripts</path>

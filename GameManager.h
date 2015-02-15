@@ -28,7 +28,7 @@ public:
 
 	//methods to make the RenderManager do things
 	void loadResourcesFromXML(const std::string &filename, const std::string &group);
-	void buildSceneFromXML(const std::string &filename);
+	void buildSceneFromXML(const std::string &filename, const std::string &group);
 
 	void startRendering();
 	void stopRendering();

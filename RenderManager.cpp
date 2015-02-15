@@ -212,9 +212,11 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 			//loop through the scenes, looking for our scene
 			for (TiXmlNode *scenes = sceneTree->FirstChild(); scenes; scenes = scenes->NextSibling()){
 
-				TiXmlElement *sceneElement = scenes->ToElement();
+				TiXmlElement *sceneElement = (TiXmlElement*) scenes->FirstChild("name");
 
 				if (sceneElement){
+
+					const char *charName = sceneElement->GetText();
 
 					std::string name = sceneElement->GetText();
 
@@ -222,15 +224,18 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 						//this is our scene, start building it
 						//first are cameras
+						clog << "Building scene: " << sceneName << endl;
 						TiXmlNode *cameraTree = scenes->FirstChild("cameras");
 
 						if (cameraTree){
 
-							for (TiXmlNode *cameraNode = cameraTree->FirstChild(); cameraNode; cameraNode->NextSibling()){
+							for (TiXmlNode *cameraNode = cameraTree->FirstChild(); cameraNode; cameraNode = cameraNode->NextSibling()){
 
 								//get the camera's name
 								TiXmlElement *item = (TiXmlElement*) cameraNode->FirstChild("name");
 								camera = sceneManager->createCamera(item->GetText());
+
+								clog << "Creating camera: " << item->GetText() << endl;
 
 								//then its location
 								item = (TiXmlElement*) cameraNode->FirstChild("location");
@@ -263,12 +268,17 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 						if (lightTree){
 
-							for (TiXmlNode *lightNode = lightTree->FirstChild(); lightTree; lightNode->NextSibling()){
+							for (TiXmlNode *lightNode = lightTree->FirstChild(); lightNode; lightNode = lightNode->NextSibling()){
 
 								//there are several types; check for them
 								TiXmlElement *item = (TiXmlElement*) lightNode->FirstChild("type");
+								string typeString = item->GetText();
 
-								if (item->GetText() == "ambient"){
+								clog << "Creating light: ";
+
+								if (typeString == "ambient"){
+
+									clog << "ambient" << endl;
 
 									//this just ahs a color
 									TiXmlElement *color = (TiXmlElement*) lightNode->FirstChild("color");
@@ -276,11 +286,13 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(color->GetText()), colors);
 									sceneManager->setAmbientLight(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-								} else if (item->GetText() == "directional"){
+								} else if (typeString == "directional"){
 
 									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_DIRECTIONAL);
+
+									clog << name->GetText() << endl;
 
 									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
 									float colors[3];
@@ -295,11 +307,13 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(direction->GetText()), colors);
 									light->setDirection(Vector3(colors[0], colors[1], colors[2]));
 
-								} else if (item->GetText() == "point"){
+								} else if (typeString == "point"){
 
 									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_POINT);
+
+									clog << name->GetText() << endl;
 
 									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
 									float colors[3];
@@ -314,11 +328,13 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(location->GetText()), colors);
 									light->setPosition(Vector3(colors[0], colors[1], colors[2]));
 
-								} else if (item->GetText() == "spot"){
+								} else if (typeString == "spot"){
 
 									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_SPOTLIGHT);
+
+									clog << name->GetText() << endl;
 
 									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
 									float colors[3];
@@ -343,7 +359,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else {
 
-									cerr << "ERROR: Invalid light type." << endl;
+									cerr << "ERROR: Invalid light type: " << item->GetText() << endl;
 									continue;
 
 								}
@@ -357,9 +373,11 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 						}
 
 						//then viewports
-						TiXmlNode *viewTree = scenes->FirstChild("lights");
+						TiXmlNode *viewTree = scenes->FirstChild("viewports");
 
 						for (TiXmlNode *viewportNode = viewTree->FirstChild(); viewportNode; viewportNode = viewportNode->NextSibling()){
+
+							clog << "Creating viewport..." << endl;
 
 							TiXmlElement *cameraNameItem = (TiXmlElement*) viewportNode->FirstChild("camera");
 							string cameraName = cameraNameItem->GetText();
@@ -377,7 +395,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 						}
 
 						//entities
-						TiXmlNode *entityTree = scenes->FirstChild("entites");
+						TiXmlNode *entityTree = scenes->FirstChild("entities");
 
 						if (entityTree){
 
@@ -535,9 +553,13 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 		TiXmlNode *childTree = nodeTree->FirstChild("children");
 
-		for (TiXmlNode *child = childTree->FirstChild(); child; child = child->NextSibling()){
+		if (childTree){
 
-			createNodes(sceneNode, child);
+			for (TiXmlNode *child = childTree->FirstChild(); child; child = child->NextSibling()){
+
+				createNodes(sceneNode, child);
+
+			}
 
 		}
 
