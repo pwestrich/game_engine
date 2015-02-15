@@ -479,16 +479,53 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 		if (nodeType == "animation"){
 
-
+			//do nothing for now
 
 		} else if (nodeType == "scene"){
 
 			//nodes can have a scale, translate, rotation, and/or entity
+			nodeElement = (TiXmlElement*) nodeNode->FirstChild("entity");
 
-			
+			if (nodeElement){
 
+				string entityName = nodeElement->GetText();
+				Ogre::Entity *entity = sceneManager->getEntity(entityName);
+				sceneNode->attachObject(entity);
 
+			}
 
+			nodeElement = (TiXmlElement*) nodeNode->FirstChild("scale");
+
+			if (nodeElement){
+
+				string scaleString = nodeElement->GetText();
+				float values[3];
+				parseFloats(scaleString, values);
+				sceneNode->scale(Vector3(values[0], values[1], values[2]));
+
+			}
+
+			nodeElement = (TiXmlElement*) nodeNode->FirstChild("translate");
+
+			if (nodeElement){
+
+				string transString = nodeElement->GetText();
+				float values[3];
+				parseFloats(transString, values);
+				sceneNode->translate(Vector3(values[0], values[1], values[2]));
+
+			}
+
+			nodeElement = (TiXmlElement*) nodeNode->FirstChild("rotate");
+
+			if (nodeElement){
+
+				string rotateString = nodeElement->GetText();
+				float values[4];
+				parseFloats(rotateString, values);
+				sceneNode->rotate(Quaternion(Degree(values[3]), Vector3(values[0], values[1], values[2])));
+
+			}
 
 		} else {
 
