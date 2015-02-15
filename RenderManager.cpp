@@ -6,6 +6,8 @@
 
 using namespace Ogre;
 
+//public methods start here ----------------------------------------------------------------------------------------------------------------------
+
 RenderManager::RenderManager(GameManager *gman){
 
 	if (gman == NULL){
@@ -374,8 +376,47 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 						}
 
-						//and the nodes in the tree
+						//entities
+						TiXmlNode *entityTree = scenes->FirstChild("entites");
 
+						if (entityTree){
+
+							//loop through every entity and create them
+							for (TiXmlNode *entityNode = entityTree->FirstChild(); entityNode; entityNode = entityNode->NextSibling()){
+
+								TiXmlElement *entityElement = (TiXmlElement*) entityNode->FirstChild("name");
+								string entityName = entityElement->GetText();
+
+								entityElement = (TiXmlElement*) entityNode->FirstChild("mesh");
+								string entityMesh = entityElement->GetText();
+
+								entityElement = (TiXmlElement*) entityNode->FirstChild("material");
+								string entityMaterial = entityElement->GetText();
+
+								Ogre::Entity *entity = sceneManager->createEntity(entityName, entityMesh);
+								entity->setMaterialName(entityMaterial);
+
+							}
+
+						} else {
+
+							cerr << "WARNING: There aren't any entites in the scene... This is going to be a pretty boring video game." << endl;
+
+						}
+
+						//nodes in the tree
+						TiXmlNode *nodeTree = scenes->FirstChild("nodes");
+
+						if (nodeTree){
+
+							//process all the nodes by calling the recursive function
+							createNodes(sceneManager->getRootSceneNode(), nodeTree);
+
+						} else {
+
+							cerr << "WARNING: There aren't any nodes in this scene... This is going to be a boring video game..." << endl;
+
+						}
 
 					}
 
@@ -418,145 +459,53 @@ void RenderManager::unloadResources(){
 
 }
 
-void RenderManager::buildSceneManually(){
+void RenderManager::buildSceneManually(){}
 
-	camera = sceneManager->createCamera("Camera");
+//private methods below here ------------------------------------------------------------------------------------------------------
 
-	camera->setPosition(Ogre::Vector3(0, 0, 10));
-    camera->lookAt(Ogre::Vector3(0, 0, 0));
-    camera->setNearClipDistance(2);
-    camera->setFarClipDistance(50);
+//recursive function for making all the scene nodes
+void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
-    //z-order (for possible overlapping), left, top, width, height
-    viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);  //assign a camera to a viewport (can have many cameras and viewports in a single window)
-    viewport->setBackgroundColour(Ogre::ColourValue(0,0,0));
+	//loop through every node in the tree, set its stuff, create its children, and attatch it to its parent
+	for (TiXmlNode *nodeNode = nodeTree->FirstChild(); nodeNode; nodeNode = nodeNode->NextSibling()){
 
-    float actual_width = Ogre::Real(viewport->getActualWidth());
-    float actual_height = Ogre::Real(viewport->getActualHeight());
-    float aspect_ratio = actual_width/actual_height;
-    camera->setAspectRatio(aspect_ratio);
-    
-    sceneManager->setAmbientLight(Ogre::ColourValue(.05,.05,.05));
-    Ogre::Light* light = sceneManager->createLight("Light");
-    light->setType(Ogre::Light::LT_DIRECTIONAL);
+		TiXmlElement *nodeElement = (TiXmlElement*) nodeNode->FirstChild("name");
+		string nodeName = nodeElement->GetText();
 
-    light->setDiffuseColour(1.0, 1.0, 1.0);
-    light->setDirection(Ogre::Vector3(0.0,0.0,-1.0));
+		nodeElement = (TiXmlElement*) nodeNode->FirstChild("type");
+		string nodeType = nodeElement->GetText();
 
-    Ogre::SceneNode* rsn = sceneManager->getRootSceneNode();
+		Ogre::SceneNode *sceneNode = sceneManager->createSceneNode(nodeName);
 
-    //Propeller
-    //scene nodes can perform transformations and contain entities
-    Ogre::SceneNode* propeller_node = sceneManager->createSceneNode("PropellerNode");
-    
-    //entities are directly associated with meshes and materials
-    Ogre::Entity* propeller_entity = sceneManager->createEntity("Propeller", "Propeller.mesh");
-    propeller_entity->setMaterialName("Propeller");
-    
-    //link the entity to the scene node
-    propeller_node->attachObject(propeller_entity);
-    //link the scene node to the root node
-    rsn->addChild(propeller_node);
+		if (nodeType == "animation"){
 
-    Vector3 propeller_translation(0,0,0);
-    propeller_node->translate(propeller_translation);
 
-    //assign transformations to the scene node
-    Vector3 propeller_axis(.577, .577, -.577);
-    Quaternion propeller_quat(Degree(120), propeller_axis);
-    propeller_node->rotate(propeller_quat);
 
-    Vector3 propeller_scale(.18,.18,.18);
-    propeller_node->scale(propeller_scale);
+		} else if (nodeType == "scene"){
 
-    //Rudder
-    Ogre::SceneNode* rudder_node = sceneManager->createSceneNode("RudderNode");
-    
-    Ogre::Entity* rudder_entity = sceneManager->createEntity("Rudder", "Rudder.mesh");
-    rudder_entity->setMaterialName("Rudder");
-    
-    //link the entity to the scene node
-    rudder_node->attachObject(rudder_entity);
-    //link the scene node to the root node
-    rsn->addChild(rudder_node);
+			//nodes can have a scale, translate, rotation, and/or entity
 
-    Vector3 rudder_translation(0,0,0);
-    rudder_node->translate(rudder_translation);
+			
 
-    //assign transformations to the scene node
-    Vector3 rudder_axis(.577, .577, -.577);
-    Quaternion rudder_quat(Degree(120), rudder_axis);
-    rudder_node->rotate(rudder_quat);
 
-    Vector3 rudder_scale(.18,.18,.18);
-    rudder_node->scale(rudder_scale);
 
-    Ogre::SceneNode* sub_transform_node = sceneManager->createSceneNode("SubTransformNode");
-    rsn->addChild(sub_transform_node);
 
-    Vector3 entire_sub_translation(2,0,0);
-    sub_transform_node->translate(entire_sub_translation);
+		} else {
 
-    //quaternion version
-    Vector3 entire_submarine_axis(.7,.7,0);
-    Quaternion entire_submarine_quat(Degree(27.5), entire_submarine_axis);
-    sub_transform_node->rotate(entire_submarine_quat);
+			cerr << "ERROR: Invalid node type " << nodeType << " for node " << nodeName << "." << endl;
+			continue;
+		}
 
-    //Periscope
+		TiXmlNode *childTree = nodeTree->FirstChild("children");
 
-    Ogre::SceneNode* periscope_transform_node = sceneManager->createSceneNode("PeriscopeTransformNode");
-    Vector3 periscope_translation2(0,.7,0);
-    periscope_transform_node->translate(periscope_translation2);
-    sub_transform_node->addChild(periscope_transform_node);
-    
-    Ogre::SceneNode* periscope_node = sceneManager->createSceneNode("PeriscopeNode");
-    
-    Ogre::Entity* periscope_entity = sceneManager->createEntity("Periscope", "Periscope.mesh");
-    periscope_entity->setMaterialName("Periscope");
-    
-    //link the entity to the scene node
-    periscope_node->attachObject(periscope_entity);
-    //link the scene node to the root node
-    periscope_transform_node->addChild(periscope_node);
+		for (TiXmlNode *child = childTree->FirstChild(); child; child = child->NextSibling()){
 
-    Vector3 periscope_translation(0,0,0);
-    periscope_node->translate(periscope_translation);
+			createNodes(sceneNode, child);
 
-    //assign transformations to the scene node
-    Vector3 periscope_axis(0,1,0);
-    Quaternion periscope_quat(Degree(90), periscope_axis);
-    periscope_node->rotate(periscope_quat);
+		}
 
-    Vector3 periscope_scale(.1,.1,.1);
-    periscope_node->scale(periscope_scale);
+		parent->addChild(sceneNode);
 
-    //Submarine
-    Ogre::SceneNode* submarine_node = sceneManager->createSceneNode("SubmarineNode");
-    sub_transform_node->addChild(submarine_node);
-    
-    Ogre::Entity* submarine_entity = sceneManager->createEntity("Submarine", "Submarine.mesh");
-    submarine_entity->setMaterialName("Submarine");
-    
-    //link the entity to the scene node
-    submarine_node->attachObject(submarine_entity);
-    //link the scene node to the root node
-    //rsn->addChild(submarine_node);
-
-    Vector3 submarine_scale(1,1,1);
-    submarine_node->scale(submarine_scale);
-
-    Vector3 submarine_translation(0,0,0);
-    submarine_node->translate(submarine_translation);
-
-    //quaternion version
-    Vector3 submarine_axis2(0,1,0);
-    Quaternion submarine_quat2(Degree(90), submarine_axis2);
-    submarine_node->rotate(submarine_quat2);
-
-    //rotate to adjust to Ogre coordinates (from Blender coordinates)
-    //this must be applied first, so it is the last rotation added
-    Vector3 submarine_axis(1,0,0);
-    Quaternion submarine_quat(Degree(90), submarine_axis);
-    submarine_node->rotate(submarine_quat);
+	}
 
 }

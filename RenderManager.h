@@ -28,6 +28,8 @@ private:
 
     std::string groupLoaded;
 
+    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
+
 public:
 
 	//constructors and destructors

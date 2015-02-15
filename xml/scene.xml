@@ -42,8 +42,8 @@
 			<node>
 				<name>cube_entity</name>
 				<type>scene</type>
-				<translate>1,2,3</translate>
-				<rotate>1,2,3,90</rotate>
+				<translate>1,1,1</translate>
+				<rotate>0,1,0,90</rotate>
 				<scale>1,1,1</scale>
 				<entity>cube</entity>
 			</node>
