@@ -26,8 +26,6 @@
 		<viewports>
 			<viewport>
 				<camera>Camera1></camera>
-				<start>0,0,0</start>
-				<end>1,1</end>
 				<color>0,0,0</color>
 			</viewport>
 		</viewports>
