@@ -34,7 +34,7 @@ void GameManager::loadResourcesFromXML(const string &filename, const string &gro
 void GameManager::buildSceneFromXML(const string &filename){
 
 	//do it manuallt for now
-	renderManager->buildSceneManually();
+	//renderManager->buildSceneManually();
 	//renderManager->buildSceneFromXML(filename);
 
 }
