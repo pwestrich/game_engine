@@ -195,7 +195,7 @@ void RenderManager::loadResourcesFromXML(const std::string &filename, const std:
 
 }
 
-void RenderManager::buildSceneFromXML(const std::string &filename){
+void RenderManager::buildSceneFromXML(const std::string &filename, const string &sceneName){
 
 	//first, try to open the file
 	TiXmlDocument file(filename.c_str());
@@ -203,19 +203,114 @@ void RenderManager::buildSceneFromXML(const std::string &filename){
 	if (file.LoadFile()){
 
 		//the first tag should be <scene>
-		TiXmlNode *sceneTree = file.FirstChild("scene");
+		TiXmlNode *sceneTree = file.FirstChild("scenes");
 
 		if (sceneTree){
 
-			//now loop through the differnt things a scene has
-			for (TiXmlNode *item = sceneTree->FirstChild(); item; item = item->NextSibling()){
+			//loop through the scenes, looking for our scene
+			for (TiXmlNode *scenes = sceneTree->FirstChild(); scenes; scenes = scenes->NextSibling()){
 
-				TiXmlElement *sceneElement = item->ToElement();
+				TiXmlElement *sceneElement = scenes->ToElement();
 
-				
+				if (sceneElement){
+
+					std::string name = sceneElement->GetText();
+
+					if (name == sceneName){
+
+						//this is our scene, start building it
+						//first are cameras
+						TiXmlNode *cameraTree = scenes->FirstChild("cameras");
+
+						if (cameraTree){
+
+							for (TiXmlNode *cameraNode = cameraTree->FirstChild(); cameraNode; cameraNode->NextSibling()){
+
+								//get the camera's name
+								TiXmlElement *item = (TiXmlElement*) cameraNode->FirstChild("name");
+								camera = sceneManager->createCamera(item->GetText());
+
+								//then its location
+								item = (TiXmlElement*) cameraNode->FirstChild("location");
+								float location[3];
+								parseFloats(string(item->GetText()), location);
+								camera->setPosition(Vector3(location[0], location[1], location[2]));
+
+								//and where it looks at
+								item = (TiXmlElement*) cameraNode->FirstChild("lookAt");
+								parseFloats(string(item->GetText()), location);
+								camera->setPosition(Vector3(location[0], location[1], location[2]));
+
+								//and near and far clip
+								item = (TiXmlElement*) cameraNode->FirstChild("nearClip");
+								camera->setNearClipDistance(atof(item->GetText()));
+
+								item = (TiXmlElement*) cameraNode->FirstChild("farClip");
+								camera->setFarClipDistance(atof(item->GetText()));
+
+							}
+
+						} else {
+
+							cerr << "WARNING: Did you mean to not include any cameras in this scene?" << endl;
+
+						}
+
+						//next are lights
+						TiXmlNode *lightTree = scenes->FirstChild("lights");
+
+						if (lightTree){
+
+							for (TiXmlNode *lightNode = lightTree->FirstChild(); lightTree; lightNode->NextSibling()){
+
+								//there are several types; check for them
+								TiXmlElement *item = (TiXmlElement*) lightNode->FirstChild("type");
+
+								if (item->GetText() == "ambient"){
+
+
+
+								} else if (item->GetText() == "directional"){
+
+
+
+								} else if (item->GetText() == "point"){
+
+
+
+								} else {
+
+									cerr << "ERROR: Invalid light type." << endl;
+									continue;
+
+								}
+
+
+							}
+
+						} else {
+
+							cerr << "WARNING: It's very dark in here. Think you should turn on a light?" << endl;
+
+						}
+
+
+						//then viewports
+
+
+						//and the nodes in the tree
+
+
+					}
+
+				} else {
+
+					cerr << "Error parsing XML document: " << filename << endl;
+					exit(EXIT_FAILURE);
+
+				}
 
 			}
-			
 
 		} else {
 

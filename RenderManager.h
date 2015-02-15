@@ -6,6 +6,7 @@
 
 #include "Ogre.h"
 #include "tinyxml.h"
+#include "utilities.h"
 
 class GameManager;
 
@@ -50,7 +51,7 @@ public:
 	void stopRendering();
 
 	void loadResourcesFromXML(const std::string &filename, const std::string &group_name);
-	void buildSceneFromXML(const std::string &filename);
+	void buildSceneFromXML(const std::string &filename, const string &sceneName);
 
 	void unloadResources();
 

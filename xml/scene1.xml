@@ -1,42 +1,45 @@
 
-<scene>
-	<name>Scene1</name>
+<scenes>
+	<scene>
+		<name>Scene1</name>
 
-	<cameras>
-		<camera>
-			<name>Camera1</name>
-			<location>1,1,1</location>
-			<lookAt>0,0,0</lookAt>
-			<nearClip>1</nearClip>
-			<farClip>100</farClip>
-		</camera>
-	</cameras>
+		<cameras>
+			<camera>
+				<name>Camera1</name>
+				<location>1,1,1</location>
+				<lookAt>0,0,0</lookAt>
+				<nearClip>1</nearClip>
+				<farClip>100</farClip>
+			</camera>
+		</cameras>
 
-	<lights>
-		<light>
-			<name>Light1</name>
-			<type>directional</type>
-			<color>1,1,1</color>
-			<direction>0,-1,0</direction>
-			<location>0,5,0</location>
-		</light>
-	</lights>
+		<lights>
+			<light>
+				<name>Light1</name>
+				<type>directional</type>
+				<color>1,1,1</color>
+				<direction>0,-1,0</direction>
+				<location>0,5,0</location>
+			</light>
+		</lights>
 
-	<viewports>
-		<viewport>
-			<camera>Camera1></camera>
-			<start>0,0,0</start>
-			<end>1,1</end>
-			<color>0,0,0</color>
-		</viewport>
-	</viewports>
+		<viewports>
+			<viewport>
+				<camera>Camera1></camera>
+				<start>0,0,0</start>
+				<end>1,1</end>
+				<color>0,0,0</color>
+			</viewport>
+		</viewports>
 
-	<nodes>
-		<node>
-			<name>Node1</name>
-			<children>
-				<node></node>
-			</children>
-		</node>
-	</nodes>
-</scene>
+		<nodes>
+			<node>
+				<name>Node1</name>
+				<type></type>
+				<children>
+					<node></node>
+				</children>
+			</node>
+		</nodes>
+	</scene>
+</scenes>
