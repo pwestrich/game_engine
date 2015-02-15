@@ -8,7 +8,7 @@
 		</paths>
 
 		<meshes>
-			<mesh></mesh>
+			<mesh>cube.mesh</mesh>
 		</meshes>
 	</group>
 </ogre_groups>

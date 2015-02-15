@@ -30,13 +30,22 @@
 			</viewport>
 		</viewports>
 
+		<entities>
+			<entity>
+				<name>cube</name>
+				<mesh>cube.mesh</mesh>
+				<material>cube.material</material>
+			</entity>
+		</entities>
+
 		<nodes>
 			<node>
-				<name>Node1</name>
-				<type></type>
-				<children>
-					<node></node>
-				</children>
+				<name>cube_entity</name>
+				<type>scene</type>
+				<translate>1,2,3</translate>
+				<rotate>1,2,3,90</rotate>
+				<scale>1,1,1</scale>
+				<entity>cube</entity>
 			</node>
 		</nodes>
 	</scene>
