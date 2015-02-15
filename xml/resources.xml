@@ -11,4 +11,15 @@
 			<mesh>cube.mesh</mesh>
 		</meshes>
 	</group>
+	
+	<group>
+		<name>1</name>
+		<paths>
+			<path>./assets/models</path>
+			<path>./assets/materials/scripts</path>
+		</paths>
+		<meshes>
+			<mesh>Submarine.mesh</mesh>
+		</meshes>
+	</group>
 </ogre_groups>
