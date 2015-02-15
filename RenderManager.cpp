@@ -383,7 +383,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							string cameraName = cameraNameItem->GetText();
 
 							Ogre::Camera *camera = sceneManager->getCamera(cameraName);
-							Ogre::Viewport *viewport = window->addViewport(camera);
+							Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);
 
 							camera->setAspectRatio(viewport->getActualWidth() / viewport->getActualHeight());
 
