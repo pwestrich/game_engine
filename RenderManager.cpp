@@ -61,7 +61,7 @@ RenderManager::~RenderManager(){
 	//stop rendering things
 	stopRendering();
 
-  unloadResources();
+ 	unloadResources();
 
 	//clear the scene
 	sceneManager->destroyAllCameras();
@@ -543,7 +543,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 							}
 
-							Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);
+							Ogre::Viewport *viewport = window->addViewport(camera);
 
 							camera->setAspectRatio(viewport->getActualWidth() / viewport->getActualHeight());
 

@@ -5,29 +5,22 @@
 		<cameras>
 			<camera>
 				<name>Camera1</name>
-				<location>15.0,15.0,15.0</location>
+				<location>0,0,25</location>
 				<lookAt>0.0,0.0,0.0</lookAt>
-				<nearClip>1.0</nearClip>
-				<farClip>100.0</farClip>
+				<nearClip>1</nearClip>
+				<farClip>1000</farClip>
 			</camera>
 		</cameras>
 		<lights>
 			<light>
-				<name>Light1</name>
-				<type>directional</type>
-				<diffuse>0.25,0.25,0.25</diffuse>
-				<specular>0.25,0.25,0.25</specular>
-				<direction>0.0,-1.0,0.0</direction>
-			</light>
-			<light>
 				<type>ambient</type>
-				<color>0.25,0.25,0.25</color>
+				<color>1,1,1</color>
 			</light>
 		</lights>
 		<viewports>
 			<viewport>
 				<camera>Camera1</camera>
-				<color>0.0,0.0,0.0</color>
+				<color>1,1,1</color>
 			</viewport>
 		</viewports>
 		<entities>
@@ -36,12 +29,22 @@
 				<mesh>cube.mesh</mesh>
 				<material>cube</material>
 			</entity>
+			<entity>
+				<name>ground</name>
+				<mesh>ground.mesh</mesh>
+				<material>ground</material>
+			</entity>
 		</entities>
 		<nodes>
 			<node>
 				<name>cube_entity</name>
 				<type>scene</type>
 				<entity>cube</entity>
+			</node>
+			<node>
+				<name>ground</name>
+				<type>scene</type>
+				<entity>ground</entity>
 			</node>
 		</nodes>
 	</scene>

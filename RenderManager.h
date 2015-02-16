@@ -19,14 +19,14 @@ private:
 
 	Ogre::Root *root;
 	Ogre::RenderWindow *window;
-    Ogre::SceneManager* sceneManager;
+   Ogre::SceneManager* sceneManager;
 
-    size_t windowHandle;
-    Ogre::Real frameTimeElapsed;
+   size_t windowHandle;
+   Ogre::Real frameTimeElapsed;
 
-    std::string groupLoaded;
+   std::string groupLoaded;
 
-    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
+   void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
 
 public:
 

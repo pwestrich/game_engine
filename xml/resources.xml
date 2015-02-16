@@ -5,10 +5,11 @@
 		<paths>
 			<path>./assets/models</path>
 			<path>./assets/materials/scripts</path>
+			<path>./assets/materials</path>
 		</paths>
-
 		<meshes>
 			<mesh>cube.mesh</mesh>
+			<mesh>ground.mesh</mesh>
 		</meshes>
 	</group>
 	
