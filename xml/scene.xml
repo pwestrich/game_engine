@@ -80,7 +80,7 @@
 			<entity>
 				<name>sub</name>
 				<mesh>Submarine.mesh</mesh>
-				<material>Submarine</material>
+				<material>Material.001</material>
 			</entity>
 		</entities>
 		<nodes>
@@ -88,6 +88,8 @@
 				<name>subNode</name>
 				<type>scene</type>
 				<entity>sub</entity>
+				<translate>0,0,0</translate>
+				<scale>1,1,1</scale>
 			</node>
 		</nodes>
 	</scene>
