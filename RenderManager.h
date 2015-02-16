@@ -20,8 +20,6 @@ private:
 	Ogre::Root *root;
 	Ogre::RenderWindow *window;
     Ogre::SceneManager* sceneManager;
-    Ogre::Camera* camera;
-    Ogre::Viewport* viewport;
 
     size_t windowHandle;
     Ogre::Real frameTimeElapsed;
@@ -38,9 +36,6 @@ public:
 
 	//a ton of getter methods
 	size_t getRenderWindowHandle();
-
-	int getRenderWindowWidth();
-	int getRenderWindowHeight();
 
 	Ogre::RenderWindow *getRenderWindow();
 	Ogre::SceneManager *getSceneManager();

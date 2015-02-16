@@ -9,8 +9,8 @@ int main(int argc, char **argv){
 
 	GameManager *manager = GameManager::getGameManager();
 
-	manager->loadResourcesFromXML("./xml/resources.xml", "1");
-	manager->buildSceneFromXML("./xml/scene.xml", "1");
+	manager->loadResourcesFromXML("./xml/resources.xml", "0");
+	manager->buildSceneFromXML("./xml/scene.xml", "0");
 	manager->startRendering();
 	
 	return 0;

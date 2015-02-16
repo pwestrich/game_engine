@@ -23,8 +23,6 @@ RenderManager::RenderManager(GameManager *gman){
 	root = NULL;
 	window = NULL;
 	sceneManager = NULL;
-	camera = NULL;
-	viewport = NULL;
 
 	try {
 
@@ -80,18 +78,6 @@ RenderManager::~RenderManager(){
 size_t RenderManager::getRenderWindowHandle(){
 
 	return windowHandle;
-
-}
-
-int RenderManager::getRenderWindowWidth(){
-
-	return viewport->getActualWidth();
-
-}
-
-int RenderManager::getRenderWindowHeight(){
-
-	return viewport->getActualHeight();
 
 }
 
@@ -233,26 +219,64 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								//get the camera's name
 								TiXmlElement *item = (TiXmlElement*) cameraNode->FirstChild("name");
-								camera = sceneManager->createCamera(item->GetText());
 
-								clog << "Creating camera: " << item->GetText() << endl;
+								if (!item){
+
+									cerr << "Error: Every camera must have a name!" << endl;
+									continue;
+
+								}
+
+								Ogre::Camera *camera = sceneManager->createCamera(item->GetText());
 
 								//then its location
 								item = (TiXmlElement*) cameraNode->FirstChild("location");
+
+								if (!item){
+
+									cerr << "ERROR: Every camera needs a location!" << endl;
+									continue;
+
+								}
+
 								float location[3];
 								parseFloats(string(item->GetText()), location);
 								camera->setPosition(Vector3(location[0], location[1], location[2]));
 
 								//and where it looks at
 								item = (TiXmlElement*) cameraNode->FirstChild("lookAt");
+
+								if (!item){
+
+									cerr << "ERROR: Every camera needs a place to look at!" << endl;
+									continue;
+
+								}
+
 								parseFloats(string(item->GetText()), location);
 								camera->setPosition(Vector3(location[0], location[1], location[2]));
 
 								//and near and far clip
 								item = (TiXmlElement*) cameraNode->FirstChild("nearClip");
+
+								if (!item){
+
+									cerr << "ERROR: Every camera needs a near clip distance!" << endl;
+									continue;
+
+								}
+
 								camera->setNearClipDistance(atof(item->GetText()));
 
 								item = (TiXmlElement*) cameraNode->FirstChild("farClip");
+
+								if (!item){
+
+									cerr << "ERROR: Every camera needs a far clip distance!" << endl;
+									continue;
+
+								}
+
 								camera->setFarClipDistance(atof(item->GetText()));
 
 							}
@@ -272,16 +296,28 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								//there are several types; check for them
 								TiXmlElement *item = (TiXmlElement*) lightNode->FirstChild("type");
-								string typeString = item->GetText();
 
-								clog << "Creating light: ";
+								if (!item) {
+
+									cerr <<"ERROR: Every light must ahve a type!" << endl;
+									continue;
+
+								}
+
+								string typeString = item->GetText();
 
 								if (typeString == "ambient"){
 
-									clog << "ambient" << endl;
-
-									//this just ahs a color
+									//this just has a color
 									TiXmlElement *color = (TiXmlElement*) lightNode->FirstChild("color");
+
+									if (!color){
+
+										cerr << "ERROR: Ambient light must ahve a color!" << endl;
+										continue;
+
+									}
+
 									float colors[3];
 									parseFloats(string(color->GetText()), colors);
 									sceneManager->setAmbientLight(Ogre::ColourValue(colors[0], colors[1], colors[2]));
@@ -289,71 +325,177 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 								} else if (typeString == "directional"){
 
 									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+
+									if (!name){
+
+										cerr << "ERROR: Light sources must have names!" << endl;
+										continue;
+
+									}
+
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_DIRECTIONAL);
 
-									clog << name->GetText() << endl;
-
 									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+
+									if (!dColor){
+
+										cerr << "ERROR: Lights need a diffuse color!" << endl;
+										continue;
+
+									}
+
 									float colors[3];
 									parseFloats(string(dColor->GetText()), colors);
 									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
 									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+
+									if (!dColor){
+
+										cerr << "ERROR: Lights must have a specular color!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(dColor->GetText()), colors);
 									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
 									TiXmlElement *direction = (TiXmlElement*) lightNode->FirstChild("direction");
+
+									if (!direction){
+
+										cerr << "ERROR: Directional lights need a direction!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(direction->GetText()), colors);
 									light->setDirection(Vector3(colors[0], colors[1], colors[2]));
 
 								} else if (typeString == "point"){
 
 									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+
+									if (!name){
+
+										cerr << "ERROR: Light sources must have names!" << endl;
+										continue;
+
+									}
+
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_POINT);
 
-									clog << name->GetText() << endl;
-
 									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+
+									if (!dColor){
+
+										cerr << "ERROR: Lights need a diffuse color!" << endl;
+										continue;
+
+									}
+
 									float colors[3];
 									parseFloats(string(dColor->GetText()), colors);
 									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
 									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+
+									if (!dColor){
+
+										cerr << "ERROR: Lights must have a specular color!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(dColor->GetText()), colors);
 									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
 									TiXmlElement *location = (TiXmlElement*) lightNode->FirstChild("location");
+
+									if (!location){
+
+										cerr << "ERROR: Point lights need a location!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(location->GetText()), colors);
 									light->setPosition(Vector3(colors[0], colors[1], colors[2]));
 
 								} else if (typeString == "spot"){
 
 									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+
+									if (!name){
+
+										cerr << "ERROR: Light sources must have names!" << endl;
+										continue;
+
+									}
+
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_SPOTLIGHT);
 
-									clog << name->GetText() << endl;
-
 									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+
+									if (!dColor){
+
+										cerr << "ERROR: Lights need a diffuse color!" << endl;
+										continue;
+
+									}
+
 									float colors[3];
 									parseFloats(string(dColor->GetText()), colors);
 									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
 									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+
+									if (!dColor){
+
+										cerr << "ERROR: Lights must have a specular color!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(dColor->GetText()), colors);
 									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
 									TiXmlElement *direction = (TiXmlElement*) lightNode->FirstChild("direction");
+
+									if (!direction){
+
+										cerr << "ERROR: Spotlights need a direction!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(direction->GetText()), colors);
 									light->setDirection(Vector3(colors[0], colors[1], colors[2]));
 
 									TiXmlElement *location = (TiXmlElement*) lightNode->FirstChild("location");
+
+									if (!location){
+
+										cerr << "ERROR: Spotlights need a location!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(location->GetText()), colors);
 									light->setPosition(Vector3(colors[0], colors[1], colors[2]));
 
 									TiXmlElement *range = (TiXmlElement*) lightNode->FirstChild("range");
+
+									if (!range){
+
+										cerr << "ERROR: Spotslights need a range!" << endl;
+										continue;
+
+									}
+
 									parseFloats(string(range->GetText()), colors);
 									light->setSpotlightRange(Ogre::Degree(colors[0]), Ogre::Degree(colors[1]));
 
@@ -377,17 +519,43 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 						for (TiXmlNode *viewportNode = viewTree->FirstChild(); viewportNode; viewportNode = viewportNode->NextSibling()){
 
-							clog << "Creating viewport..." << endl;
-
 							TiXmlElement *cameraNameItem = (TiXmlElement*) viewportNode->FirstChild("camera");
+
+							if (!cameraNameItem){
+
+								cerr << "ERROR: Viewports must have a camera!" << endl;
+								continue;
+
+							}
+
 							string cameraName = cameraNameItem->GetText();
 
-							Ogre::Camera *camera = sceneManager->getCamera(cameraName);
+							Ogre::Camera *camera;
+
+							try {
+
+								camera = sceneManager->getCamera(cameraName);
+
+							} catch (Ogre::Exception &it){
+
+								cerr << "ERROR: " << it.what() << endl;
+								continue;
+
+							}
+
 							Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);
 
 							camera->setAspectRatio(viewport->getActualWidth() / viewport->getActualHeight());
 
 							TiXmlElement *color = (TiXmlElement*) viewportNode->FirstChild("color");
+
+							if (!color){
+
+								cerr << "ERROR: Viewports must have a background color!" << endl;
+								continue;
+
+							}
+
 							float colors[3];
 							parseFloats(string(color->GetText()), colors);
 							viewport->setBackgroundColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
@@ -403,12 +571,36 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							for (TiXmlNode *entityNode = entityTree->FirstChild(); entityNode; entityNode = entityNode->NextSibling()){
 
 								TiXmlElement *entityElement = (TiXmlElement*) entityNode->FirstChild("name");
+
+								if (!entityElement){
+
+									cerr << "ERROR: Entities must ahve names!" << endl;
+									continue;
+
+								}
+
 								string entityName = entityElement->GetText();
 
 								entityElement = (TiXmlElement*) entityNode->FirstChild("mesh");
+
+								if (!entityElement){
+
+									cerr << "ERROR: Entities must ahve a mesh!" << endl;
+									continue;
+
+								}
+
 								string entityMesh = entityElement->GetText();
 
 								entityElement = (TiXmlElement*) entityNode->FirstChild("material");
+
+								if (!entityElement){
+
+									cerr << "ERROR: Entities must have a material!" << endl;
+									continue;
+
+								}
+
 								string entityMaterial = entityElement->GetText();
 
 								Ogre::Entity *entity = sceneManager->createEntity(entityName, entityMesh);
@@ -425,7 +617,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 						//nodes in the tree
 						TiXmlNode *nodeTree = scenes->FirstChild("nodes");
 
-						if (nodeTree){
+						if (nodeTree){ //only do this if there are actually any nodes here
 
 							//process all the nodes by calling the recursive function
 							createNodes(sceneManager->getRootSceneNode(), nodeTree);
@@ -461,6 +653,8 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 	}
 
+	cout << "Finished building scene." << endl;
+
 }
 
 void RenderManager::unloadResources(){
@@ -477,7 +671,7 @@ void RenderManager::unloadResources(){
 
 }
 
-void RenderManager::buildSceneManually(){}
+void RenderManager::buildSceneManually(){} //nothing here for now
 
 //private methods below here ------------------------------------------------------------------------------------------------------
 
@@ -488,9 +682,25 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 	for (TiXmlNode *nodeNode = nodeTree->FirstChild(); nodeNode; nodeNode = nodeNode->NextSibling()){
 
 		TiXmlElement *nodeElement = (TiXmlElement*) nodeNode->FirstChild("name");
+
+		if (!nodeElement){
+
+			cerr << "ERROR: Nodes must have a name!" << endl;
+			continue;
+
+		}
+
 		string nodeName = nodeElement->GetText();
 
 		nodeElement = (TiXmlElement*) nodeNode->FirstChild("type");
+
+		if (!nodeElement) {
+
+			cerr << "ERROR: Nodes must have a type!" << endl;
+			continue;
+
+		}
+
 		string nodeType = nodeElement->GetText();
 
 		Ogre::SceneNode *sceneNode = sceneManager->createSceneNode(nodeName);

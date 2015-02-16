@@ -34,7 +34,7 @@
 			<entity>
 				<name>cube</name>
 				<mesh>cube.mesh</mesh>
-				<material>cube.material</material>
+				<material>cube</material>
 			</entity>
 		</entities>
 		<nodes>
