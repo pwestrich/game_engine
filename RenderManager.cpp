@@ -124,7 +124,7 @@ void RenderManager::startRendering(){
 
 void RenderManager::stopRendering(){
 
-
+   renderListener->stopRendering();
 
 }
 
