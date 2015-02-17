@@ -10,6 +10,7 @@
 #include "utilities.h"
 
 class GameManager;
+class RenderListener;
 
 class RenderManager {
 
@@ -17,6 +18,8 @@ private:
 
 	//keep a copy of the game manager
 	GameManager *gameManager;
+
+   RenderListener *renderListener;
 
 	Ogre::Root *root;
 	Ogre::RenderWindow *window;
@@ -30,7 +33,6 @@ private:
    vector<Ogre::AnimationState*> animationStates;
 
    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
-
    void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
 
 public:

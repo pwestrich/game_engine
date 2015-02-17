@@ -1,6 +1,7 @@
 
-#include "RenderManager.h"
 #include "GameManager.h"
+#include "RenderManager.h"
+#include "AnimationRenderListener.h"
 
 #include <iostream>
 
@@ -42,10 +43,13 @@ RenderManager::RenderManager(GameManager *gman){
 		
 		//set some options and make the window
 		renderer->setConfigOption("Full Screen", "No");
-        renderer->setConfigOption("Video Mode", "1024 x 768 @ 32-bit colour");
-        sceneManager = root->createSceneManager(Ogre::ST_GENERIC, "DefaultSceneManager");
-        window = root->initialise(true, "CSC 4903: Game Engine Programming");
-        window->getCustomAttribute("WINDOW", &windowHandle);
+      renderer->setConfigOption("Video Mode", "1024 x 768 @ 32-bit colour");
+      sceneManager = root->createSceneManager(Ogre::ST_GENERIC, "DefaultSceneManager");
+      window = root->initialise(true, "CSC 4903: Game Engine Programming");
+      window->getCustomAttribute("WINDOW", &windowHandle);
+
+      renderListener = new AnimationRenderListener(this);
+      root->addFrameListener(renderListener);
 
 	} catch (Ogre::Exception &it){
 

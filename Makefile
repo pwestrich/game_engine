@@ -10,8 +10,8 @@ LIBS=-lboost_system-mgw48-mt-1_57 -lOgreMain -ltinyxml
 COMPILE = $(CC) $(INC_DIRS) -g -O0 -c 
 LINK = $(CC) $(LIB_DIRS) -g -O0 -o
 
-GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp
-GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o
+GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp AnimationRenderListener.cpp
+GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o AnimationRenderListener.o
 
 .PHONY: run_quat run_game
 
@@ -34,6 +34,14 @@ GameManager.o: GameManager.cpp GameManager.h
 RenderManager.o: RenderManager.cpp RenderManager.h
 
 	$(COMPILE) RenderManager.cpp
+
+RenderListener.o: RenderListener.cpp RenderListener.h
+
+	$(COMPILE) RenderListener.cpp
+
+AnimationRenderListener.o: AnimationRenderListener.cpp AnimationRenderListener.h
+
+	$(COMPILE) AnimationRenderListener.cpp
 
 utilities.o: utilities.cpp utilities.h
 
