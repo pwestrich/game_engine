@@ -20,7 +20,7 @@
 		<viewports>
 			<viewport>
 				<camera>Camera1</camera>
-				<color>1,1,1</color>
+				<color>0.5,0.5,0.5</color>
 			</viewport>
 		</viewports>
 		<entities>
@@ -42,9 +42,24 @@
 				<entity>cube</entity>
 			</node>
 			<node>
-				<name>ground</name>
+				<name>ground_entity</name>
 				<type>scene</type>
 				<entity>ground</entity>
+			</node>
+			<node>
+				<name>animationNode</name>
+				<type>animation</type>
+				<animationName>animationName</animationName>
+				<numFrames>1</numFrames>
+				<enabled>true</enabled>
+				<loop>true</loop>
+				<keyFrames>
+					<key>
+						<translate>1,1,1</translate>
+						<rotate>1,1,1,1</rotate>
+						<scale>1,1,1</scale>
+					</key>
+				</keyFrames>
 			</node>
 		</nodes>
 	</scene>

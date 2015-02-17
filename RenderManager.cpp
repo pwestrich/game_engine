@@ -101,6 +101,17 @@ void RenderManager::setTimeSinceLastFrame(Ogre::Real timeElapsed){
 }
 
 //and actions
+
+void RenderManager::processAnimations(const float timeStep){
+
+   for (size_t i = 0; i < animationStates.size(); ++i){
+
+      animationStates[i]->addTime(timeStep);
+
+   }
+
+}
+
 void RenderManager::startRendering(){
 
 	root->startRendering();
@@ -113,6 +124,7 @@ void RenderManager::stopRendering(){
 
 }
 
+//stolen from Dr. Boshart
 void RenderManager::loadResourcesFromXML(const std::string &filename, const std::string &group_name){
 
     //use tiny xml to parse an xml file with the ogre paths in it
@@ -201,8 +213,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 				TiXmlElement *sceneElement = (TiXmlElement*) scenes->FirstChild("name");
 
 				if (sceneElement){
-
-					const char *charName = sceneElement->GetText();
 
 					std::string name = sceneElement->GetText();
 
@@ -299,7 +309,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								if (!item) {
 
-									cerr <<"ERROR: Every light must ahve a type!" << endl;
+									cerr <<"ERROR: Every light must have a type!" << endl;
 									continue;
 
 								}
@@ -529,7 +539,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							}
 
 							string cameraName = cameraNameItem->GetText();
-
 							Ogre::Camera *camera;
 
 							try {
@@ -574,7 +583,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								if (!entityElement){
 
-									cerr << "ERROR: Entities must ahve names!" << endl;
+									cerr << "ERROR: Entities must have names!" << endl;
 									continue;
 
 								}
@@ -585,7 +594,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								if (!entityElement){
 
-									cerr << "ERROR: Entities must ahve a mesh!" << endl;
+									cerr << "ERROR: Entities must have a mesh!" << endl;
 									continue;
 
 								}
@@ -702,12 +711,11 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 		}
 
 		string nodeType = nodeElement->GetText();
-
 		Ogre::SceneNode *sceneNode = sceneManager->createSceneNode(nodeName);
 
 		if (nodeType == "animation"){
 
-			//do nothing for now
+			createAnimation(sceneNode, nodeNode);
 
 		} else if (nodeType == "scene"){
 
@@ -719,7 +727,6 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 				string entityName = nodeElement->GetText();
 				Ogre::Entity *entity = sceneManager->getEntity(entityName);
 				sceneNode->attachObject(entity);
-
 			}
 
 			nodeElement = (TiXmlElement*) nodeNode->FirstChild("scale");
@@ -776,5 +783,125 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 		parent->addChild(sceneNode);
 
 	}
+
+}
+
+void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
+
+   static int animationNumber = 0;
+
+   TiXmlElement *nodeElement = (TiXmlElement*) nodeTree->FirstChild("numFrames");
+   int x = 0;
+
+   if (nodeElement){
+
+      x = atoi(nodeElement->GetText());
+
+   } else {
+
+      cerr << "ERROR: No number of key frames specified in this animation node!" << endl;
+      return;
+
+   }
+
+   nodeElement = (TiXmlElement*) nodeTree->FirstChild("animationName");
+   Ogre::Animation *animation;
+   string animationName;
+
+   if (nodeElement){
+
+      animationName = nodeElement->GetText();
+
+   } else {
+
+      char temp[32];
+      sprintf(temp, "%d", x);
+      animationName = temp;
+
+   }
+
+   animation = sceneManager->createAnimation(animationName, x);
+
+   TiXmlNode *frameTree = nodeTree->FirstChild("keyFrames");
+
+   if (frameTree){
+
+      Ogre::NodeAnimationTrack *animationTrack = animation->createNodeTrack(1, node);
+
+      int i = 0;
+
+      for (TiXmlNode *keyFrameNode = frameTree->FirstChild(); keyFrameNode && (i < x); keyFrameNode = keyFrameNode->NextSibling()){
+
+         Ogre::TransformKeyFrame *keyFrame = animationTrack->createNodeKeyFrame(i);
+         float values[4] = {0,0,0,0};
+
+         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("translate");
+
+         if (nodeElement){
+
+            string transString = nodeElement->GetText();
+            parseFloats(transString, values);
+            keyFrame->setTranslate(Vector3(values[0], values[1], values[2]));
+
+         }
+
+         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("rotate");
+
+         if (nodeElement){
+
+            string transString = nodeElement->GetText();
+            parseFloats(transString, values);
+            keyFrame->setRotation(Quaternion(Degree(values[3]), Vector3(values[0], values[1], values[2])));
+
+         }
+
+         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("scale");
+
+         if (nodeElement){
+
+            string transString = nodeElement->GetText();
+            parseFloats(transString, values);
+            keyFrame->setScale(Vector3(values[0], values[1], values[2]));
+
+         }
+
+         ++i;
+
+      }
+
+      Ogre::AnimationState *animationState = sceneManager->createAnimationState(animationName);
+
+      nodeElement = (TiXmlElement*) nodeTree->FirstChild("enabled");
+
+      if (nodeElement){
+
+         animationState->setEnabled((strcmp(nodeElement->GetText(), "true") == 0));
+
+      } else {
+
+         animationState->setEnabled(false);
+
+      }
+
+      nodeElement = (TiXmlElement*) nodeTree->FirstChild("loop");
+
+      if (nodeElement){
+
+         animationState->setLoop((strcmp(nodeElement->GetText(), "true") == 0));
+
+      } else {
+
+         animationState->setLoop(false);
+
+      }
+
+      animationStates.push_back(animationState);
+
+   } else {
+
+      cerr << "ERROR: No key frames specified for this animation node!" << endl;
+      return;
+
+   }
 
 }

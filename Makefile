@@ -1,5 +1,5 @@
 ﻿AutomatedMakefile = am
-CC = g++ 
+CC = g++ -std=c++11
 
 GAME_PATH=/$(GAME_DRIVE_LETTER)/game_project
 

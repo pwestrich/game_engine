@@ -3,7 +3,7 @@
 #define UTILITIES_H
 
 #include <cstdlib>
-#include <string>\
+#include <string>
 
 using namespace std;
 

@@ -3,6 +3,7 @@
 #define RENDER_MANAGER_H
 
 #include <string>
+#include <vector>
 
 #include "Ogre.h"
 #include "tinyxml.h"
@@ -26,7 +27,11 @@ private:
 
    std::string groupLoaded;
 
+   vector<Ogre::AnimationState*> animationStates;
+
    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
+
+   void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
 
 public:
 
@@ -44,6 +49,9 @@ public:
 	void setTimeSinceLastFrame(Ogre::Real timeElapsed);
 
 	//and actions
+
+   void processAnimations(const float timeStep);
+
 	void startRendering();
 	void stopRendering();
 

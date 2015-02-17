@@ -4,7 +4,7 @@
 using namespace std;
 
 //parses floats from a string
-//returns an array of them of size size
+//stolen from Dr. Boshart
 void parseFloats(std::string str, float *values){
 
    int sz = str.size();
