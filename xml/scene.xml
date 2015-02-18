@@ -26,55 +26,38 @@
 		</viewports> -->
 		<entities>
 			<entity>
-				<name>cube</name>
-				<mesh>cube.mesh</mesh>
-				<material>cube</material>
-			</entity>
-			<entity>
 				<name>ground</name>
 				<mesh>ground.mesh</mesh>
 				<material>ground</material>
 			</entity>
+			<entity>
+				<name>truck</name>
+				<mesh>truck.mesh</mesh>
+				<material>truck</material>
+			</entity>
+			<entity>
+				<name>wheel</name>
+				<mesh>wheel.mesh</mesh>
+				<material>wheel</material>
+			</entity>
 		</entities>
 		<nodes>
-			<node>
-				<name>cube_animation</name>
-				<type>animation</type>
-				<enabled>true</enabled>
-				<loop>true</loop>
-				<length>3</length>
-				<animationName>cube_rotation</animationName>
-				<keyFrames>
-					<key>
-						<time>0</time>
-						<rotate>0,1,0,90</rotate>
-					</key>
-					<key>
-						<time>1</time>
-						<rotate>0,1,0,180</rotate>
-					</key>
-					<key>
-						<time>2</time>
-						<rotate>0,1,0,270</rotate>
-					</key>
-					<key>
-						<time>3</time>
-						<rotate>0,1,0,360</rotate>
-					</key>
-				</keyFrames>
-				<children>
-					<node>
-						<name>cube_entity</name>
-						<type>scene</type>
-						<entity>cube</entity>
-					</node>
-				</children>
-			</node>
 			<node>
 				<name>ground_entity</name>
 				<type>scene</type>
 				<entity>ground</entity>
 				<scale>20,0,20</scale>
+			</node>
+			<node>
+				<name>entire_truck_node</name>
+				<type>scene</type>
+				<children>
+					<node>
+						<name>truck_node</name>
+						<type>scene</type>
+						<entity>truck</entity>
+					</node>
+				</children>
 			</node>
 		</nodes>
 	</scene>
