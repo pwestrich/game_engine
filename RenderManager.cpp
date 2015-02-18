@@ -820,22 +820,21 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
    static int animationNumber = 0;
 
-   TiXmlElement *nodeElement = (TiXmlElement*) nodeTree->FirstChild("numFrames");
-   int x = 0;
+   TiXmlElement *nodeElement = (TiXmlElement*) nodeTree->FirstChild("length");
+   int length = 0;
 
    if (nodeElement){
 
-      x = atoi(nodeElement->GetText());
+      length = atoi(nodeElement->GetText());
 
    } else {
 
-      cerr << "ERROR: No number of key frames specified in this animation node!" << endl;
-      return;
+      cerr << "ERROR: No length specified in animation!" << endl;
+      exit(EXIT_FAILURE);
 
    }
 
    nodeElement = (TiXmlElement*) nodeTree->FirstChild("animationName");
-   Ogre::Animation *animation;
    string animationName;
 
    if (nodeElement){
@@ -845,12 +844,12 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
    } else {
 
       char temp[32];
-      sprintf(temp, "%d", x);
+      sprintf(temp, "%d", length);
       animationName = temp;
 
    }
 
-   animation = sceneManager->createAnimation(animationName, x);
+   Ogre::Animation *animation = sceneManager->createAnimation(animationName, length);
 
    TiXmlNode *frameTree = nodeTree->FirstChild("keyFrames");
 
@@ -858,11 +857,20 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
       Ogre::NodeAnimationTrack *animationTrack = animation->createNodeTrack(1, node);
 
-      int i = 0;
+      for (TiXmlNode *keyFrameNode = frameTree->FirstChild(); keyFrameNode; keyFrameNode = keyFrameNode->NextSibling()){
 
-      for (TiXmlNode *keyFrameNode = frameTree->FirstChild(); keyFrameNode && (i < x); keyFrameNode = keyFrameNode->NextSibling()){
+         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("time");
 
-         Ogre::TransformKeyFrame *keyFrame = animationTrack->createNodeKeyFrame(i);
+         if (!nodeElement){
+
+            cerr << "ERROR: Key frame has no time set!" << endl;
+            exit(EXIT_FAILURE);
+
+         }
+
+         float time = atof(nodeElement->GetText());
+
+         Ogre::TransformKeyFrame *keyFrame = animationTrack->createNodeKeyFrame(time);
          float values[4] = {0,0,0,0};
 
          nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("translate");
@@ -894,8 +902,6 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
             keyFrame->setScale(Vector3(values[0], values[1], values[2]));
 
          }
-
-         ++i;
 
       }
 
