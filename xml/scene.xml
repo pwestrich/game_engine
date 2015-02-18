@@ -38,14 +38,39 @@
 		</entities>
 		<nodes>
 			<node>
-				<name>cube_entity</name>
-				<type>scene</type>
-				<entity>cube</entity>
+				<name>cube_animation</name>
+				<type>animation</type>
+				<enabled>true</enabled>
+				<loop>true</loop>
+				<numFrames>4</numFrames>
+				<animationName>cube_rotation</animationName>
+				<keyFrames>
+					<key>
+						<rotate>0,1,0,90</rotate>
+					</key>
+					<key>
+						<rotate>0,1,0,180</rotate>
+					</key>
+					<key>
+						<rotate>0,1,0,270</rotate>
+					</key>
+					<key>
+						<rotate>0,1,0,360</rotate>
+					</key>
+				</keyFrames>
+				<children>
+					<node>
+						<name>cube_entity</name>
+						<type>scene</type>
+						<entity>cube</entity>
+					</node>
+				</children>
 			</node>
 			<node>
 				<name>ground_entity</name>
 				<type>scene</type>
 				<entity>ground</entity>
+				<scale>20,0,20</scale>
 			</node>
 		</nodes>
 	</scene>

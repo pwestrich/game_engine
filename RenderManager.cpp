@@ -53,7 +53,7 @@ RenderManager::RenderManager(GameManager *gman){
 
       Ogre::Camera *camera = sceneManager->createCamera("camera");
 
-      camera->setPosition(Vector3(15,15,15));
+      camera->setPosition(Vector3(30,30,30));
       camera->lookAt(Vector3(0,0,0));
       camera->setNearClipDistance(2);
       camera->setFarClipDistance(100); 
@@ -649,13 +649,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							cerr << "WARNING: There aren't any nodes in this scene... This is going to be a boring video game..." << endl;
 
 						}
-
-                  /*SceneNode *rootNode = sceneManager->getRootSceneNode();
-                  SceneNode *cubeNode = sceneManager->createSceneNode("cubeNode");
-                  Entity *cubeEntity = sceneManager->createEntity("Cube", "cube.mesh");
-
-                  cubeNode->attachObject(cubeEntity);
-                  rootNode->addChild(cubeNode);*/
 
 					}
 
