@@ -798,15 +798,11 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 			continue;
 		}
 
-		TiXmlNode *childTree = nodeTree->FirstChild("children");
+		TiXmlNode *childTree = nodeNode->FirstChild("children");
 
 		if (childTree){
 
-			for (TiXmlNode *child = childTree->FirstChild(); child; child = child->NextSibling()){
-
-				createNodes(sceneNode, child);
-
-			}
+			createNodes(sceneNode, childTree);
 
 		}
 
