@@ -30,6 +30,8 @@ public:
 	void loadResourcesFromXML(const std::string &filename, const std::string &group);
 	void buildSceneFromXML(const std::string &filename, const std::string &group);
 
+	void buildSceneManually();
+
 	void startRendering();
 	void stopRendering();
 

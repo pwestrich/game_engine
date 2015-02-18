@@ -51,6 +51,15 @@ RenderManager::RenderManager(GameManager *gman){
       renderListener = new AnimationRenderListener(this);
       root->addFrameListener(renderListener);
 
+      Ogre::Camera *camera = sceneManager->createCamera("camera");
+
+      camera->setPosition(Vector3(15,15,15));
+      camera->lookAt(Vector3(0,0,0));
+      camera->setNearClipDistance(2);
+      camera->setFarClipDistance(100); 
+
+      Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);
+
 	} catch (Ogre::Exception &it){
 
 		cerr << "Exception while creating RenderManager: " << it.what() << endl;
@@ -225,7 +234,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 						//this is our scene, start building it
 						//first are cameras
 						clog << "Building scene: " << sceneName << endl;
-						TiXmlNode *cameraTree = scenes->FirstChild("cameras");
+						/*TiXmlNode *cameraTree = scenes->FirstChild("cameras");
 
 						if (cameraTree){
 
@@ -299,7 +308,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 							cerr << "WARNING: Did you mean to not include any cameras in this scene?" << endl;
 
-						}
+						}*/
 
 						//next are lights
 						TiXmlNode *lightTree = scenes->FirstChild("lights");
@@ -327,7 +336,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!color){
 
-										cerr << "ERROR: Ambient light must ahve a color!" << endl;
+										cerr << "ERROR: Ambient light must have a color!" << endl;
 										continue;
 
 									}
@@ -529,7 +538,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 						}
 
 						//then viewports
-						TiXmlNode *viewTree = scenes->FirstChild("viewports");
+						/*TiXmlNode *viewTree = scenes->FirstChild("viewports");
 
 						for (TiXmlNode *viewportNode = viewTree->FirstChild(); viewportNode; viewportNode = viewportNode->NextSibling()){
 
@@ -556,7 +565,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 							}
 
-							Ogre::Viewport *viewport = window->addViewport(camera);
+							Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);
 
 							camera->setAspectRatio(viewport->getActualWidth() / viewport->getActualHeight());
 
@@ -573,7 +582,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							parseFloats(string(color->GetText()), colors);
 							viewport->setBackgroundColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-						}
+						}*/
 
 						//entities
 						TiXmlNode *entityTree = scenes->FirstChild("entities");
@@ -617,7 +626,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 								string entityMaterial = entityElement->GetText();
 
 								Ogre::Entity *entity = sceneManager->createEntity(entityName, entityMesh);
-								entity->setMaterialName(entityMaterial);
+								//entity->setMaterialName(entityMaterial);
 
 							}
 
@@ -626,7 +635,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							cerr << "WARNING: There aren't any entites in the scene... This is going to be a pretty boring video game." << endl;
 
 						}
-
+                  
 						//nodes in the tree
 						TiXmlNode *nodeTree = scenes->FirstChild("nodes");
 
@@ -640,6 +649,13 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							cerr << "WARNING: There aren't any nodes in this scene... This is going to be a boring video game..." << endl;
 
 						}
+
+                  /*SceneNode *rootNode = sceneManager->getRootSceneNode();
+                  SceneNode *cubeNode = sceneManager->createSceneNode("cubeNode");
+                  Entity *cubeEntity = sceneManager->createEntity("Cube", "cube.mesh");
+
+                  cubeNode->attachObject(cubeEntity);
+                  rootNode->addChild(cubeNode);*/
 
 					}
 
@@ -684,7 +700,24 @@ void RenderManager::unloadResources(){
 
 }
 
-void RenderManager::buildSceneManually(){} //nothing here for now
+void RenderManager::buildSceneManually(){
+
+   sceneManager->setAmbientLight(ColourValue(1,1,1));
+
+   //moake some stuff to render
+
+   SceneNode *rootNode = sceneManager->getRootSceneNode();
+   SceneNode *cubeNode = sceneManager->createSceneNode("cubeNode");
+   SceneNode *groundNode = sceneManager->createSceneNode("groundNode");
+   Entity *cubeEntity = sceneManager->createEntity("Cube", "cube.mesh");
+   Entity *groundEntity = sceneManager->createEntity("Ground", "ground.mesh");
+
+   groundNode->attachObject(groundEntity);
+   cubeNode->attachObject(cubeEntity);
+   rootNode->addChild(groundNode);
+   rootNode->addChild(cubeNode);
+
+}
 
 //private methods below here ------------------------------------------------------------------------------------------------------
 

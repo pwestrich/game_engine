@@ -11,6 +11,7 @@ int main(int argc, char **argv){
 
 	manager->loadResourcesFromXML("./xml/resources.xml", "0");
 	manager->buildSceneFromXML("./xml/scene.xml", "0");
+	//manager->buildSceneManually();
 	manager->startRendering();
 	
 	return 0;

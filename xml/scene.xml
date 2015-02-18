@@ -2,13 +2,14 @@
 <scenes>
 	<scene>
 		<name>0</name>
+		<!--
 		<cameras>
 			<camera>
 				<name>Camera1</name>
-				<location>0,0,25</location>
-				<lookAt>0.0,0.0,0.0</lookAt>
-				<nearClip>1</nearClip>
-				<farClip>1000</farClip>
+				<location>15,15,15</location>
+				<lookAt>0,0,0</lookAt>
+				<nearClip>2</nearClip>
+				<farClip>100</farClip>
 			</camera>
 		</cameras>
 		<lights>
@@ -20,9 +21,9 @@
 		<viewports>
 			<viewport>
 				<camera>Camera1</camera>
-				<color>0.5,0.5,0.5</color>
+				<color>0,0,0</color>
 			</viewport>
-		</viewports>
+		</viewports> -->
 		<entities>
 			<entity>
 				<name>cube</name>
@@ -45,69 +46,6 @@
 				<name>ground_entity</name>
 				<type>scene</type>
 				<entity>ground</entity>
-			</node>
-			<node>
-				<name>animationNode</name>
-				<type>animation</type>
-				<animationName>animationName</animationName>
-				<numFrames>1</numFrames>
-				<enabled>true</enabled>
-				<loop>true</loop>
-				<keyFrames>
-					<key>
-						<translate>1,1,1</translate>
-						<rotate>1,1,1,1</rotate>
-						<scale>1,1,1</scale>
-					</key>
-				</keyFrames>
-			</node>
-		</nodes>
-	</scene>
-
-	<scene>
-		<name>1</name>
-		<cameras>
-			<camera>
-				<name>camera1</name>
-				<location>0,0,10</location>
-				<lookAt>0,0,0</lookAt>
-				<nearClip>2</nearClip>
-				<farClip>50</farClip>
-			</camera>
-		</cameras>
-		<lights>
-			<light>
-				<type>ambient</type>
-				<color>0.05,0.05,0.05</color>
-			</light>
-			<light>
-				<name>light1</name>
-				<type>directional</type>
-				<diffuse>1,1,1</diffuse>
-				<specular>1,1,1</specular>
-				<direction>0,0,-1</direction>
-			</light>
-		</lights>
-				<viewports>
-			<viewport>
-				<camera>camera1</camera>
-				<color>0,0,0</color>
-			</viewport>
-		</viewports>
-		<entities>
-			<entity>
-				<name>sub</name>
-				<mesh>Submarine.mesh</mesh>
-				<material>Material.001</material>
-			</entity>
-		</entities>
-		<nodes>
-			<node>
-				<name>subNode</name>
-				<type>scene</type>
-				<entity>sub</entity>
-				<translate>0,0,0</translate>
-				<scale>1,1,1</scale>
 			</node>
 		</nodes>
 	</scene>

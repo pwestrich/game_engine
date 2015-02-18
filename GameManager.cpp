@@ -37,6 +37,12 @@ void GameManager::buildSceneFromXML(const string &filename, const string &group)
 
 }
 
+void GameManager::buildSceneManually(){
+
+	renderManager->buildSceneManually();
+
+}
+
 void GameManager::startRendering(){
 
 	renderManager->startRendering();
