@@ -695,20 +695,7 @@ void RenderManager::unloadResources(){
 
 void RenderManager::buildSceneManually(){
 
-   sceneManager->setAmbientLight(ColourValue(1,1,1));
 
-   //moake some stuff to render
-
-   SceneNode *rootNode = sceneManager->getRootSceneNode();
-   SceneNode *cubeNode = sceneManager->createSceneNode("cubeNode");
-   SceneNode *groundNode = sceneManager->createSceneNode("groundNode");
-   Entity *cubeEntity = sceneManager->createEntity("Cube", "cube.mesh");
-   Entity *groundEntity = sceneManager->createEntity("Ground", "ground.mesh");
-
-   groundNode->attachObject(groundEntity);
-   cubeNode->attachObject(cubeEntity);
-   rootNode->addChild(groundNode);
-   rootNode->addChild(cubeNode);
 
 }
 
