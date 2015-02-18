@@ -33,12 +33,7 @@
 			<entity>
 				<name>truck</name>
 				<mesh>truck.mesh</mesh>
-				<material>truck</material>
-			</entity>
-			<entity>
-				<name>wheel</name>
-				<mesh>wheel.mesh</mesh>
-				<material>wheel</material>
+				<material>Truck</material>
 			</entity>
 		</entities>
 		<nodes>
