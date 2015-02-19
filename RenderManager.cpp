@@ -43,22 +43,56 @@ RenderManager::RenderManager(GameManager *gman){
 		
 		//set some options and make the window
 		renderer->setConfigOption("Full Screen", "No");
-      renderer->setConfigOption("Video Mode", "1024 x 768 @ 32-bit colour");
-      sceneManager = root->createSceneManager(Ogre::ST_GENERIC, "DefaultSceneManager");
-      window = root->initialise(true, "CSC 4903: Game Engine Programming");
-      window->getCustomAttribute("WINDOW", &windowHandle);
+     	renderer->setConfigOption("Video Mode", "1024 x 768 @ 32-bit colour");
+     	sceneManager = root->createSceneManager(Ogre::ST_GENERIC, "DefaultSceneManager");
+     	window = root->initialise(true, "CSC 4903: Game Engine Programming");
+    	window->getCustomAttribute("WINDOW", &windowHandle);
 
-      renderListener = new AnimationRenderListener(this);
-      root->addFrameListener(renderListener);
+     	renderListener = new AnimationRenderListener(this);
+      	root->addFrameListener(renderListener);
 
-      Ogre::Camera *camera = sceneManager->createCamera("camera");
+        /*
+        Ogre::Camera *camera = sceneManager->createCamera("camera");
 
-      camera->setPosition(Vector3(30,30,30));
-      camera->lookAt(Vector3(0,0,0));
-      camera->setNearClipDistance(2);
-      camera->setFarClipDistance(100); 
+        camera->setPosition(Vector3(30,30,30));
+        camera->lookAt(Vector3(0,0,0));
+        camera->setNearClipDistance(2);
+        camera->setFarClipDistance(100); 
 
-      Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);
+        Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);*/
+
+        //let's add some more cameras for item placement
+        Ogre::Camera *cameraTop = sceneManager->createCamera("cameraTop");
+        cameraTop->setPosition(Vector3(30,30,30));
+        cameraTop->lookAt(Vector3(0,0,0));
+        cameraTop->setNearClipDistance(1);
+        cameraTop->setFarClipDistance(100);
+        window->addViewport(cameraTop, 0, 0, 0, 0.5,0.5);
+        cameraTop->setAspectRatio(1024.0/768);
+
+        Ogre::Camera *cameraSide = sceneManager->createCamera("cameraSide");
+        cameraSide->setPosition(Vector3(0,5,50));
+        cameraSide->lookAt(Vector3(0,0,0));
+        cameraSide->setNearClipDistance(1);
+        cameraSide->setFarClipDistance(100);
+        cameraSide->setAspectRatio(1024.0/768);
+        window->addViewport(cameraSide, 1, 0.5, 0, 0.5, 0.5);
+
+        Ogre::Camera *cameraCenter = sceneManager->createCamera("cameraCenter");
+        cameraCenter->setPosition(Vector3(0,5,0));
+        cameraCenter->lookAt(Vector3(0,5,50));
+        cameraCenter->setNearClipDistance(1);
+        cameraCenter->setFarClipDistance(100);
+        cameraCenter->setAspectRatio(1027.0/768);
+        window->addViewport(cameraCenter, 2, 0.5, 0.5, 0.5, 0.5);
+
+        Ogre::Camera *cameraUnder = sceneManager->createCamera("cameraUnder");
+        cameraUnder->setPosition(Vector3(0, -30, 0));
+        cameraUnder->lookAt(Vector3(0,0,0));
+        cameraUnder->setNearClipDistance(1);
+        cameraUnder->setFarClipDistance(100);
+        cameraUnder->setAspectRatio(1024.0/768);
+        window->addViewport(cameraUnder, 3, 0, 0.5, 0.5, 0.5);
 
 	} catch (Ogre::Exception &it){
 

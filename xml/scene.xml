@@ -41,16 +41,46 @@
 				<name>ground_entity</name>
 				<type>scene</type>
 				<entity>ground</entity>
-				<scale>20,0,20</scale>
+				<scale>30,0,30</scale>
 			</node>
 			<node>
-				<name>entire_truck_node</name>
-				<type>scene</type>
+				<name>truck_animation_node</name>
+				<type>animation</type>
+				<animationName>truck_animation</animationName>
+				<length>4</length>
+				<enabled>true</enabled>
+				<loop>true</loop>
+				<keyFrames>
+					<key>
+						<time>0</time>
+						<rotate>0,1,0,0</rotate>
+					</key>
+					<key>
+						<time>1</time>
+						<rotate>0,1,0,90</rotate>
+					</key>
+					<key>
+						<time>2</time>
+						<rotate>0,1,0,180</rotate>
+					</key>
+					<key>
+						<time>3</time>
+						<rotate>0,1,0,270</rotate>
+					</key>
+				</keyFrames>
 				<children>
 					<node>
-						<name>truck_node</name>
+						<name>entire_truck_node</name>
 						<type>scene</type>
-						<entity>truck</entity>
+						<children>
+							<node>
+								<name>truck_node</name>
+								<type>scene</type>
+								<entity>truck</entity>
+								<scale>3,1,2</scale>
+								<translate>0,1,25</translate>
+							</node>
+						</children>
 					</node>
 				</children>
 			</node>
