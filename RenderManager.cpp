@@ -63,12 +63,12 @@ RenderManager::RenderManager(GameManager *gman){
 
         //let's add some more cameras for item placement
         Ogre::Camera *cameraTop = sceneManager->createCamera("cameraTop");
-        cameraTop->setPosition(Vector3(30,30,30));
+        cameraTop->setPosition(Vector3(50,30,50));
         cameraTop->lookAt(Vector3(0,0,0));
         cameraTop->setNearClipDistance(1);
-        cameraTop->setFarClipDistance(100);
-        window->addViewport(cameraTop, 0, 0, 0, 0.5,0.5);
-        cameraTop->setAspectRatio(1024.0/768);
+        cameraTop->setFarClipDistance(200);
+        window->addViewport(cameraTop, 0, 0, 0, 0.5,1);
+        cameraTop->setAspectRatio(1024.0/768.0);
 
         Ogre::Camera *cameraSide = sceneManager->createCamera("cameraSide");
         cameraSide->setPosition(Vector3(0,5,50));
@@ -85,14 +85,6 @@ RenderManager::RenderManager(GameManager *gman){
         cameraCenter->setFarClipDistance(100);
         cameraCenter->setAspectRatio(1027.0/768);
         window->addViewport(cameraCenter, 2, 0.5, 0.5, 0.5, 0.5);
-
-        Ogre::Camera *cameraUnder = sceneManager->createCamera("cameraUnder");
-        cameraUnder->setPosition(Vector3(8, 10, 15));
-        cameraUnder->lookAt(Vector3(8,0,25));
-        cameraUnder->setNearClipDistance(1);
-        cameraUnder->setFarClipDistance(100);
-        cameraUnder->setAspectRatio(1024.0/768);
-        window->addViewport(cameraUnder, 3, 0, 0.5, 0.5, 0.5);
 
 	} catch (Ogre::Exception &it){
 
@@ -117,7 +109,12 @@ RenderManager::~RenderManager(){
 	window->removeAllViewports();
 	window->destroy();
 
-	delete root;
+	if (root){
+
+		delete root;
+		root = NULL;
+
+	}
 
 } 
 
@@ -722,7 +719,10 @@ void RenderManager::unloadResources(){
   }
 
   Ogre::ResourceGroupManager &resourceManager = Ogre::ResourceGroupManager::getSingleton();
-  resourceManager.destroyResourceGroup(groupLoaded);
+  
+  //for some reason, this crashes the game... I ahve no idea why
+  //it works without it, so it's commented out.
+  //resourceManager.destroyResourceGroup(groupLoaded);
   groupLoaded = "";
 
 }
