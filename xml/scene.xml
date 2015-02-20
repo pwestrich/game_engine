@@ -12,18 +12,21 @@
 				<farClip>100</farClip>
 			</camera>
 		</cameras>
-		<lights>
-			<light>
-				<type>ambient</type>
-				<color>1,1,1</color>
-			</light>
-		</lights>
 		<viewports>
 			<viewport>
 				<camera>Camera1</camera>
 				<color>0,0,0</color>
 			</viewport>
 		</viewports> -->
+		<lights>
+			<light>
+				<name>directional_light</name>
+				<type>directional</type>
+				<diffuse>1,1,1</diffuse>
+				<specular>1,1,1s</specular>
+				<direction>0,-1,0</direction>
+			</light>
+		</lights>
 		<entities>
 			<entity>
 				<name>ground</name>
@@ -34,6 +37,46 @@
 				<name>truck</name>
 				<mesh>truck.mesh</mesh>
 				<material>Truck</material>
+			</entity>
+			<entity>
+				<name>rear_pass_spokes_entity</name>
+				<mesh>Spokes.mesh</mesh>
+				<material>spokes</material>
+			</entity>
+			<entity>
+				<name>rear_pass_tire_entity</name>
+				<mesh>Wheel.mesh</mesh>
+				<material>wheel</material>
+			</entity>
+			<entity>
+				<name>front_pass_spokes_entity</name>
+				<mesh>Spokes.mesh</mesh>
+				<material>spokes</material>
+			</entity>
+			<entity>
+				<name>front_pass_tire_entity</name>
+				<mesh>Wheel.mesh</mesh>
+				<material>wheel</material>
+			</entity>
+			<entity>
+				<name>rear_drive_spokes_entity</name>
+				<mesh>Spokes.mesh</mesh>
+				<material>spokes</material>
+			</entity>
+			<entity>
+				<name>rear_drive_tire_entity</name>
+				<mesh>Wheel.mesh</mesh>
+				<material>wheel</material>
+			</entity>
+			<entity>
+				<name>front_drive_spokes_entity</name>
+				<mesh>Spokes.mesh</mesh>
+				<material>spokes</material>
+			</entity>
+			<entity>
+				<name>front_drive_tire_entity</name>
+				<mesh>Wheel.mesh</mesh>
+				<material>wheel</material>
 			</entity>
 		</entities>
 		<nodes>
@@ -72,13 +115,102 @@
 					<node>
 						<name>entire_truck_node</name>
 						<type>scene</type>
+						<translate>0,1,25</translate>
 						<children>
 							<node>
 								<name>truck_node</name>
 								<type>scene</type>
 								<entity>truck</entity>
 								<scale>3,1,2</scale>
-								<translate>0,1,25</translate>
+								<translate>2,1,0</translate>
+							</node>
+							<node>
+								<name>rear_pass_wheel</name>
+								<type>scene</type>
+								<translate>0.5,0,2</translate>
+								<rotate>1,0,0,90</rotate>
+								<scale>0.12,0.12,0.12</scale>
+								<children>
+									<node>
+										<name>rear_pass_spokes</name>
+										<type>scene</type>
+										<entity>rear_pass_spokes_entity</entity>
+										<translate>0,-0.5,0</translate>
+										<rotate>0,0,1,180</rotate>
+										<scale>0.5,1,4</scale>
+									</node>
+									<node>
+										<name>rear_pass_tire</name>
+										<type>scene</type>
+										<entity>rear_pass_tire_entity</entity>
+									</node>
+								</children>
+							</node>
+							<node>
+								<name>front_pass_wheel</name>
+								<type>scene</type>
+								<translate>8.9,0,2</translate>
+								<rotate>1,0,0,90</rotate>
+								<scale>0.12,0.12,0.12</scale>
+								<children>
+									<node>
+										<name>front_pass_spokes</name>
+										<type>scene</type>
+										<entity>front_pass_spokes_entity</entity>
+										<translate>0,-0.5,0</translate>
+										<rotate>0,0,1,180</rotate>
+										<scale>0.5,1,4</scale>
+									</node>
+									<node>
+										<name>front_pass_tire</name>
+										<type>scene</type>
+										<entity>front_pass_tire_entity</entity>
+									</node>
+								</children>
+							</node>
+							<node>
+								<name>rear_drive_wheel</name>
+								<type>scene</type>
+								<translate>0.5,0,-1.80</translate>
+								<rotate>1,0,0,90</rotate>
+								<scale>0.12,0.12,0.12</scale>
+								<children>
+									<node>
+										<name>rear_drive_spokes</name>
+										<type>scene</type>
+										<entity>rear_drive_spokes_entity</entity>
+										<translate>0,-0.5,0</translate>
+										<rotate>0,0,1,180</rotate>
+										<scale>0.5,1,4</scale>
+									</node>
+									<node>
+										<name>rear_drive_tire</name>
+										<type>scene</type>
+										<entity>rear_drive_tire_entity</entity>
+									</node>
+								</children>
+							</node>
+							<node>
+								<name>front_drive_wheel</name>
+								<type>scene</type>
+								<translate>8.9,0,-1.80</translate>
+								<rotate>1,0,0,90</rotate>
+								<scale>0.12,0.12,0.12</scale>
+								<children>
+									<node>
+										<name>front_drive_spokes</name>
+										<type>scene</type>
+										<entity>front_drive_spokes_entity</entity>
+										<translate>0,-0.5,0</translate>
+										<rotate>0,0,1,180</rotate>
+										<scale>0.5,1,4</scale>
+									</node>
+									<node>
+										<name>front_drive_tire</name>
+										<type>scene</type>
+										<entity>front_drive_tire_entity</entity>
+									</node>
+								</children>
 							</node>
 						</children>
 					</node>

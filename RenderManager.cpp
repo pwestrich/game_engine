@@ -87,8 +87,8 @@ RenderManager::RenderManager(GameManager *gman){
         window->addViewport(cameraCenter, 2, 0.5, 0.5, 0.5, 0.5);
 
         Ogre::Camera *cameraUnder = sceneManager->createCamera("cameraUnder");
-        cameraUnder->setPosition(Vector3(0, -30, 0));
-        cameraUnder->lookAt(Vector3(0,0,0));
+        cameraUnder->setPosition(Vector3(8, 10, 15));
+        cameraUnder->lookAt(Vector3(8,0,25));
         cameraUnder->setNearClipDistance(1);
         cameraUnder->setFarClipDistance(100);
         cameraUnder->setAspectRatio(1024.0/768);
