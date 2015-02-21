@@ -1,0 +1,16 @@
+
+Dr. Boshart,
+
+Our game is on GitHub here: https://github.com/pwestrich/game_engine. The version
+you should grade is marked 0.1.
+
+All you ahve to do to run and build the game should be:
+
+1. Change the PATH variable in the build_game.bat
+2. Change the INC_DIRS in the Makefile
+3. Change the LIB_DIRS in the Makefile
+4. Run the batch script
+
+If you have any problems grading it, let me know. I'll lend you my flash drive I've built it on.
+
+-Philip Westrich and Mitchell White
