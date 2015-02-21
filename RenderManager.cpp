@@ -109,12 +109,13 @@ RenderManager::~RenderManager(){
 	window->removeAllViewports();
 	window->destroy();
 
-	if (root){
+	//this also sometimes crashes the game on quit
+	/*if (root){
 
 		delete root;
 		root = NULL;
 
-	}
+	}*/
 
 } 
 
