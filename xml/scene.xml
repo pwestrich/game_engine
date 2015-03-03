@@ -5,8 +5,8 @@
 		<cameras>
 			<camera>
 				<name>Camera1</name>
-				<location>50,50,50</location>
-				<lookAt>0,0,0</lookAt>
+				<location>-7,7,0</location>
+				<lookAt>15,0,0</lookAt>
 				<clip>1,500</clip>
 				<viewport>0,0,0,1,1</viewport>
 			</camera>
@@ -67,6 +67,7 @@
 								<type>scene</type>
 								<scale>3,1,2</scale>
 								<translate>2,1,0</translate>
+								<camera>Camera1</camera>
 								<entity>
 									<name>truck</name>
 									<mesh>truck.mesh</mesh>

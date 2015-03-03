@@ -709,6 +709,17 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 			}
 
+			nodeElement = (TiXmlElement*) nodeNode->FirstChild("camera");
+
+			if (nodeElement){
+
+				//cameras have a name to reference by
+				string cameraName = nodeElement->GetText();
+				Ogre::Camera *camera = sceneManager->getCamera(cameraName);
+				sceneNode->attachObject(camera);
+
+			}
+
 			nodeElement = (TiXmlElement*) nodeNode->FirstChild("scale");
 
 			if (nodeElement){
