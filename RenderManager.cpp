@@ -685,7 +685,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				} else {
 
-					cerr << "ERROR: Entities must have a mesh" << endl;
+					cerr << "ERROR: Entities must have a mesh!" << endl;
 					exit(EXIT_FAILURE);
 
 				}
@@ -705,6 +705,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				Ogre::Entity *entity = sceneManager->createEntity(entityName, entityMesh);
 				entity->setMaterialName(entityMaterial);
+				sceneNode->attachObject(entity);
 
 			}
 

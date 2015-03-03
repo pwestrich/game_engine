@@ -89,7 +89,7 @@
 										<entity>
 											<name>rear_pass_spokes_entity</name>
 											<mesh>Spokes.mesh</mesh>
-											<material>spokes</material>
+											<material>Truck</material>
 										</entity>
 									</node>
 									<node>
@@ -98,7 +98,7 @@
 										<entity>
 											<name>rear_pass_tire_entity</name>
 											<mesh>Wheel.mesh</mesh>
-											<material>wheel</material>
+											<material>Wheel</material>
 										</entity>
 									</node>
 								</children>
@@ -119,7 +119,7 @@
 										<entity>
 											<name>front_pass_spokes_entity</name>
 											<mesh>Spokes.mesh</mesh>
-											<material>spokes</material>
+											<material>Spokes</material>
 										</entity>
 									</node>
 									<node>
@@ -128,7 +128,7 @@
 										<entity>
 											<name>front_pass_tire_entity</name>
 											<mesh>Wheel.mesh</mesh>
-											<material>wheel</material>
+											<material>Wheel</material>
 										</entity>
 									</node>
 								</children>
@@ -149,7 +149,7 @@
 										<entity>
 											<name>rear_drive_spokes_entity</name>
 											<mesh>Spokes.mesh</mesh>
-											<material>spokes</material>
+											<material>Spokes</material>
 										</entity>
 									</node>
 									<node>
@@ -158,7 +158,7 @@
 										<entity>
 											<name>rear_drive_tire_entity</name>
 											<mesh>Wheel.mesh</mesh>
-											<material>wheel</material>
+											<material>Wheel</material>
 										</entity>
 									</node>
 								</children>
@@ -179,7 +179,7 @@
 										<entity>
 											<name>front_drive_spokes_entity</name>
 											<mesh>Spokes.mesh</mesh>
-											<material>spokes</material>
+											<material>Spokes</material>
 										</entity>
 									</node>
 									<node>
@@ -188,7 +188,7 @@
 										<entity>
 											<name>front_drive_tire_entity</name>
 											<mesh>Wheel.mesh</mesh>
-											<material>wheel</material>
+											<material>Wheel</material>
 										</entity>
 									</node>
 								</children>
