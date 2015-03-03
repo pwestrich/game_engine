@@ -2,22 +2,15 @@
 <scenes>
 	<scene>
 		<name>0</name>
-		<!--
 		<cameras>
 			<camera>
 				<name>Camera1</name>
-				<location>15,15,15</location>
+				<location>50,50,50</location>
 				<lookAt>0,0,0</lookAt>
-				<nearClip>2</nearClip>
-				<farClip>100</farClip>
+				<clip>1,500</clip>
+				<viewport>0,0,0,1,1</viewport>
 			</camera>
 		</cameras>
-		<viewports>
-			<viewport>
-				<camera>Camera1</camera>
-				<color>0,0,0</color>
-			</viewport>
-		</viewports> -->
 		<lights>
 			<light>
 				<name>directional_light</name>
@@ -27,64 +20,16 @@
 				<direction>0,-1,0</direction>
 			</light>
 		</lights>
-		<entities>
-			<entity>
-				<name>ground</name>
-				<mesh>ground.mesh</mesh>
-				<material>ground</material>
-			</entity>
-			<entity>
-				<name>truck</name>
-				<mesh>truck.mesh</mesh>
-				<material>Truck</material>
-			</entity>
-			<entity>
-				<name>rear_pass_spokes_entity</name>
-				<mesh>Spokes.mesh</mesh>
-				<material>spokes</material>
-			</entity>
-			<entity>
-				<name>rear_pass_tire_entity</name>
-				<mesh>Wheel.mesh</mesh>
-				<material>wheel</material>
-			</entity>
-			<entity>
-				<name>front_pass_spokes_entity</name>
-				<mesh>Spokes.mesh</mesh>
-				<material>spokes</material>
-			</entity>
-			<entity>
-				<name>front_pass_tire_entity</name>
-				<mesh>Wheel.mesh</mesh>
-				<material>wheel</material>
-			</entity>
-			<entity>
-				<name>rear_drive_spokes_entity</name>
-				<mesh>Spokes.mesh</mesh>
-				<material>spokes</material>
-			</entity>
-			<entity>
-				<name>rear_drive_tire_entity</name>
-				<mesh>Wheel.mesh</mesh>
-				<material>wheel</material>
-			</entity>
-			<entity>
-				<name>front_drive_spokes_entity</name>
-				<mesh>Spokes.mesh</mesh>
-				<material>spokes</material>
-			</entity>
-			<entity>
-				<name>front_drive_tire_entity</name>
-				<mesh>Wheel.mesh</mesh>
-				<material>wheel</material>
-			</entity>
-		</entities>
 		<nodes>
 			<node>
 				<name>ground_entity</name>
 				<type>scene</type>
-				<entity>ground</entity>
 				<scale>30,0,30</scale>
+				<entity>
+					<name>ground</name>
+					<mesh>ground.mesh</mesh>
+					<material>ground</material>
+				</entity>
 			</node>
 			<node>
 				<name>truck_animation_node</name>
@@ -120,9 +65,13 @@
 							<node>
 								<name>truck_node</name>
 								<type>scene</type>
-								<entity>truck</entity>
 								<scale>3,1,2</scale>
 								<translate>2,1,0</translate>
+								<entity>
+									<name>truck</name>
+									<mesh>truck.mesh</mesh>
+									<material>Truck</material>
+								</entity>
 							</node>
 							<node>
 								<name>rear_pass_wheel</name>
@@ -134,15 +83,23 @@
 									<node>
 										<name>rear_pass_spokes</name>
 										<type>scene</type>
-										<entity>rear_pass_spokes_entity</entity>
 										<translate>0,-0.5,0</translate>
 										<rotate>0,0,1,180</rotate>
 										<scale>0.5,1,4</scale>
+										<entity>
+											<name>rear_pass_spokes_entity</name>
+											<mesh>Spokes.mesh</mesh>
+											<material>spokes</material>
+										</entity>
 									</node>
 									<node>
 										<name>rear_pass_tire</name>
 										<type>scene</type>
-										<entity>rear_pass_tire_entity</entity>
+										<entity>
+											<name>rear_pass_tire_entity</name>
+											<mesh>Wheel.mesh</mesh>
+											<material>wheel</material>
+										</entity>
 									</node>
 								</children>
 							</node>
@@ -156,15 +113,23 @@
 									<node>
 										<name>front_pass_spokes</name>
 										<type>scene</type>
-										<entity>front_pass_spokes_entity</entity>
 										<translate>0,-0.5,0</translate>
 										<rotate>0,0,1,180</rotate>
 										<scale>0.5,1,4</scale>
+										<entity>
+											<name>front_pass_spokes_entity</name>
+											<mesh>Spokes.mesh</mesh>
+											<material>spokes</material>
+										</entity>
 									</node>
 									<node>
 										<name>front_pass_tire</name>
 										<type>scene</type>
-										<entity>front_pass_tire_entity</entity>
+										<entity>
+											<name>front_pass_tire_entity</name>
+											<mesh>Wheel.mesh</mesh>
+											<material>wheel</material>
+										</entity>
 									</node>
 								</children>
 							</node>
@@ -178,15 +143,23 @@
 									<node>
 										<name>rear_drive_spokes</name>
 										<type>scene</type>
-										<entity>rear_drive_spokes_entity</entity>
 										<translate>0,-0.5,0</translate>
 										<rotate>0,0,1,180</rotate>
 										<scale>0.5,1,4</scale>
+										<entity>
+											<name>rear_drive_spokes_entity</name>
+											<mesh>Spokes.mesh</mesh>
+											<material>spokes</material>
+										</entity>
 									</node>
 									<node>
 										<name>rear_drive_tire</name>
 										<type>scene</type>
-										<entity>rear_drive_tire_entity</entity>
+										<entity>
+											<name>rear_drive_tire_entity</name>
+											<mesh>Wheel.mesh</mesh>
+											<material>wheel</material>
+										</entity>
 									</node>
 								</children>
 							</node>
@@ -200,15 +173,23 @@
 									<node>
 										<name>front_drive_spokes</name>
 										<type>scene</type>
-										<entity>front_drive_spokes_entity</entity>
 										<translate>0,-0.5,0</translate>
 										<rotate>0,0,1,180</rotate>
 										<scale>0.5,1,4</scale>
+										<entity>
+											<name>front_drive_spokes_entity</name>
+											<mesh>Spokes.mesh</mesh>
+											<material>spokes</material>
+										</entity>
 									</node>
 									<node>
 										<name>front_drive_tire</name>
 										<type>scene</type>
-										<entity>front_drive_tire_entity</entity>
+										<entity>
+											<name>front_drive_tire_entity</name>
+											<mesh>Wheel.mesh</mesh>
+											<material>wheel</material>
+										</entity>
 									</node>
 								</children>
 							</node>

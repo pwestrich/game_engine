@@ -29,3 +29,28 @@ void parseFloats(std::string str, float *values){
    }
 
 }
+
+void parseInts(std::string str, int *values){
+
+   int sz = str.size();
+
+   int loc = 0;
+   int token_index = 0;
+   while (loc < sz){
+
+      int index = str.find(',', loc);
+
+      if (index == -1){
+
+         index = sz-1;
+
+      }
+
+      std::string sub = str.substr(loc, index);
+      values[token_index] = atoi(sub.c_str());
+
+      loc = index + 1;
+      token_index++;
+   }
+
+}

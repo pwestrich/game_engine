@@ -51,41 +51,6 @@ RenderManager::RenderManager(GameManager *gman){
      	renderListener = new AnimationRenderListener(this);
       	root->addFrameListener(renderListener);
 
-        /*
-        Ogre::Camera *camera = sceneManager->createCamera("camera");
-
-        camera->setPosition(Vector3(30,30,30));
-        camera->lookAt(Vector3(0,0,0));
-        camera->setNearClipDistance(2);
-        camera->setFarClipDistance(100); 
-
-        Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);*/
-
-        //let's add some more cameras for item placement
-        Ogre::Camera *cameraTop = sceneManager->createCamera("cameraTop");
-        cameraTop->setPosition(Vector3(50,30,50));
-        cameraTop->lookAt(Vector3(0,0,0));
-        cameraTop->setNearClipDistance(1);
-        cameraTop->setFarClipDistance(200);
-        window->addViewport(cameraTop, 0, 0, 0, 0.5,1);
-        cameraTop->setAspectRatio(1024.0/768.0);
-
-        Ogre::Camera *cameraSide = sceneManager->createCamera("cameraSide");
-        cameraSide->setPosition(Vector3(0,5,50));
-        cameraSide->lookAt(Vector3(0,0,0));
-        cameraSide->setNearClipDistance(1);
-        cameraSide->setFarClipDistance(100);
-        cameraSide->setAspectRatio(1024.0/768);
-        window->addViewport(cameraSide, 1, 0.5, 0, 0.5, 0.5);
-
-        Ogre::Camera *cameraCenter = sceneManager->createCamera("cameraCenter");
-        cameraCenter->setPosition(Vector3(0,5,0));
-        cameraCenter->lookAt(Vector3(0,5,50));
-        cameraCenter->setNearClipDistance(1);
-        cameraCenter->setFarClipDistance(100);
-        cameraCenter->setAspectRatio(1027.0/768);
-        window->addViewport(cameraCenter, 2, 0.5, 0.5, 0.5, 0.5);
-
 	} catch (Ogre::Exception &it){
 
 		cerr << "Exception while creating RenderManager: " << it.what() << endl;
@@ -263,86 +228,106 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 					if (name == sceneName){
 
-						//this is our scene, start building it
-						//first are cameras
 						clog << "Building scene: " << sceneName << endl;
-						/*TiXmlNode *cameraTree = scenes->FirstChild("cameras");
+
+						//cameras
+						TiXmlNode *cameraTree = scenes->FirstChild("cameras");
 
 						if (cameraTree){
 
-							for (TiXmlNode *cameraNode = cameraTree->FirstChild(); cameraNode; cameraNode = cameraNode->NextSibling()){
+							//build every camera
+							for (TiXmlNode *cameraItem = cameraTree->FirstChild("camera"); cameraItem; cameraItem = cameraItem->NextSibling()){
 
-								//get the camera's name
-								TiXmlElement *item = (TiXmlElement*) cameraNode->FirstChild("name");
+								//name, lookAt, location, viewport
+								TiXmlElement *cameraElement = (TiXmlElement*) cameraItem->FirstChild("name");
+								string cameraName;
 
-								if (!item){
+								if (cameraElement){
 
-									cerr << "Error: Every camera must have a name!" << endl;
-									continue;
+									cameraName = cameraElement->GetText();
 
-								}
+								} else {
 
-								Ogre::Camera *camera = sceneManager->createCamera(item->GetText());
-
-								//then its location
-								item = (TiXmlElement*) cameraNode->FirstChild("location");
-
-								if (!item){
-
-									cerr << "ERROR: Every camera needs a location!" << endl;
-									continue;
+									cerr << "ERROR: Cameras must ahve names!" << endl;
+									exit(EXIT_FAILURE);
 
 								}
 
-								float location[3];
-								parseFloats(string(item->GetText()), location);
-								camera->setPosition(Vector3(location[0], location[1], location[2]));
+								Ogre::Camera *camera = sceneManager->createCamera(cameraName);
+								float values[] = {0.0,0.0,0.0,0.0,0.0,0.0};
 
-								//and where it looks at
-								item = (TiXmlElement*) cameraNode->FirstChild("lookAt");
+								cameraElement = (TiXmlElement*) cameraItem->FirstChild("location");
 
-								if (!item){
+								if (cameraElement){
 
-									cerr << "ERROR: Every camera needs a place to look at!" << endl;
-									continue;
+									string temp = cameraElement->GetText();
+									parseFloats(temp, values);
+									camera->setPosition(values[0], values[1], values[2]);
 
-								}
+								} else {
 
-								parseFloats(string(item->GetText()), location);
-								camera->setPosition(Vector3(location[0], location[1], location[2]));
-
-								//and near and far clip
-								item = (TiXmlElement*) cameraNode->FirstChild("nearClip");
-
-								if (!item){
-
-									cerr << "ERROR: Every camera needs a near clip distance!" << endl;
-									continue;
+									cerr << "ERROR: Cameras must have a position!" << endl;
+									exit(EXIT_FAILURE);
 
 								}
 
-								camera->setNearClipDistance(atof(item->GetText()));
+								cameraElement = (TiXmlElement*) cameraItem->FirstChild("lookAt");
 
-								item = (TiXmlElement*) cameraNode->FirstChild("farClip");
+								if (cameraElement){
 
-								if (!item){
+									string temp = cameraElement->GetText();
+									parseFloats(temp, values);
+									camera->lookAt(values[0], values[1], values[2]);
 
-									cerr << "ERROR: Every camera needs a far clip distance!" << endl;
-									continue;
+								} else {
+
+									cerr << "ERROR: Cameras must look somewhere!" << endl;
+									exit(EXIT_FAILURE);
 
 								}
 
-								camera->setFarClipDistance(atof(item->GetText()));
+								cameraElement = (TiXmlElement*) cameraItem->FirstChild("clip");
+
+								if (cameraElement){
+
+									int vals[] = {0,0};
+									string temp = cameraElement->GetText();
+									parseInts(temp, vals);
+
+									camera->setNearClipDistance(vals[0]);
+									camera->setFarClipDistance(vals[1]);
+
+								} else {
+
+									cerr << "ERROR: Camseas must ahve a clipping distance!" << endl;
+									exit(EXIT_FAILURE);
+
+								}
+
+								cameraElement = (TiXmlElement*) cameraItem->FirstChild("viewport");
+
+								if (cameraElement){
+
+									string temp = cameraElement->GetText();
+									parseFloats(temp, values);
+
+									Ogre::Viewport *viewport = window->addViewport(camera, values[0], values[1], values[2], values[3], values[4]);
+
+								} else {
+
+									cerr << "WARNING: Camera " << cameraName << " has no viewport!" << endl;
+
+								}
 
 							}
 
 						} else {
 
-							cerr << "WARNING: Did you mean to not include any cameras in this scene?" << endl;
+							cerr << "WARNING: Did you mean not to include any cameras in this scene?" << endl;
 
-						}*/
+						}
 
-						//next are lights
+						//lights
 						TiXmlNode *lightTree = scenes->FirstChild("lights");
 
 						if (lightTree){
@@ -568,105 +553,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							cerr << "WARNING: It's very dark in here. Think you should turn on a light?" << endl;
 
 						}
-
-						//then viewports
-						/*TiXmlNode *viewTree = scenes->FirstChild("viewports");
-
-						for (TiXmlNode *viewportNode = viewTree->FirstChild(); viewportNode; viewportNode = viewportNode->NextSibling()){
-
-							TiXmlElement *cameraNameItem = (TiXmlElement*) viewportNode->FirstChild("camera");
-
-							if (!cameraNameItem){
-
-								cerr << "ERROR: Viewports must have a camera!" << endl;
-								continue;
-
-							}
-
-							string cameraName = cameraNameItem->GetText();
-							Ogre::Camera *camera;
-
-							try {
-
-								camera = sceneManager->getCamera(cameraName);
-
-							} catch (Ogre::Exception &it){
-
-								cerr << "ERROR: " << it.what() << endl;
-								continue;
-
-							}
-
-							Ogre::Viewport *viewport = window->addViewport(camera, 0, 0, 0, 1.0, 1.0);
-
-							camera->setAspectRatio(viewport->getActualWidth() / viewport->getActualHeight());
-
-							TiXmlElement *color = (TiXmlElement*) viewportNode->FirstChild("color");
-
-							if (!color){
-
-								cerr << "ERROR: Viewports must have a background color!" << endl;
-								continue;
-
-							}
-
-							float colors[3];
-							parseFloats(string(color->GetText()), colors);
-							viewport->setBackgroundColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
-
-						}*/
-
-						//entities
-						TiXmlNode *entityTree = scenes->FirstChild("entities");
-
-						if (entityTree){
-
-							//loop through every entity and create them
-							for (TiXmlNode *entityNode = entityTree->FirstChild(); entityNode; entityNode = entityNode->NextSibling()){
-
-								TiXmlElement *entityElement = (TiXmlElement*) entityNode->FirstChild("name");
-
-								if (!entityElement){
-
-									cerr << "ERROR: Entities must have names!" << endl;
-									continue;
-
-								}
-
-								string entityName = entityElement->GetText();
-
-								entityElement = (TiXmlElement*) entityNode->FirstChild("mesh");
-
-								if (!entityElement){
-
-									cerr << "ERROR: Entities must have a mesh!" << endl;
-									continue;
-
-								}
-
-								string entityMesh = entityElement->GetText();
-
-								entityElement = (TiXmlElement*) entityNode->FirstChild("material");
-
-								if (!entityElement){
-
-									cerr << "ERROR: Entities must have a material!" << endl;
-									continue;
-
-								}
-
-								string entityMaterial = entityElement->GetText();
-
-								Ogre::Entity *entity = sceneManager->createEntity(entityName, entityMesh);
-								//entity->setMaterialName(entityMaterial);
-
-							}
-
-						} else {
-
-							cerr << "WARNING: There aren't any entites in the scene... This is going to be a pretty boring video game." << endl;
-
-						}
                   
 						//nodes in the tree
 						TiXmlNode *nodeTree = scenes->FirstChild("nodes");
@@ -772,13 +658,54 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 		} else if (nodeType == "scene"){
 
 			//nodes can have a scale, translate, rotation, and/or entity
-			nodeElement = (TiXmlElement*) nodeNode->FirstChild("entity");
+			TiXmlNode *entityTree = nodeNode->FirstChild("entity");
 
-			if (nodeElement){
+			if (entityTree){
 
-				string entityName = nodeElement->GetText();
-				Ogre::Entity *entity = sceneManager->getEntity(entityName);
-				sceneNode->attachObject(entity);
+				//entites have a name, mesh, and material
+				string entityName, entityMesh, entityMaterial;
+				nodeElement = (TiXmlElement*) entityTree->FirstChild("name");
+
+				if (nodeElement){
+
+					entityName = nodeElement->GetText();
+
+				} else {
+
+					cerr << "ERROR: Entities must have names!" << endl;
+					exit(EXIT_FAILURE);
+
+				}
+
+				nodeElement = (TiXmlElement*) entityTree->FirstChild("mesh");
+
+				if (entityTree){
+
+					entityMesh = nodeElement->GetText();
+
+				} else {
+
+					cerr << "ERROR: Entities must have a mesh" << endl;
+					exit(EXIT_FAILURE);
+
+				}
+
+				nodeElement = (TiXmlElement*) entityTree->FirstChild("material");
+
+				if (nodeElement){
+
+					entityMaterial = nodeElement->GetText();
+
+				} else {
+
+					cerr << "ERROR: Entities must have materials!" << endl;
+					exit(EXIT_FAILURE);
+
+				}
+
+				Ogre::Entity *entity = sceneManager->createEntity(entityName, entityMesh);
+				entity->setMaterialName(entityMaterial);
+
 			}
 
 			nodeElement = (TiXmlElement*) nodeNode->FirstChild("scale");
