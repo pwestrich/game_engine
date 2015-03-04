@@ -8,6 +8,8 @@ using namespace std;
 
 //forward-declare the other managers
 class RenderManager;
+class LogManager;
+class ResourceManager;
 
 class GameManager {
 
@@ -15,13 +17,15 @@ private:
 
 	//keep a copy of every manager
 	RenderManager *renderManager;
+	LogManager *logManager;
+	ResourceManager *resourceManager;
 
 	//only one copy at a time is allowed
 	GameManager();
 
 public:
 
-	virtual ~GameManager();
+	~GameManager();
 
 	//return a pointer to the game manager
 	static GameManager *getGameManager();
@@ -34,6 +38,12 @@ public:
 
 	void startRendering();
 	void stopRendering();
+
+	//methods to log things
+	void logInfo(const string &message);
+	void logWarn(const string &message);
+	void logDebug(const string &message);
+	void logFatal(const string &message);
 
 };
 
