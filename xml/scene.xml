@@ -24,7 +24,7 @@
 			<node>
 				<name>ground_entity</name>
 				<type>scene</type>
-				<scale>30,0,30</scale>
+				<scale>100,0,100</scale>
 				<entity>
 					<name>ground</name>
 					<mesh>ground.mesh</mesh>
@@ -36,8 +36,8 @@
 				<type>animation</type>
 				<animationName>truck_animation</animationName>
 				<length>4</length>
-				<enabled>true</enabled>
-				<loop>true</loop>
+				<enabled>false</enabled>
+				<loop>false</loop>
 				<keyFrames>
 					<key>
 						<time>0</time>

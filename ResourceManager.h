@@ -4,6 +4,9 @@
 
 #include <string>
 
+#include "Ogre.h"		//need to know about Ogre's resource manager
+#include "tinyxml.h"	//to read in from XML
+
 using namespace std;
 
 class GameManager;
@@ -12,7 +15,11 @@ class ResourceManager {
 
 private:
 
+	//reference to the game manager for communication
 	GameManager *gameManager;
+
+	//the currently loaded group
+	string groupLoaded;
 
 public:
 
@@ -20,7 +27,10 @@ public:
 	~ResourceManager();
 
 	//loads resources from the given XML files
-	void loadResourcesFromXML(const string &filename);
+	void loadResourcesFromXML(const string &filename, const string &group_name);
+
+	//unloads the currently loaded group
+	void unloadResources();
 
 };
 

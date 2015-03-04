@@ -31,12 +31,6 @@ GameManager *GameManager::getGameManager(){
 
 }
 
-void GameManager::loadResourcesFromXML(const string &filename, const string &group){
-
-	renderManager->loadResourcesFromXML(filename, group);
-
-}
-
 void GameManager::buildSceneFromXML(const string &filename, const string &group){
 
 	renderManager->buildSceneFromXML(filename, group);
@@ -83,5 +77,19 @@ void GameManager::logDebug(const string &message){
 void GameManager::logFatal(const string &message){
 
 	logManager->logFatal(message);
+
+}
+
+//resource manager methods ------------------------------------------------------------------------
+void GameManager::loadResourcesFromXML(const string &filename, const string &group){
+
+	//render manager still does this for now
+	resourceManager->loadResourcesFromXML(filename, group);
+
+}
+
+void GameManager::unloadResources(){
+
+	resourceManager->unloadResources();
 
 }

@@ -31,9 +31,7 @@ public:
 	static GameManager *getGameManager();
 
 	//methods to make the RenderManager do things
-	void loadResourcesFromXML(const std::string &filename, const std::string &group);
 	void buildSceneFromXML(const std::string &filename, const std::string &group);
-
 	void buildSceneManually();
 
 	void startRendering();
@@ -44,6 +42,10 @@ public:
 	void logWarn(const string &message);
 	void logDebug(const string &message);
 	void logFatal(const string &message);
+
+	//methods to make the ResourceManager do things
+	void loadResourcesFromXML(const std::string &filename, const std::string &group);
+	void unloadResources();
 
 };
 

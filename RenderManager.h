@@ -28,8 +28,6 @@ private:
    size_t windowHandle;
    Ogre::Real frameTimeElapsed;
 
-   std::string groupLoaded;
-
    vector<Ogre::AnimationState*> animationStates;
 
    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
@@ -51,17 +49,12 @@ public:
 	void setTimeSinceLastFrame(Ogre::Real timeElapsed);
 
 	//and actions
-
-   void processAnimations(const float timeStep);
+    void processAnimations(const float timeStep);
 
 	void startRendering();
 	void stopRendering();
 
-	void loadResourcesFromXML(const std::string &filename, const std::string &group_name);
 	void buildSceneFromXML(const std::string &filename, const string &sceneName);
-
-	void unloadResources();
-
 	void buildSceneManually();
 
 };
