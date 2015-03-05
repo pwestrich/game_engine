@@ -13,6 +13,8 @@ int main(int argc, char **argv){
 	manager->buildSceneFromXML("./xml/scene.xml", "0");
 	//manager->buildSceneManually();
 	manager->startRendering();
+
+	delete manager;
 	
 	return 0;
 

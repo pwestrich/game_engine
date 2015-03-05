@@ -17,6 +17,8 @@ GameManager::GameManager(){
 
 GameManager::~GameManager(){
 
+	unloadResources();
+
 	//delete everything
 	delete resourceManager;
 	delete renderManager;
