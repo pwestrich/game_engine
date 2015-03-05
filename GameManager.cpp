@@ -43,6 +43,35 @@ void GameManager::buildSceneManually(){
 
 }
 
+void GameManager::addPathResource(const string &path, const string &pathType, const string &group){
+
+	renderManager->addPathResource(path, pathType, group);
+
+}
+void GameManager::addMeshResource(const string &mesh, const string &type, const string &group){
+
+	renderManager->addMeshResource(mesh, type, group);
+
+}
+
+void GameManager::initResourceGroup(const string &group){
+
+	renderManager->initResourceGroup(group);
+
+}
+
+void GameManager::loadResourceGroup(const string &group){
+
+	renderManager->loadResourceGroup(group);
+
+}
+
+void GameManager::unloadResourceGroup(const string &group){
+
+	renderManager->unloadResourceGroup(group);
+
+}
+
 void GameManager::startRendering(){
 
 	renderManager->startRendering();

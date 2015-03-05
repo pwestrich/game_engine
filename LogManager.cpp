@@ -4,7 +4,7 @@
 
 using namespace std;
 
-LogManager::LogManager(GameManager *gm) : LogManager(gm, "game.log", LOG_WARN){}
+LogManager::LogManager(GameManager *gm) : LogManager(gm, "game.log", LOG_ALL){}
 
 LogManager::LogManager(GameManager *gm, const string &filename, LogLevel level){
 
@@ -42,8 +42,12 @@ void LogManager::log(const string &message){
 void LogManager::log(const string &message, LogLevel level){
 
 	//just log everything for noe without any logic
-	clog << message << endl;
-	outFile << message << endl;
+	if (level >= currentLevel){
+
+		clog << getCurrentTimeString() << " : " << message << endl;
+		outFile << getCurrentTimeString() << " : " << message << endl;
+
+	}
 
 }
 
@@ -69,5 +73,20 @@ void LogManager::logFatal(const string &message){
 
 	log(message, LOG_FATAL);
 	exit(EXIT_FAILURE);
+
+}
+
+char *LogManager::getCurrentTimeString(){
+
+	char *buffer = new char[128];
+	time_t rawTime;
+	struct tm *timeInfo;
+
+	time(&rawTime);
+	timeInfo = localtime(&rawTime);
+
+	strftime(buffer, 128, "%Y/%m/%d %H:%M:%S", timeInfo);
+
+	return buffer;
 
 }

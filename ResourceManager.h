@@ -4,7 +4,6 @@
 
 #include <string>
 
-#include "Ogre.h"		//need to know about Ogre's resource manager
 #include "tinyxml.h"	//to read in from XML
 
 using namespace std;

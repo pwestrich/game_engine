@@ -34,6 +34,13 @@ public:
 	void buildSceneFromXML(const std::string &filename, const std::string &group);
 	void buildSceneManually();
 
+	void addPathResource(const string &path, const string &pathType, const string &group);
+	void addMeshResource(const string &mesh, const string &type, const string &group);
+
+	void initResourceGroup(const string &group);
+	void loadResourceGroup(const string &group);
+	void unloadResourceGroup(const string &group);
+
 	void startRendering();
 	void stopRendering();
 

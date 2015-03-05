@@ -3,13 +3,15 @@
 #define LOG_MANAGER
 
 #include <cstdlib>
+#include <ctime>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 
 using namespace std;
 
-enum LogLevel {LOG_DEBUG, LOG_WARN, LOG_INFO, LOG_FATAL};
+enum LogLevel {LOG_ALL, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_FATAL};
 
 class GameManager;
 
@@ -25,6 +27,8 @@ private:
 
 	//current logging level
 	LogLevel currentLevel;
+
+	char *getCurrentTimeString();
 
 public:
 
