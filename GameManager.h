@@ -48,7 +48,7 @@ public:
 	void logInfo(const string &message);
 	void logWarn(const string &message);
 	void logDebug(const string &message);
-	void logFatal(const string &message);
+	void logFatal(const string &message, const int line, const char *file);
 
 	//methods to make the ResourceManager do things
 	void loadResourcesFromXML(const std::string &filename, const std::string &group);

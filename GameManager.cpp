@@ -105,9 +105,9 @@ void GameManager::logDebug(const string &message){
 
 }
 
-void GameManager::logFatal(const string &message){
+void GameManager::logFatal(const string &message, const int line, const char *file){
 
-	logManager->logFatal(message);
+	logManager->logFatal(message, line, file);
 
 }
 

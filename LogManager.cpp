@@ -44,8 +44,32 @@ void LogManager::log(const string &message, LogLevel level){
 	//just log everything for noe without any logic
 	if (level >= currentLevel){
 
-		clog << getCurrentTimeString() << " : " << message << endl;
-		outFile << getCurrentTimeString() << " : " << message << endl;
+		clog << getCurrentTimeString();
+		outFile << getCurrentTimeString();
+
+		switch (level){
+
+			case LOG_INFO:
+
+				clog << ": INFO: ";
+				outFile << ": INFO: ";
+				break;
+
+			case LOG_WARN:
+
+				clog << ": WARNING: ";
+				outFile << ": WARNING: ";
+				break;
+
+			case LOG_DEBUG:
+
+				clog << ": DEBUG INFO: ";
+				outFile << ": DEBUG INFO: ";
+				break;
+		}
+
+		clog << message << endl;
+		outFile << message << endl;
 
 	}
 
@@ -69,9 +93,11 @@ void LogManager::logDebug(const string &message){
 
 }
 
-void LogManager::logFatal(const string &message){
+void LogManager::logFatal(const string &message, const int line, const char *file){
 
-	log(message, LOG_FATAL);
+	clog << "FATAL ERROR at " << file << ":" << line << ": " << message << endl;
+	outFile << "FATAL ERROR at " << file << ":" << line << ": " << message << endl;
+	outFile.close();
 	exit(EXIT_FAILURE);
 
 }

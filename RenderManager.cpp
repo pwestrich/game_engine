@@ -17,6 +17,8 @@ RenderManager::RenderManager(GameManager *gman){
 
 	gameManager = gman;
 
+	gameManager->logInfo("Creating RenderManager...");
+
 	//start creating ogre stuff
 	root = NULL;
 	window = NULL;
@@ -31,7 +33,7 @@ RenderManager::RenderManager(GameManager *gman){
 
 		if (!renderer){
 
-			gameManager->logFatal("Error: OpenGL not avalible.");
+			gameManager->logFatal("Error: OpenGL not avalible.", __LINE__, __FILE__);
 
 		}
 
@@ -49,9 +51,11 @@ RenderManager::RenderManager(GameManager *gman){
 
 	} catch (Ogre::Exception &it){
 
-		gameManager->logFatal("Exception while creating RenderManager");
+		gameManager->logFatal("Exception while creating RenderManager", __LINE__, __FILE__);
 
 	}
+
+	gameManager->logInfo("RenderManager initialized successfully!");
 
 }
 
@@ -157,6 +161,7 @@ void RenderManager::processAnimations(const float timeStep){
 
 void RenderManager::startRendering(){
 
+	gameManager->logInfo("Starting renderer...");
 	root->startRendering();
 
 }
@@ -168,6 +173,8 @@ void RenderManager::stopRendering(){
 }
 
 void RenderManager::buildSceneFromXML(const std::string &filename, const string &sceneName){
+
+	gameManager->logInfo("Building scene...");
 
 	//first, try to open the file
 	TiXmlDocument file(filename.c_str());
@@ -208,7 +215,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else {
 
-									gameManager->logFatal("ERROR: Cameras must have names!");
+									gameManager->logFatal("ERROR: Cameras must have names!", __LINE__, __FILE__);
 
 								}
 
@@ -225,7 +232,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else {
 
-									gameManager->logFatal("ERROR: Cameras must have a position!");
+									gameManager->logFatal("ERROR: Cameras must have a position!", __LINE__, __FILE__);
 
 								}
 
@@ -239,7 +246,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else {
 
-									gameManager->logFatal("ERROR: Cameras must look somewhere!");
+									gameManager->logFatal("ERROR: Cameras must look somewhere!", __LINE__, __FILE__);
 
 								}
 
@@ -256,7 +263,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else {
 
-									gameManager->logFatal("ERROR: Camseas must ahve a clipping distance!");
+									gameManager->logFatal("ERROR: Camseas must ahve a clipping distance!", __LINE__, __FILE__);
 
 								}
 
@@ -295,7 +302,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								if (!item) {
 
-									gameManager->logFatal("ERROR: Every light must have a type!");
+									gameManager->logFatal("ERROR: Every light must have a type!", __LINE__, __FILE__);
 
 								}
 
@@ -308,7 +315,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!color){
 
-										gameManager->logFatal("ERROR: Ambient light must have a color!");
+										gameManager->logFatal("ERROR: Ambient light must have a color!", __LINE__, __FILE__);
 
 									}
 
@@ -322,7 +329,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!name){
 
-										gameManager->logFatal("ERROR: Light sources must have names!");
+										gameManager->logFatal("ERROR: Light sources must have names!", __LINE__, __FILE__);
 
 									}
 
@@ -333,7 +340,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!dColor){
 
-										gameManager->logFatal("ERROR: Lights need a diffuse color!");
+										gameManager->logFatal("ERROR: Lights need a diffuse color!", __LINE__, __FILE__);
 
 									}
 
@@ -345,7 +352,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!dColor){
 
-										gameManager->logFatal("ERROR: Lights must have a specular color!");
+										gameManager->logFatal("ERROR: Lights must have a specular color!", __LINE__, __FILE__);
 
 									}
 
@@ -356,7 +363,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!direction){
 
-										gameManager->logFatal("ERROR: Directional lights need a direction!");
+										gameManager->logFatal("ERROR: Directional lights need a direction!", __LINE__, __FILE__);
 
 									}
 
@@ -369,7 +376,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!name){
 
-										gameManager->logFatal("ERROR: Light sources must have names!");
+										gameManager->logFatal("ERROR: Light sources must have names!", __LINE__, __FILE__);
 
 									}
 
@@ -380,7 +387,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!dColor){
 
-										gameManager->logFatal("ERROR: Lights need a diffuse color!");
+										gameManager->logFatal("ERROR: Lights need a diffuse color!", __LINE__, __FILE__);
 
 									}
 
@@ -392,7 +399,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!dColor){
 
-										gameManager->logFatal("ERROR: Lights must have a specular color!");
+										gameManager->logFatal("ERROR: Lights must have a specular color!", __LINE__, __FILE__);
 
 									}
 
@@ -403,7 +410,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!location){
 
-										gameManager->logFatal("ERROR: Point lights need a location!");
+										gameManager->logFatal("ERROR: Point lights need a location!", __LINE__, __FILE__);
 
 									}
 
@@ -416,7 +423,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!name){
 
-										gameManager->logFatal("ERROR: Light sources must have names!");
+										gameManager->logFatal("ERROR: Light sources must have names!", __LINE__, __FILE__);
 
 									}
 
@@ -427,7 +434,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!dColor){
 
-										gameManager->logFatal("ERROR: Lights need a diffuse color!");
+										gameManager->logFatal("ERROR: Lights need a diffuse color!", __LINE__, __FILE__);
 
 									}
 
@@ -439,7 +446,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!dColor){
 
-										gameManager->logFatal("ERROR: Lights must have a specular color!");
+										gameManager->logFatal("ERROR: Lights must have a specular color!", __LINE__, __FILE__);
 
 									}
 
@@ -450,7 +457,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!direction){
 
-										gameManager->logFatal("ERROR: Spotlights need a direction!");
+										gameManager->logFatal("ERROR: Spotlights need a direction!", __LINE__, __FILE__);
 
 									}
 
@@ -461,7 +468,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!location){
 
-										gameManager->logFatal("ERROR: Spotlights need a location!");
+										gameManager->logFatal("ERROR: Spotlights need a location!", __LINE__, __FILE__);
 
 									}
 
@@ -472,7 +479,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 									if (!range){
 
-										gameManager->logFatal("ERROR: Spotslights need a range!");
+										gameManager->logFatal("ERROR: Spotslights need a range!", __LINE__, __FILE__);
 
 									}
 
@@ -481,7 +488,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else {
 
-									gameManager->logFatal("ERROR: Invalid light type");
+									gameManager->logFatal("ERROR: Invalid light type", __LINE__, __FILE__);
 
 								}
 
@@ -511,7 +518,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 				} else {
 
-					gameManager->logFatal("Error parsing XML document.");
+					gameManager->logFatal("Error parsing XML document.", __LINE__, __FILE__);
 
 				}
 
@@ -519,15 +526,17 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 		} else {
 
-			gameManager->logFatal("Error: Invalid configuration format.");
+			gameManager->logFatal("Error: Invalid configuration format.", __LINE__, __FILE__);
 
 		}
 
 	} else {
 
-		gameManager->logFatal("Error: Invalid scene file.");
+		gameManager->logFatal("Error: Invalid scene file.", __LINE__, __FILE__);
 
 	}
+
+	gameManager->logInfo("Scene build successfully!");
 
 }
 
@@ -549,7 +558,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 		if (!nodeElement){
 
-			gameManager->logFatal("ERROR: Nodes must have a name!");
+			gameManager->logFatal("ERROR: Nodes must have a name!", __LINE__, __FILE__);
 
 		}
 
@@ -559,7 +568,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 		if (!nodeElement) {
 
-			gameManager->logFatal("ERROR: Nodes must have a type!");
+			gameManager->logFatal("ERROR: Nodes must have a type!", __LINE__, __FILE__);
 
 		}
 
@@ -587,7 +596,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				} else {
 
-					gameManager->logFatal("ERROR: Entities must have names!");
+					gameManager->logFatal("ERROR: Entities must have names!", __LINE__, __FILE__);
 					exit(EXIT_FAILURE);
 
 				}
@@ -600,7 +609,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				} else {
 
-					gameManager->logFatal("ERROR: Entities must have a mesh!");
+					gameManager->logFatal("ERROR: Entities must have a mesh!", __LINE__, __FILE__);
 					exit(EXIT_FAILURE);
 
 				}
@@ -613,7 +622,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				} else {
 
-					gameManager->logFatal("ERROR: Entities must have materials!");
+					gameManager->logFatal("ERROR: Entities must have materials!", __LINE__, __FILE__);
 					exit(EXIT_FAILURE);
 
 				}
@@ -670,7 +679,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 		} else {
 
-			gameManager->logFatal("ERROR: Invalid node type for node.");
+			gameManager->logFatal("ERROR: Invalid node type for node.", __LINE__, __FILE__);
 		}
 
 		TiXmlNode *childTree = nodeNode->FirstChild("children");
@@ -700,7 +709,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
    } else {
 
-      gameManager->logFatal("ERROR: No length specified in animation!");
+      gameManager->logFatal("ERROR: No length specified in animation!", __LINE__, __FILE__);
 
    }
 
@@ -733,7 +742,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
          if (!nodeElement){
 
-            gameManager->logFatal("ERROR: Key frame has no time set!");
+            gameManager->logFatal("ERROR: Key frame has no time set!", __LINE__, __FILE__);
 
          }
 
@@ -804,7 +813,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
    } else {
 
-      gameManager->logFatal("ERROR: No key frames specified for this animation node!");
+      gameManager->logFatal("ERROR: No key frames specified for this animation node!", __LINE__, __FILE__);
 
    }
 
