@@ -2,21 +2,31 @@
 #ifndef INPUT_LISTENER
 #define INPUT_LISTENER
 
+#include <cstdint>
+
+using namespace std;
+
+//enumerations for the input actions
+enum KeyboardKey : uint32_t {KB_INVALID, KB_ESC};
+enum MouseButton : uint32_t {M_INVALID, M_LEFT, M_RIGHT, M_MIDDLE, M_SCROLL_UP, M_SCROLL_DOWN};
+enum JoystickAxis : uint32_t {JA_INVALID};
+enum JoystickButton : uint32_t {JB_INVALID};
+
 class InputListener {
 
 public:
 
 	virtual ~InputListener(){};
 
-	virtual void keyPressed() = 0;
-	virtual void keyReleased() = 0;
+	virtual void keyPressed(const KeyboardKey key) = 0;
+	virtual void keyReleased(const KeyboardKey key) = 0;
 
-	virtual void mouseMoved() = 0;
-	virtual void mousePressed() = 0;
-	virtual void mouseReleased() = 0;
+	virtual void mouseMoved(const uint32_t x, const uint32_t y, const uint32_t dx, const uint32_t dy) = 0;
+	virtual void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button) = 0;
+	virtual void mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button) = 0;
 
-	virtual void joystickAxisMoved() = 0;
-	virtual void joystickButtonPressed() = 0;
+	virtual void joystickAxisMoved(const JoystickAxis axis, const uint32_t amount) = 0;
+	virtual void joystickButtonPressed(const JoystickButton button) = 0;
 
 };
 

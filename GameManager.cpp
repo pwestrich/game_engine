@@ -3,6 +3,7 @@
 #include "LogManager.h"
 #include "RenderManager.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ GameManager::GameManager(){
 	logManager = new LogManager(this);
 	renderManager = new RenderManager(this);
 	resourceManager = new ResourceManager(this);
+	inputManager = new InputManager(this);
 
 }
 
@@ -20,6 +22,7 @@ GameManager::~GameManager(){
 	unloadResources();
 
 	//delete everything
+	delete inputManager;
 	delete resourceManager;
 	delete renderManager;
 	delete logManager;
@@ -34,19 +37,33 @@ GameManager *GameManager::getGameManager(){
 }
 
 //InputListener functions -------------------------------------------------------------------------
-void GameManager::keyPressed(){}
+void GameManager::keyPressed(const KeyboardKey key){
 
-void GameManager::keyReleased(){}
+	if (key == KB_ESC){
 
-void GameManager::mouseMoved(){}
+		renderManager->stopRendering();
 
-void GameManager::mousePressed(){}
+	}
 
-void GameManager::mouseReleased(){}
+}
 
-void GameManager::joystickAxisMoved(){}
+void GameManager::keyReleased(const KeyboardKey key){}
 
-void GameManager::joystickButtonPressed(){}
+void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const uint32_t dx, const uint32_t dy){}
+
+void GameManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){}
+
+void GameManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){}
+
+void GameManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount){}
+
+void GameManager::joystickButtonPressed(const JoystickButton button){}
+
+void GameManager::checkForInput(const float timeStep){
+
+	inputManager->checkForInput(timeStep);
+
+}
 
 //RenderManager methods ---------------------------------------------------------------------------
 void GameManager::buildSceneFromXML(const string &filename, const string &group){

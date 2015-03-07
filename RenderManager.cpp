@@ -1,7 +1,7 @@
 
 #include "GameManager.h"
 #include "RenderManager.h"
-#include "AnimationRenderListener.h"
+#include "RenderListener.h"
 
 using namespace Ogre;
 
@@ -23,6 +23,7 @@ RenderManager::RenderManager(GameManager *gman){
 	root = NULL;
 	window = NULL;
 	sceneManager = NULL;
+	camera = NULL;
 
 	try {
 
@@ -46,7 +47,8 @@ RenderManager::RenderManager(GameManager *gman){
      	window = root->initialise(true, "CSC 4903: Game Engine Programming");
     	window->getCustomAttribute("WINDOW", &windowHandle);
 
-     	renderListener = new AnimationRenderListener(this);
+    	//set a render listener, only one at a time
+     	renderListener = new RenderListener(this);
       	root->addFrameListener(renderListener);
 
 	} catch (Ogre::Exception &it){
@@ -166,6 +168,12 @@ void RenderManager::processAnimations(const float timeStep){
 
 }
 
+void RenderManager::checkForInput(const float timeStep){
+
+	gameManager->checkForInput(timeStep);
+
+}
+
 void RenderManager::startRendering(){
 
 	gameManager->logInfo("Starting renderer...");
@@ -215,6 +223,8 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							//build every camera
 							for (TiXmlNode *cameraItem = cameraTree->FirstChild("camera"); cameraItem; cameraItem = cameraItem->NextSibling()){
 
+								if (camera) break; //only allow one camera for the moment
+
 								//name, lookAt, location, viewport
 								TiXmlElement *cameraElement = (TiXmlElement*) cameraItem->FirstChild("name");
 								string cameraName;
@@ -229,7 +239,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								}
 
-								Ogre::Camera *camera = sceneManager->createCamera(cameraName);
+								camera = sceneManager->createCamera(cameraName);
 								float values[] = {0.0,0.0,0.0,0.0,0.0,0.0};
 
 								cameraElement = (TiXmlElement*) cameraItem->FirstChild("location");

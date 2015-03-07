@@ -21,18 +21,29 @@ bool RenderListener::getRenderStatus(){
 
 }
 
-RenderManager *RenderListener::getRenderManager(){
-
-	return renderManager;
-
-}
-
 void RenderListener::stopRendering(){
 
 	render = false;
 
 }
 
-bool RenderListener::frameStarted(const Ogre::FrameEvent &event){}
-bool RenderListener::frameRenderingQueued(const Ogre::FrameEvent &event){}
-bool RenderListener::frameEnded(const Ogre::FrameEvent &event){}
+//called as a new frame begins
+bool RenderListener::frameStarted(const Ogre::FrameEvent &event){
+
+	//calculate time since last frame
+	float timeStep = event.timeSinceLastFrame;
+
+	//check for input and advance any animations
+	renderManager->checkForInput(timeStep);
+	renderManager->processAnimations(timeStep);
+
+	//return this so we keep rendering
+	return render;
+
+}
+
+//called after the back buffer is flipped and the scene is presented to the display
+bool RenderListener::frameRenderingQueued(const Ogre::FrameEvent &event){ return render; }
+
+//called after the scene has rendered but before the back buffer is drawn
+bool RenderListener::frameEnded(const Ogre::FrameEvent &event){ return render; }

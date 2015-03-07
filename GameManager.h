@@ -2,6 +2,7 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#include <cassert>
 #include <string>
 
 #include "InputListener.h"
@@ -12,6 +13,7 @@ using namespace std;
 class RenderManager;
 class LogManager;
 class ResourceManager;
+class InputManager;
 
 class GameManager : public InputListener {
 
@@ -21,6 +23,7 @@ private:
 	RenderManager *renderManager;
 	LogManager *logManager;
 	ResourceManager *resourceManager;
+	InputManager *inputManager;
 
 	//only one copy at a time is allowed
 	GameManager();
@@ -33,15 +36,18 @@ public:
 	static GameManager *getGameManager();
 
 	//methods to be an input listnener
-	void keyPressed();
-	void keyReleased();
+	void keyPressed(const KeyboardKey key);
+	void keyReleased(const KeyboardKey key);
 
-	void mouseMoved();
-	void mousePressed();
-	void mouseReleased();
+	void mouseMoved(const uint32_t x, const uint32_t y, const uint32_t dx, const uint32_t dy);
+	void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button);
+	void mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button);
 
-	void joystickAxisMoved();
-	void joystickButtonPressed();
+	void joystickAxisMoved(const JoystickAxis axis, const uint32_t amount);
+	void joystickButtonPressed(const JoystickButton button);
+
+	//InputManager methods
+	void checkForInput(const float timeStep);
 
 	//methods to make the RenderManager do things
 	void buildSceneFromXML(const std::string &filename, const std::string &group);

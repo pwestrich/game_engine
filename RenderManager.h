@@ -25,6 +25,8 @@ private:
 	Ogre::RenderWindow *window;
     Ogre::SceneManager* sceneManager;
 
+    Ogre::Camera *camera;
+
     size_t windowHandle;
     Ogre::Real frameTimeElapsed;
 
@@ -58,6 +60,7 @@ public:
 
 	//and actions
     void processAnimations(const float timeStep);
+    void checkForInput(const float timeStep);
 
 	void startRendering();
 	void stopRendering();

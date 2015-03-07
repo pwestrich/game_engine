@@ -1,9 +1,7 @@
 
-#include <cassert>
 #include <sstream>
 
 #include "InputManager.h"
-#include "InputListener.h"
 #include "GameManager.h"
 
 using namespace std;
@@ -19,6 +17,8 @@ InputManager::InputManager(GameManager *gman){
 	keyboard = NULL;
 	mouse = NULL;
 	joystick = NULL;
+
+	gameManager->logInfo("Detecting input devices...");
 
 	//try to get OIS to do things
 	try {
@@ -83,7 +83,7 @@ void InputManager::addListener(InputListener *newListener){
 
 }
 
-void InputManager::checkForInput(float time_step){
+void InputManager::checkForInput(const float time_step){
 
 	if (keyboard){
 
@@ -106,7 +106,18 @@ void InputManager::checkForInput(float time_step){
 }
 
 //key listener methods
-bool InputManager::keyPressed(const OIS::KeyEvent& e){ return true; }
+bool InputManager::keyPressed(const OIS::KeyEvent& e){
+
+	for (size_t i = 0; i < listeners.size(); ++i){
+
+		listeners[i]->keyPressed(keyMap(e));
+
+	}
+
+	return true;
+
+}
+
 bool InputManager::keyReleased(const OIS::KeyEvent& e){ return true; }
 
 //mouse listener methods
@@ -123,3 +134,20 @@ bool InputManager::axisMoved (const OIS::JoyStickEvent &arg, int axis){ return t
 bool InputManager::sliderMoved (const OIS::JoyStickEvent &, int index){ return true; }
 bool InputManager::povMoved (const OIS::JoyStickEvent &arg, int index){ return true; }
 bool InputManager::vector3Moved (const OIS::JoyStickEvent &arg, int index){ return true; }
+
+//private methods below here ----------------------------------------------------------------------
+KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
+
+	KeyboardKey key = KB_INVALID;
+	OIS::KeyCode kc = event.key;
+
+	//map keys to our system
+	if (kc == OIS::KC_ESCAPE){
+
+		key = KB_ESC;
+
+	}
+
+	return key;
+
+}

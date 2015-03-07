@@ -15,21 +15,17 @@ private:
 	RenderManager *renderManager;
 	bool render;
 
-protected:
-
-	RenderManager *getRenderManager();
-
 public:
 
 	RenderListener(RenderManager *rm);
-	~RenderListener();
+	virtual ~RenderListener();
+
+	bool getRenderStatus();
+	void stopRendering();
 
 	virtual bool frameStarted(const Ogre::FrameEvent &event);
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent &event);
 	virtual bool frameEnded(const Ogre::FrameEvent &event);
-
-	bool getRenderStatus();
-	void stopRendering();
 
 };
 

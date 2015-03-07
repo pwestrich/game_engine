@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "OIS.h"
+#include "InputListener.h"
 
 using namespace std;
 
@@ -29,6 +30,8 @@ private:
 	OIS::Mouse *mouse;
 	OIS::JoyStick *joystick;
 
+	//function to map keys
+	KeyboardKey keyMap(const OIS::KeyEvent &event);
 
 public:
 
@@ -36,7 +39,7 @@ public:
 	virtual ~InputManager();
 
 	void addListener(InputListener *newListener);
-	void checkForInput(float time_step);
+	void checkForInput(const float time_step);
 
     //key listener methods
     bool keyPressed(const OIS::KeyEvent& e);
