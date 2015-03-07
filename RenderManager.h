@@ -19,19 +19,19 @@ private:
 	//keep a copy of the game manager
 	GameManager *gameManager;
 
-   RenderListener *renderListener;
+    RenderListener *renderListener;
 
 	Ogre::Root *root;
 	Ogre::RenderWindow *window;
-   Ogre::SceneManager* sceneManager;
+    Ogre::SceneManager* sceneManager;
 
-   size_t windowHandle;
-   Ogre::Real frameTimeElapsed;
+    size_t windowHandle;
+    Ogre::Real frameTimeElapsed;
 
-   vector<Ogre::AnimationState*> animationStates;
+    vector<Ogre::AnimationState*> animationStates;
 
-   void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
-   void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
+    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
+    void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
 
 public:
 

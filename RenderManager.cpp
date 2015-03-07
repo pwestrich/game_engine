@@ -67,11 +67,18 @@ RenderManager::~RenderManager(){
 	gameManager->unloadResources();
 
 	//clear the scene
-	sceneManager->destroyAllCameras();
-	sceneManager->clearScene();
+	if (sceneManager){
 
-	window->removeAllViewports();
-	window->destroy();
+		sceneManager->destroyAllCameras();
+		sceneManager->clearScene();
+	}
+
+	if (window){
+
+		window->removeAllViewports();
+		window->destroy();
+
+	}
 
 	//this also sometimes crashes the game on quit
 	/*if (root){
@@ -168,7 +175,10 @@ void RenderManager::startRendering(){
 
 void RenderManager::stopRendering(){
 
-   renderListener->stopRendering();
+	if (renderListener){
+
+   		renderListener->stopRendering();
+   	}
 
 }
 

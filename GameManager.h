@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "InputListener.h"
+
 using namespace std;
 
 //forward-declare the other managers
@@ -11,7 +13,7 @@ class RenderManager;
 class LogManager;
 class ResourceManager;
 
-class GameManager {
+class GameManager : public InputListener {
 
 private:
 
@@ -25,10 +27,21 @@ private:
 
 public:
 
-	~GameManager();
+	virtual ~GameManager();
 
 	//return a pointer to the game manager
 	static GameManager *getGameManager();
+
+	//methods to be an input listnener
+	void keyPressed();
+	void keyReleased();
+
+	void mouseMoved();
+	void mousePressed();
+	void mouseReleased();
+
+	void joystickAxisMoved();
+	void joystickButtonPressed();
 
 	//methods to make the RenderManager do things
 	void buildSceneFromXML(const std::string &filename, const std::string &group);
@@ -43,6 +56,8 @@ public:
 
 	void startRendering();
 	void stopRendering();
+
+	size_t getWindowHandle();
 
 	//methods to log things
 	void logInfo(const string &message);

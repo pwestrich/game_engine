@@ -33,6 +33,22 @@ GameManager *GameManager::getGameManager(){
 
 }
 
+//InputListener functions -------------------------------------------------------------------------
+void GameManager::keyPressed(){}
+
+void GameManager::keyReleased(){}
+
+void GameManager::mouseMoved(){}
+
+void GameManager::mousePressed(){}
+
+void GameManager::mouseReleased(){}
+
+void GameManager::joystickAxisMoved(){}
+
+void GameManager::joystickButtonPressed(){}
+
+//RenderManager methods ---------------------------------------------------------------------------
 void GameManager::buildSceneFromXML(const string &filename, const string &group){
 
 	renderManager->buildSceneFromXML(filename, group);
@@ -83,6 +99,12 @@ void GameManager::startRendering(){
 void GameManager::stopRendering(){
 
 	renderManager->stopRendering();
+
+}
+
+size_t GameManager::getWindowHandle(){
+
+	return renderManager->getRenderWindowHandle();
 
 }
 
