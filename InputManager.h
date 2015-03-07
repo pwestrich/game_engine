@@ -30,6 +30,11 @@ private:
 	OIS::Mouse *mouse;
 	OIS::JoyStick *joystick;
 
+	//window information
+	size_t windowHandle;
+	size_t windowWidth;
+	size_t windowHeight;
+
 	//function to map keys
 	KeyboardKey keyMap(const OIS::KeyEvent &event);
 

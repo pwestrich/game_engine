@@ -16,6 +16,11 @@ class RenderManager {
 
 private:
 
+    //axis vectors
+    static Ogre::Vector3 xAxis;
+    static Ogre::Vector3 yAxis;
+    static Ogre::Vector3 zAxis;
+
 	//keep a copy of the game manager
 	GameManager *gameManager;
     RenderListener *renderListener;
@@ -25,6 +30,7 @@ private:
     Ogre::SceneManager* sceneManager;
 
     Ogre::Camera *camera;
+    Ogre::Viewport *viewport;
 
     size_t windowHandle;
     Ogre::Real frameTimeElapsed;
@@ -40,8 +46,10 @@ public:
 	RenderManager(GameManager *gman);
 	~RenderManager();
 
-	//a ton of getter methods
+	//a few getter methods
 	size_t getRenderWindowHandle();
+	size_t getWindowWidth();
+	size_t getWindowHeight();
 
 	Ogre::RenderWindow *getRenderWindow();
 	Ogre::SceneManager *getSceneManager();
@@ -66,6 +74,9 @@ public:
 
 	void buildSceneFromXML(const std::string &filename, const string &sceneName);
 	void buildSceneManually();
+
+	//methods to alter the scene based on input
+	void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy);
 
 };
 

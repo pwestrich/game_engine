@@ -1,4 +1,5 @@
 
+#include <cmath>
 #include <sstream>
 
 #include "InputManager.h"
@@ -13,6 +14,10 @@ InputManager::InputManager(GameManager *gman){
 	listeners.reserve(8);
 	listeners.push_back(gameManager);
 
+	windowHandle = gameManager->getWindowHandle();
+	/*windowWidth = gameManager->getWindowWidth();
+	windowHeight = gameManager->getWindowHeight();*/
+
 	OISManager = NULL;
 	keyboard = NULL;
 	mouse = NULL;
@@ -26,7 +31,7 @@ InputManager::InputManager(GameManager *gman){
 		//create a paramater list for OIS and fill it in
 		OIS::ParamList initList;
 		stringstream  ss;
-		ss << gameManager->getWindowHandle();
+		ss << windowHandle;
 
 		initList.insert(make_pair("WINDOW", ss.str()));
 		OISManager = OIS::InputManager::createInputSystem(initList);
@@ -118,10 +123,41 @@ bool InputManager::keyPressed(const OIS::KeyEvent& e){
 
 }
 
-bool InputManager::keyReleased(const OIS::KeyEvent& e){ return true; }
+bool InputManager::keyReleased(const OIS::KeyEvent& e){
+
+	for (size_t i = 0; i < listeners.size(); ++i){
+
+		listeners[i]->keyReleased(keyMap(e));
+
+	}
+
+	return true; 
+
+}
 
 //mouse listener methods
-bool InputManager::mouseMoved(const OIS::MouseEvent& e){ return true; }
+bool InputManager::mouseMoved(const OIS::MouseEvent& e){
+
+	//set the window width and height in the event
+	e.state.width = gameManager->getWindowWidth(); //windowWidth;
+	e.state.height = gameManager->getWindowHeight(); //windowHeight;
+
+	//determine mouse info
+	uint32_t x = e.state.X.abs;
+	uint32_t y = e.state.Y.abs;
+	int32_t dx = e.state.X.rel;
+	int32_t dy = e.state.Y.rel;
+
+	//and notify each listener
+	for (size_t i = 0; i < listeners.size(); ++i){
+
+		listeners[i]->mouseMoved(x, y, dx, dy);
+
+	}
+
+	return true;
+}
+
 bool InputManager::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id){ return true; }
 bool InputManager::mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id){ return true; }
 

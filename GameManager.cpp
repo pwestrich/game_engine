@@ -50,7 +50,11 @@ void GameManager::keyPressed(const KeyboardKey key){
 
 void GameManager::keyReleased(const KeyboardKey key){}
 
-void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const uint32_t dx, const uint32_t dy){}
+void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
+
+	renderManager->mouseMoved(x, y, dx, dy);
+
+}
 
 void GameManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){}
 
@@ -123,6 +127,18 @@ void GameManager::stopRendering(){
 size_t GameManager::getWindowHandle(){
 
 	return renderManager->getRenderWindowHandle();
+
+}
+
+size_t GameManager::getWindowWidth(){
+
+	return renderManager->getWindowWidth();
+
+}
+
+size_t GameManager::getWindowHeight(){
+
+	return renderManager->getWindowHeight();
 
 }
 

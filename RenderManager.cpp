@@ -5,8 +5,11 @@
 
 using namespace Ogre;
 
-//public methods start here ----------------------------------------------------------------------------------------------------------------------
+Ogre::Vector3 RenderManager::xAxis(1, 0, 0);
+Ogre::Vector3 RenderManager::yAxis(0, 1, 0);
+Ogre::Vector3 RenderManager::zAxis(0, 0, 1);
 
+//public methods start here ----------------------------------------------------------------------------------------------------------------------
 RenderManager::RenderManager(GameManager *gman){
 
 	if (gman == NULL){
@@ -24,6 +27,7 @@ RenderManager::RenderManager(GameManager *gman){
 	window = NULL;
 	sceneManager = NULL;
 	camera = NULL;
+	viewport = NULL;
 
 	try {
 
@@ -96,6 +100,18 @@ RenderManager::~RenderManager(){
 size_t RenderManager::getRenderWindowHandle(){
 
 	return windowHandle;
+
+}
+
+size_t RenderManager::getWindowWidth(){
+
+	return viewport->getActualWidth();
+
+}
+
+size_t RenderManager::getWindowHeight(){
+
+	return viewport->getActualHeight();
 
 }
 
@@ -185,7 +201,6 @@ void RenderManager::stopRendering(){
 
 	if (renderListener && renderListener->getRenderStatus()){
 
-		gameManager->logDebug("RenderManager");
    		renderListener->stopRendering();
    	}
 
@@ -295,7 +310,8 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									string temp = cameraElement->GetText();
 									parseFloats(temp, values);
 
-									Ogre::Viewport *viewport = window->addViewport(camera, values[0], values[1], values[2], values[3], values[4]);
+									viewport = window->addViewport(camera, values[0], values[1], values[2], values[3], values[4]);
+									camera->setAspectRatio((float)(viewport->getActualWidth() / viewport->getActualHeight()));
 
 								} else {
 
@@ -567,7 +583,19 @@ void RenderManager::buildSceneManually(){
 
 }
 
-//private methods below here ------------------------------------------------------------------------------------------------------
+//methods to alter the scene based on input -------------------------------------------------------
+void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
+
+	//the mouse will rotate the camera so it looks elsewhere
+	Quaternion xq(Degree((dx * -1.0) / 2), RenderManager::yAxis);
+	Quaternion yq(Degree((dy * -1.0) / 2), RenderManager::zAxis);
+	Quaternion cq = camera->getOrientation();
+
+	camera->setOrientation(yq * xq * cq); 
+
+}
+
+//private methods below here ----------------------------------------------------------------------
 
 //recursive function for making all the scene nodes
 void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){

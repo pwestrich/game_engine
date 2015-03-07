@@ -39,7 +39,7 @@ public:
 	void keyPressed(const KeyboardKey key);
 	void keyReleased(const KeyboardKey key);
 
-	void mouseMoved(const uint32_t x, const uint32_t y, const uint32_t dx, const uint32_t dy);
+	void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy);
 	void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button);
 	void mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button);
 
@@ -64,6 +64,8 @@ public:
 	void stopRendering();
 
 	size_t getWindowHandle();
+	size_t getWindowWidth();
+	size_t getWindowHeight();
 
 	//methods to log things
 	void logInfo(const string &message);

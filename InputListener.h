@@ -21,7 +21,7 @@ public:
 	virtual void keyPressed(const KeyboardKey key) = 0;
 	virtual void keyReleased(const KeyboardKey key) = 0;
 
-	virtual void mouseMoved(const uint32_t x, const uint32_t y, const uint32_t dx, const uint32_t dy) = 0;
+	virtual void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy) = 0;
 	virtual void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button) = 0;
 	virtual void mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button) = 0;
 
