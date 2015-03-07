@@ -183,8 +183,9 @@ void RenderManager::startRendering(){
 
 void RenderManager::stopRendering(){
 
-	if (renderListener){
+	if (renderListener && renderListener->getRenderStatus()){
 
+		gameManager->logDebug("RenderManager");
    		renderListener->stopRendering();
    	}
 

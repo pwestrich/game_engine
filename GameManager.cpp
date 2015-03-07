@@ -41,6 +41,7 @@ void GameManager::keyPressed(const KeyboardKey key){
 
 	if (key == KB_ESC){
 
+		logManager->logInfo("Stopping render process...");
 		renderManager->stopRendering();
 
 	}

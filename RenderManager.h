@@ -18,7 +18,6 @@ private:
 
 	//keep a copy of the game manager
 	GameManager *gameManager;
-
     RenderListener *renderListener;
 
 	Ogre::Root *root;
