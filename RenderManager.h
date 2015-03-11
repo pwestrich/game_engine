@@ -7,6 +7,7 @@
 
 #include "Ogre.h"
 #include "tinyxml.h"
+#include "InputListener.h"
 #include "utilities.h"
 
 class GameManager;
@@ -77,7 +78,6 @@ public:
 
 	//methods to alter the scene based on input
 	void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy);
-	
 	void keyPressed(const KeyboardKey key);
 	void keyReleased(const KeyboardKey key);
 

@@ -90,7 +90,7 @@
 										<entity>
 											<name>rear_pass_spokes_entity</name>
 											<mesh>Spokes.mesh</mesh>
-											<material>Truck</material>
+											<material>Spokes</material>
 										</entity>
 									</node>
 									<node>

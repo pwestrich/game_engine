@@ -594,31 +594,90 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 
 void RenderManager::keyPressed(const KeyboardKey key){
 
-	if (key == KB_W){
+	if (key == KB_D){
 
-		gameManager->logInfo("W pressed.");
+		//move the camera in the direction it is pointing
+		camera->setPosition(camera->getPosition() + Vector3(0,0,1));
 
 	} else if (key == KB_A){
 
-		gameManager->logInfo("A pressed.");
-
-		//turn the front wheels to the left
-		
+		//move the camera in the opposite direction it is pointing
+		camera->setPosition(camera->getPosition() + Vector3(0,0,-1));
 
 	} else if (key == KB_S){
 
-		gameManager->logInfo("S pressed.");
+		//move the camera to its left
+		camera->setPosition(camera->getPosition() + Vector3(-1,0,0));
 
-	} else if (key == KB_D){
+	} else if (key == KB_W){
 
-		gameManager->logInfo("D pressed.");
+		//move the camera to its right
+		camera->setPosition(camera->getPosition() + Vector3(1,0,0));
+
+	} else if (key == KB_LSHIFT){
+
+		//move the camera down the y-axis
+		camera->setPosition(camera->getPosition() + Vector3(0,-1,0));
+
+
+	} else if (key == KB_SPACE){
+
+		//move the camera up the y-axis
+		camera->setPosition(camera->getPosition() + Vector3(0,1,0));
+
+
+	} else if (key == KB_UP){
+
+		//move the truck forward
+		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+		SceneNode *leftWheel = sceneManager->getSceneNode("rear_drive_wheel");
+		SceneNode *rightWheel = sceneManager->getSceneNode("rear_pass_wheel");
+
+		truck->setPosition(truck->getPosition() + Vector3(1,0,0));
+
+		//now calculate a rotation if one is needed
+		//first find the midpoint between the two wheels
+		Vector3 leftPos = leftWheel->getPosition();
+		Vector3 rightPos = rightWheel->getPosition();
+		Vector3 difference = leftPos - rightPos;
+		difference = leftPos + difference;
+
+		//difference is now that location; rotate about it
+		//depending on the front wheel's current rotation
+
+
+	} else if (key == KB_DOWN){
+
+		//move the truck backwards
+		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+
+		truck->setPosition(truck->getPosition() + Vector3(-1,0,0));
+
+	} else if (key == KB_LEFT){
+
+		//turn the front wheels to the left
+		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
+		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+
+		Quaternion q(Degree(45), RenderManager::yAxis);
+		Quaternion rwq = rightWheel->getOrientation();
+		Quaternion lwq = leftWheel->getOrientation();
+
+		leftWheel->setOrientation(q * lwq);
+		rightWheel->setOrientation(q * rwq);
+
+	} else if (key == KB_RIGHT){
 
 		//turn the front wheels to the right
+		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
+		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
 
+		Quaternion q(Degree(-45), RenderManager::yAxis);
+		Quaternion rwq = rightWheel->getOrientation();
+		Quaternion lwq = leftWheel->getOrientation();
 
-	} else {
-
-		gameManager->logInfo("Other key pressed.");
+		leftWheel->setOrientation(q * lwq);
+		rightWheel->setOrientation(q * rwq);
 
 	}
 

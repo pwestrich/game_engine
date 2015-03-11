@@ -212,6 +212,26 @@ KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
 
 		key = KB_D;
 
+	} else if (kc == OIS::KC_LSHIFT){
+
+		key = KB_LSHIFT;
+
+	} else if (kc == OIS::KC_UP){
+
+		key = KB_UP;
+
+	} else if (kc == OIS::KC_DOWN){
+
+		key = KB_DOWN;
+
+	} else if (kc == OIS::KC_LEFT){
+
+		key = KB_LEFT;
+
+	} else if (kc == OIS::KC_RIGHT){
+
+		key = KB_RIGHT;
+
 	}
 
 	return key;
