@@ -2,6 +2,7 @@
 #ifndef INPUT_MANAGER
 #define INPUT_MANAGER
 
+#include <sstream>
 #include <vector>
 
 #include "OIS.h"

@@ -7,11 +7,13 @@
 using namespace std;
 
 //enumerations for the input actions
-enum KeyboardKey : uint32_t {KB_INVALID, KB_ESC, KB_W, KB_A, KB_S, KB_D};
+enum KeyboardKey : uint32_t {KB_INVALID, KB_ESC, KB_SPACE, KB_W, KB_A, KB_S, KB_D};
 enum MouseButton : uint32_t {M_INVALID, M_LEFT, M_RIGHT, M_MIDDLE, M_SCROLL_UP, M_SCROLL_DOWN};
 enum JoystickAxis : uint32_t {JA_INVALID};
 enum JoystickButton : uint32_t {JB_INVALID};
 
+//this is a pure virtual class that other classes can inherit from in order to recieve input from
+//the input manager. All methods have no implementation
 class InputListener {
 
 public:

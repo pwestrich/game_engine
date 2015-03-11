@@ -113,9 +113,19 @@ void InputManager::checkForInput(const float time_step){
 //key listener methods
 bool InputManager::keyPressed(const OIS::KeyEvent& e){
 
+	KeyboardKey key = keyMap(e);
+
+	/*if (key == KB_INVALID){
+
+		//don't bother if it was an invalid key
+		return true;
+
+	}*/
+
+	//othersise, notify the listeners
 	for (size_t i = 0; i < listeners.size(); ++i){
 
-		listeners[i]->keyPressed(keyMap(e));
+		listeners[i]->keyPressed(key);
 
 	}
 
@@ -181,6 +191,26 @@ KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
 	if (kc == OIS::KC_ESCAPE){
 
 		key = KB_ESC;
+
+	} else if (kc == OIS::KC_SPACE) {
+
+		key = KB_SPACE;
+
+	} else if (kc == OIS::KC_W){
+
+		key = KB_W;
+
+	} else if (kc == OIS::KC_A){
+
+		key = KB_A;
+
+	} else if (kc == OIS::KC_S){
+
+		key = KB_S;
+
+	} else if (kc == OIS::KC_D){
+
+		key = KB_D;
 
 	}
 

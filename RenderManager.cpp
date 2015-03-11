@@ -592,6 +592,44 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 
 }
 
+void RenderManager::keyPressed(const KeyboardKey key){
+
+	if (key == KB_W){
+
+		gameManager->logInfo("W pressed.");
+
+	} else if (key == KB_A){
+
+		gameManager->logInfo("A pressed.");
+
+		//turn the front wheels to the left
+		
+
+	} else if (key == KB_S){
+
+		gameManager->logInfo("S pressed.");
+
+	} else if (key == KB_D){
+
+		gameManager->logInfo("D pressed.");
+
+		//turn the front wheels to the right
+
+
+	} else {
+
+		gameManager->logInfo("Other key pressed.");
+
+	}
+
+}
+
+void RenderManager::keyReleased(const KeyboardKey key){
+
+
+
+}
+
 //private methods below here ----------------------------------------------------------------------
 
 //recursive function for making all the scene nodes

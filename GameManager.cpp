@@ -39,12 +39,17 @@ GameManager *GameManager::getGameManager(){
 //InputListener functions -------------------------------------------------------------------------
 void GameManager::keyPressed(const KeyboardKey key){
 
+	//excape will quit the game
 	if (key == KB_ESC){
 
 		logManager->logInfo("Stopping render process...");
 		renderManager->stopRendering();
+		exit(EXIT_SUCCESS);
 
 	}
+
+	//otherwise, pass they key on to the render manager to change the scene
+	renderManager->keyPressed(key);
 
 }
 
@@ -52,6 +57,8 @@ void GameManager::keyReleased(const KeyboardKey key){}
 
 void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
 
+	//tell the render manager to deal with it
+	//mouse movement should rotate the camera
 	renderManager->mouseMoved(x, y, dx, dy);
 
 }
@@ -66,6 +73,8 @@ void GameManager::joystickButtonPressed(const JoystickButton button){}
 
 void GameManager::checkForInput(const float timeStep){
 
+	//message from the render listener each frame
+	//tell the input manager to check for input
 	inputManager->checkForInput(timeStep);
 
 }
@@ -143,6 +152,7 @@ size_t GameManager::getWindowHeight(){
 }
 
 //log manager methods -----------------------------------------------------------------------------
+//pretty much all these methods pass the info along to the log manager
 void GameManager::logInfo(const string &message){
 
 	logManager->logInfo(message);
