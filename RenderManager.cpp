@@ -223,7 +223,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 			//loop through the scenes, looking for our scene
 			for (TiXmlNode *scenes = sceneTree->FirstChild(); scenes; scenes = scenes->NextSibling()){
 
-				TiXmlElement *sceneElement = (TiXmlElement*) scenes->FirstChild("name");
+				TiXmlElement *sceneElement = static_cast<TiXmlElement*>(scenes->FirstChild("name"));
 
 				if (sceneElement){
 
@@ -242,7 +242,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 								if (camera) break; //only allow one camera for the moment
 
 								//name, lookAt, location, viewport
-								TiXmlElement *cameraElement = (TiXmlElement*) cameraItem->FirstChild("name");
+								TiXmlElement *cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("name"));
 								string cameraName;
 
 								if (cameraElement){
@@ -258,7 +258,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 								camera = sceneManager->createCamera(cameraName);
 								float values[] = {0.0,0.0,0.0,0.0,0.0,0.0};
 
-								cameraElement = (TiXmlElement*) cameraItem->FirstChild("location");
+								cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("location"));
 
 								if (cameraElement){
 
@@ -272,7 +272,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								}
 
-								cameraElement = (TiXmlElement*) cameraItem->FirstChild("lookAt");
+								cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("lookAt"));
 
 								if (cameraElement){
 
@@ -286,7 +286,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								}
 
-								cameraElement = (TiXmlElement*) cameraItem->FirstChild("clip");
+								cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("clip"));
 
 								if (cameraElement){
 
@@ -303,7 +303,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								}
 
-								cameraElement = (TiXmlElement*) cameraItem->FirstChild("viewport");
+								cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("viewport"));
 
 								if (cameraElement){
 
@@ -335,7 +335,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							for (TiXmlNode *lightNode = lightTree->FirstChild(); lightNode; lightNode = lightNode->NextSibling()){
 
 								//there are several types; check for them
-								TiXmlElement *item = (TiXmlElement*) lightNode->FirstChild("type");
+								TiXmlElement *item = static_cast<TiXmlElement*>(lightNode->FirstChild("type"));
 
 								if (!item) {
 
@@ -348,7 +348,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 								if (typeString == "ambient"){
 
 									//this just has a color
-									TiXmlElement *color = (TiXmlElement*) lightNode->FirstChild("color");
+									TiXmlElement *color = static_cast<TiXmlElement*>(lightNode->FirstChild("color"));
 
 									if (!color){
 
@@ -362,7 +362,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else if (typeString == "directional"){
 
-									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+									TiXmlElement *name = static_cast<TiXmlElement*>(lightNode->FirstChild("name"));
 
 									if (!name){
 
@@ -373,7 +373,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_DIRECTIONAL);
 
-									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+									TiXmlElement *dColor = static_cast<TiXmlElement*>(lightNode->FirstChild("diffuse"));
 
 									if (!dColor){
 
@@ -385,7 +385,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(dColor->GetText()), colors);
 									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+									dColor = static_cast<TiXmlElement*>(lightNode->FirstChild("specular"));
 
 									if (!dColor){
 
@@ -396,7 +396,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(dColor->GetText()), colors);
 									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-									TiXmlElement *direction = (TiXmlElement*) lightNode->FirstChild("direction");
+									TiXmlElement *direction = static_cast<TiXmlElement*>(lightNode->FirstChild("direction"));
 
 									if (!direction){
 
@@ -409,7 +409,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else if (typeString == "point"){
 
-									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+									TiXmlElement *name = static_cast<TiXmlElement*>(lightNode->FirstChild("name"));
 
 									if (!name){
 
@@ -420,7 +420,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_POINT);
 
-									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+									TiXmlElement *dColor = static_cast<TiXmlElement*>(lightNode->FirstChild("diffuse"));
 
 									if (!dColor){
 
@@ -432,7 +432,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(dColor->GetText()), colors);
 									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+									dColor = static_cast<TiXmlElement*>(lightNode->FirstChild("specular"));
 
 									if (!dColor){
 
@@ -443,7 +443,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(dColor->GetText()), colors);
 									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-									TiXmlElement *location = (TiXmlElement*) lightNode->FirstChild("location");
+									TiXmlElement *location = static_cast<TiXmlElement*>(lightNode->FirstChild("location"));
 
 									if (!location){
 
@@ -456,7 +456,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								} else if (typeString == "spot"){
 
-									TiXmlElement *name = (TiXmlElement*) lightNode->FirstChild("name");
+									TiXmlElement *name = static_cast<TiXmlElement*>(lightNode->FirstChild("name"));
 
 									if (!name){
 
@@ -467,7 +467,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									Ogre::Light *light = sceneManager->createLight(name->GetText());
 									light->setType(Ogre::Light::LT_SPOTLIGHT);
 
-									TiXmlElement *dColor = (TiXmlElement*) lightNode->FirstChild("diffuse");
+									TiXmlElement *dColor = static_cast<TiXmlElement*>(lightNode->FirstChild("diffuse"));
 
 									if (!dColor){
 
@@ -479,7 +479,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(dColor->GetText()), colors);
 									light->setDiffuseColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-									dColor = (TiXmlElement*) lightNode->FirstChild("specular");
+									dColor = static_cast<TiXmlElement*>(lightNode->FirstChild("specular"));
 
 									if (!dColor){
 
@@ -490,7 +490,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(dColor->GetText()), colors);
 									light->setSpecularColour(Ogre::ColourValue(colors[0], colors[1], colors[2]));
 
-									TiXmlElement *direction = (TiXmlElement*) lightNode->FirstChild("direction");
+									TiXmlElement *direction = static_cast<TiXmlElement*>(lightNode->FirstChild("direction"));
 
 									if (!direction){
 
@@ -501,7 +501,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(direction->GetText()), colors);
 									light->setDirection(Vector3(colors[0], colors[1], colors[2]));
 
-									TiXmlElement *location = (TiXmlElement*) lightNode->FirstChild("location");
+									TiXmlElement *location = static_cast<TiXmlElement*>(lightNode->FirstChild("location"));
 
 									if (!location){
 
@@ -512,7 +512,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(string(location->GetText()), colors);
 									light->setPosition(Vector3(colors[0], colors[1], colors[2]));
 
-									TiXmlElement *range = (TiXmlElement*) lightNode->FirstChild("range");
+									TiXmlElement *range = static_cast<TiXmlElement*>(lightNode->FirstChild("range"));
 
 									if (!range){
 
@@ -573,25 +573,22 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 	}
 
-	gameManager->logInfo("Scene build successfully!");
+	gameManager->logInfo("Scene built successfully!");
 
 }
 
-void RenderManager::buildSceneManually(){
-
-
-
-}
+void RenderManager::buildSceneManually(){} //nothing to see here
 
 //methods to alter the scene based on input -------------------------------------------------------
 void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
 
 	//the mouse will rotate the camera so it looks elsewhere
-	Quaternion xq(Degree((dx * -1.0) / 2), RenderManager::yAxis);
-	Quaternion yq(Degree((dy * -1.0) / 2), RenderManager::zAxis);
+	Quaternion xq(Degree((dx * -1.0) / 2), camera->getRealUp());
+	Quaternion yq(Degree((dy * -1.0) / 2), camera->getRealRight());
 	Quaternion cq = camera->getOrientation();
 
-	camera->setOrientation(yq * xq * cq); 
+	//rotate the camera relative to its current orientation
+	camera->setOrientation(xq * yq * cq); 
 
 }
 
@@ -603,7 +600,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 	//loop through every node in the tree, set its stuff, create its children, and attatch it to its parent
 	for (TiXmlNode *nodeNode = nodeTree->FirstChild(); nodeNode; nodeNode = nodeNode->NextSibling()){
 
-		TiXmlElement *nodeElement = (TiXmlElement*) nodeNode->FirstChild("name");
+		TiXmlElement *nodeElement = static_cast<TiXmlElement*>(nodeNode->FirstChild("name"));
 
 		if (!nodeElement){
 
@@ -613,7 +610,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 		string nodeName = nodeElement->GetText();
 
-		nodeElement = (TiXmlElement*) nodeNode->FirstChild("type");
+		nodeElement = static_cast<TiXmlElement*>(nodeNode->FirstChild("type"));
 
 		if (!nodeElement) {
 
@@ -637,7 +634,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				//entites have a name, mesh, and material
 				string entityName, entityMesh, entityMaterial;
-				nodeElement = (TiXmlElement*) entityTree->FirstChild("name");
+				nodeElement = static_cast<TiXmlElement*>(entityTree->FirstChild("name"));
 
 				if (nodeElement){
 
@@ -650,7 +647,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				}
 
-				nodeElement = (TiXmlElement*) entityTree->FirstChild("mesh");
+				nodeElement = static_cast<TiXmlElement*>(entityTree->FirstChild("mesh"));
 
 				if (entityTree){
 
@@ -663,7 +660,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				}
 
-				nodeElement = (TiXmlElement*) entityTree->FirstChild("material");
+				nodeElement = static_cast<TiXmlElement*>(entityTree->FirstChild("material"));
 
 				if (nodeElement){
 
@@ -682,7 +679,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 			}
 
-			nodeElement = (TiXmlElement*) nodeNode->FirstChild("camera");
+			nodeElement = static_cast<TiXmlElement*>(nodeNode->FirstChild("camera"));
 
 			if (nodeElement){
 
@@ -693,7 +690,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 			}
 
-			nodeElement = (TiXmlElement*) nodeNode->FirstChild("scale");
+			nodeElement = static_cast<TiXmlElement*>(nodeNode->FirstChild("scale"));
 
 			if (nodeElement){
 
@@ -704,7 +701,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 			}
 
-			nodeElement = (TiXmlElement*) nodeNode->FirstChild("translate");
+			nodeElement = static_cast<TiXmlElement*>(nodeNode->FirstChild("translate"));
 
 			if (nodeElement){
 
@@ -715,7 +712,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 			}
 
-			nodeElement = (TiXmlElement*) nodeNode->FirstChild("rotate");
+			nodeElement = static_cast<TiXmlElement*>(nodeNode->FirstChild("rotate"));
 
 			if (nodeElement){
 
@@ -749,7 +746,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
    static int animationNumber = 0;
 
-   TiXmlElement *nodeElement = (TiXmlElement*) nodeTree->FirstChild("length");
+   TiXmlElement *nodeElement = static_cast<TiXmlElement*>(nodeTree->FirstChild("length"));
    int length = 0;
 
    if (nodeElement){
@@ -762,7 +759,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
    }
 
-   nodeElement = (TiXmlElement*) nodeTree->FirstChild("animationName");
+   nodeElement = static_cast<TiXmlElement*>(nodeTree->FirstChild("animationName"));
    string animationName;
 
    if (nodeElement){
@@ -787,7 +784,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
       for (TiXmlNode *keyFrameNode = frameTree->FirstChild(); keyFrameNode; keyFrameNode = keyFrameNode->NextSibling()){
 
-         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("time");
+         nodeElement = static_cast<TiXmlElement*>(keyFrameNode->FirstChild("time"));
 
          if (!nodeElement){
 
@@ -800,7 +797,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
          Ogre::TransformKeyFrame *keyFrame = animationTrack->createNodeKeyFrame(time);
          float values[4] = {0,0,0,0};
 
-         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("translate");
+         nodeElement = static_cast<TiXmlElement*>(keyFrameNode->FirstChild("translate"));
 
          if (nodeElement){
 
@@ -810,7 +807,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
          }
 
-         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("rotate");
+         nodeElement = static_cast<TiXmlElement*>(keyFrameNode->FirstChild("rotate"));
 
          if (nodeElement){
 
@@ -820,7 +817,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
          }
 
-         nodeElement = (TiXmlElement*) keyFrameNode->FirstChild("scale");
+         nodeElement = static_cast<TiXmlElement*>(keyFrameNode->FirstChild("scale"));
 
          if (nodeElement){
 
@@ -834,7 +831,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
       Ogre::AnimationState *animationState = sceneManager->createAnimationState(animationName);
 
-      nodeElement = (TiXmlElement*) nodeTree->FirstChild("enabled");
+      nodeElement = static_cast<TiXmlElement*>(nodeTree->FirstChild("enabled"));
 
       if (nodeElement){
 
@@ -846,7 +843,7 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
 
       }
 
-      nodeElement = (TiXmlElement*) nodeTree->FirstChild("loop");
+      nodeElement = static_cast<TiXmlElement*>(nodeTree->FirstChild("loop"));
 
       if (nodeElement){
 
