@@ -277,17 +277,12 @@ void RenderManager::keyPressed(const KeyboardKey key){
 	} else if (key == KB_UP){
 
 		//move the truck forward
-		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-
-		truck->setPosition(truck->getPosition() + Vector3(1,0,0));
-
+		truckMovement += Vector3(0.001,0,0);
 
 	} else if (key == KB_DOWN){
 
 		//move the truck backwards
-		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-
-		truck->setPosition(truck->getPosition() + Vector3(-1,0,0));
+		truckMovement += Vector3(-0.001,0,0);
 
 	} else if (key == KB_LEFT){
 
