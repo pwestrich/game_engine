@@ -15,7 +15,7 @@ class GameManager;
 class RenderListener;
 
 //enumeration for the wheel's state
-enum WheelState { WS_FORWARD, WS_LEFT, WS_RIGHT };
+enum WheelState { WS_LEFT = 0, WS_FORWARD = 1, WS_RIGHT = 2 };
 
 //enumeration for the truck's state
 enum TruckState { TS_STILL, TS_FORWARD, TS_BACKWARD };
@@ -48,10 +48,11 @@ private:
     vector<Ogre::AnimationState*> animationStates;
 
     //variables for keeping track of movement
-    WheelState wheelState;
+    int wheelState;
     TruckState truckState;
 
     Ogre::Vector3 cameraMovement;
+    Ogre::Vector3 truckMovement;
 
     //functions to recursivley generate the scene graph from XML
     void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);

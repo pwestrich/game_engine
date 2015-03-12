@@ -36,6 +36,7 @@ RenderManager::RenderManager(GameManager *gman){
 	wheelState = WS_FORWARD;
 
 	cameraMovement = Vector3::ZERO;
+	truckMovement = Vector3::ZERO;
 
 	try {
 
@@ -207,6 +208,9 @@ void RenderManager::checkForInput(const float timeStep){
 void RenderManager::updateMovement(const float timeStep){
 
 	camera->setPosition(camera->getPosition() + cameraMovement);
+	
+	SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+	truck->setPosition(truck->getPosition() + truckMovement);
 
 }
 
@@ -287,29 +291,41 @@ void RenderManager::keyPressed(const KeyboardKey key){
 
 	} else if (key == KB_LEFT){
 
-		//turn the front wheels to the left
-		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
-		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+		if (wheelState != WS_LEFT){
 
-		Quaternion q(Degree(45), RenderManager::yAxis);
-		Quaternion rwq = rightWheel->getOrientation();
-		Quaternion lwq = leftWheel->getOrientation();
+			wheelState -= 1;
 
-		leftWheel->setOrientation(q * lwq);
-		rightWheel->setOrientation(q * rwq);
+			//turn the front wheels to the left
+			SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
+			SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+
+			Quaternion q(Degree(45), RenderManager::yAxis);
+			Quaternion rwq = rightWheel->getOrientation();
+			Quaternion lwq = leftWheel->getOrientation();
+
+			leftWheel->setOrientation(q * lwq);
+			rightWheel->setOrientation(q * rwq);
+
+		}
 
 	} else if (key == KB_RIGHT){
 
-		//turn the front wheels to the right
-		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
-		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+		if (wheelState != WS_RIGHT){
 
-		Quaternion q(Degree(-45), RenderManager::yAxis);
-		Quaternion rwq = rightWheel->getOrientation();
-		Quaternion lwq = leftWheel->getOrientation();
+			wheelState += 1;
 
-		leftWheel->setOrientation(q * lwq);
-		rightWheel->setOrientation(q * rwq);
+			//turn the front wheels to the right
+			SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
+			SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+
+			Quaternion q(Degree(-45), RenderManager::yAxis);
+			Quaternion rwq = rightWheel->getOrientation();
+			Quaternion lwq = leftWheel->getOrientation();
+
+			leftWheel->setOrientation(q * lwq);
+			rightWheel->setOrientation(q * rwq);
+
+		}
 
 	}
 
