@@ -14,9 +14,6 @@
 class GameManager;
 class RenderListener;
 
-//enumeration for the states the camera can be in
-enum CameraState { CS_STILL, CS_UP, CS_DOWN, CS_FORWARD, CS_BACKWARD, CS_LEFT, CS_RIGHT };
-
 //enumeration for the wheel's state
 enum WheelState { WS_FORWARD, WS_LEFT, WS_RIGHT };
 
@@ -51,9 +48,10 @@ private:
     vector<Ogre::AnimationState*> animationStates;
 
     //variables for keeping track of movement
-    CameraState cameraState;
     WheelState wheelState;
     TruckState truckState;
+
+    Ogre::Vector3 cameraMovement;
 
     //functions to recursivley generate the scene graph from XML
     void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
@@ -87,17 +85,18 @@ public:
 	//and actions
     void processAnimations(const float timeStep);
     void checkForInput(const float timeStep);
+    void updateMovement(const float timeStep);
 
 	void startRendering();
 	void stopRendering();
-
-	void buildSceneFromXML(const std::string &filename, const string &sceneName);
-	void buildSceneManually();
 
 	//methods to alter the scene based on input
 	void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy);
 	void keyPressed(const KeyboardKey key);
 	void keyReleased(const KeyboardKey key);
+
+	void buildSceneFromXML(const std::string &filename, const string &sceneName);
+	void buildSceneManually();
 
 };
 

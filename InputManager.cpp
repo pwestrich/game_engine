@@ -232,6 +232,10 @@ KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
 
 		key = KB_RIGHT;
 
+	} else if (kc == OIS::KC_TAB){
+
+		key = KB_TAB;
+
 	}
 
 	return key;

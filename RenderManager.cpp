@@ -32,9 +32,10 @@ RenderManager::RenderManager(GameManager *gman){
 	viewport = NULL;
 
 	//set the default states
-	cameraState = CS_STILL;
 	truckState = TS_STILL;
 	wheelState = WS_FORWARD;
+
+	cameraMovement = Vector3::ZERO;
 
 	try {
 
@@ -202,6 +203,13 @@ void RenderManager::checkForInput(const float timeStep){
 
 }
 
+//update the movement after input is checked and processed
+void RenderManager::updateMovement(const float timeStep){
+
+	camera->setPosition(camera->getPosition() + cameraMovement);
+
+}
+
 void RenderManager::startRendering(){
 
 	gameManager->logInfo("Starting renderer...");
@@ -215,6 +223,101 @@ void RenderManager::stopRendering(){
 
    		renderListener->stopRendering();
    	}
+
+}
+
+//methods to alter the scene based on input -------------------------------------------------------
+void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
+
+	//the mouse will rotate the camera so it looks elsewhere
+	Quaternion xq(Degree((dx * -1.0) / 2), camera->getRealUp());
+	Quaternion yq(Degree((dy * -1.0) / 2), camera->getRealRight());
+	Quaternion cq = camera->getOrientation();
+
+	//rotate the camera relative to its current orientation
+	camera->setOrientation(xq * yq * cq); 
+
+}
+
+//this method will change the scene based on the key pressed
+void RenderManager::keyPressed(const KeyboardKey key){
+
+	if (key == KB_D){
+
+		cameraMovement += Vector3(0,0,0.001);
+
+	} else if (key == KB_A){
+
+		cameraMovement += Vector3(0,0,-0.001);
+
+	} else if (key == KB_S){
+
+		cameraMovement += Vector3(-0.001,0,0);
+
+	} else if (key == KB_W){
+
+		cameraMovement += Vector3(0.001,0,0);
+
+	} else if (key == KB_LSHIFT){
+
+		cameraMovement += Vector3(0,-0.001,0);
+
+	} else if (key == KB_SPACE){
+
+		cameraMovement += Vector3(0,0.001,0);
+
+	} else if (key == KB_TAB){
+
+		cameraMovement = Vector3(0,0,0);
+
+	} else if (key == KB_UP){
+
+		//move the truck forward
+		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+
+		truck->setPosition(truck->getPosition() + Vector3(1,0,0));
+
+
+	} else if (key == KB_DOWN){
+
+		//move the truck backwards
+		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+
+		truck->setPosition(truck->getPosition() + Vector3(-1,0,0));
+
+	} else if (key == KB_LEFT){
+
+		//turn the front wheels to the left
+		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
+		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+
+		Quaternion q(Degree(45), RenderManager::yAxis);
+		Quaternion rwq = rightWheel->getOrientation();
+		Quaternion lwq = leftWheel->getOrientation();
+
+		leftWheel->setOrientation(q * lwq);
+		rightWheel->setOrientation(q * rwq);
+
+	} else if (key == KB_RIGHT){
+
+		//turn the front wheels to the right
+		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
+		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+
+		Quaternion q(Degree(-45), RenderManager::yAxis);
+		Quaternion rwq = rightWheel->getOrientation();
+		Quaternion lwq = leftWheel->getOrientation();
+
+		leftWheel->setOrientation(q * lwq);
+		rightWheel->setOrientation(q * rwq);
+
+	}
+
+}
+
+void RenderManager::keyReleased(const KeyboardKey key){
+
+
 
 }
 
@@ -590,105 +693,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 }
 
 void RenderManager::buildSceneManually(){} //nothing to see here
-
-//methods to alter the scene based on input -------------------------------------------------------
-void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
-
-	//the mouse will rotate the camera so it looks elsewhere
-	Quaternion xq(Degree((dx * -1.0) / 2), camera->getRealUp());
-	Quaternion yq(Degree((dy * -1.0) / 2), camera->getRealRight());
-	Quaternion cq = camera->getOrientation();
-
-	//rotate the camera relative to its current orientation
-	camera->setOrientation(xq * yq * cq); 
-
-}
-
-//this method will change the scene based on the key pressed
-void RenderManager::keyPressed(const KeyboardKey key){
-
-	if (key == KB_D){
-
-		//move the camera in the direction it is pointing
-		camera->setPosition(camera->getPosition() + Vector3(0,0,1));
-
-	} else if (key == KB_A){
-
-		//move the camera in the opposite direction it is pointing
-		camera->setPosition(camera->getPosition() + Vector3(0,0,-1));
-
-	} else if (key == KB_S){
-
-		//move the camera to its left
-		camera->setPosition(camera->getPosition() + Vector3(-1,0,0));
-
-	} else if (key == KB_W){
-
-		//move the camera to its right
-		camera->setPosition(camera->getPosition() + Vector3(1,0,0));
-
-	} else if (key == KB_LSHIFT){
-
-		//move the camera down the y-axis
-		camera->setPosition(camera->getPosition() + Vector3(0,-1,0));
-
-
-	} else if (key == KB_SPACE){
-
-		//move the camera up the y-axis
-		camera->setPosition(camera->getPosition() + Vector3(0,1,0));
-
-
-	} else if (key == KB_UP){
-
-		//move the truck forward
-		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-
-		truck->setPosition(truck->getPosition() + Vector3(1,0,0));
-
-
-	} else if (key == KB_DOWN){
-
-		//move the truck backwards
-		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-
-		truck->setPosition(truck->getPosition() + Vector3(-1,0,0));
-
-	} else if (key == KB_LEFT){
-
-		//turn the front wheels to the left
-		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
-		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
-
-		Quaternion q(Degree(45), RenderManager::yAxis);
-		Quaternion rwq = rightWheel->getOrientation();
-		Quaternion lwq = leftWheel->getOrientation();
-
-		leftWheel->setOrientation(q * lwq);
-		rightWheel->setOrientation(q * rwq);
-
-	} else if (key == KB_RIGHT){
-
-		//turn the front wheels to the right
-		SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
-		SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
-
-		Quaternion q(Degree(-45), RenderManager::yAxis);
-		Quaternion rwq = rightWheel->getOrientation();
-		Quaternion lwq = leftWheel->getOrientation();
-
-		leftWheel->setOrientation(q * lwq);
-		rightWheel->setOrientation(q * rwq);
-
-	}
-
-}
-
-void RenderManager::keyReleased(const KeyboardKey key){
-
-
-
-}
 
 //private methods below here ----------------------------------------------------------------------
 
