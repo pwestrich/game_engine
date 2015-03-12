@@ -34,6 +34,7 @@ bool RenderListener::frameStarted(const Ogre::FrameEvent &event){
 	float timeStep = event.timeSinceLastFrame;
 
 	//check for input and advance any animations
+	renderManager->setTimeSinceLastFrame(timeStep);
 	renderManager->checkForInput(timeStep);
 	renderManager->processAnimations(timeStep);
 

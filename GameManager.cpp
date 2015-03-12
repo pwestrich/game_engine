@@ -23,8 +23,8 @@ GameManager::~GameManager(){
 
 	//delete everything
 	delete inputManager;
-	delete resourceManager;
 	delete renderManager;
+	delete resourceManager;
 	delete logManager;
 
 }
@@ -44,6 +44,9 @@ void GameManager::keyPressed(const KeyboardKey key){
 
 		logManager->logInfo("Stopping render process...");
 		renderManager->stopRendering();
+
+		logManager->logInfo("Stopped.");
+		logManager->logInfo("Exiting program...");
 		exit(EXIT_SUCCESS);
 
 	}

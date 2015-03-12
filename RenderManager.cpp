@@ -5,11 +5,13 @@
 
 using namespace Ogre;
 
+//define the static variables
 Ogre::Vector3 RenderManager::xAxis(1, 0, 0);
 Ogre::Vector3 RenderManager::yAxis(0, 1, 0);
 Ogre::Vector3 RenderManager::zAxis(0, 0, 1);
 
 //public methods start here ----------------------------------------------------------------------------------------------------------------------
+
 RenderManager::RenderManager(GameManager *gman){
 
 	if (gman == NULL){
@@ -28,6 +30,11 @@ RenderManager::RenderManager(GameManager *gman){
 	sceneManager = NULL;
 	camera = NULL;
 	viewport = NULL;
+
+	//set the default states
+	cameraState = CS_STILL;
+	truckState = TS_STILL;
+	wheelState = WS_FORWARD;
 
 	try {
 
@@ -57,7 +64,11 @@ RenderManager::RenderManager(GameManager *gman){
 
 	} catch (Ogre::Exception &it){
 
-		gameManager->logFatal("Exception while creating RenderManager", __LINE__, __FILE__);
+		gameManager->logFatal(it.what(), __LINE__, __FILE__);
+
+	} catch (...){
+
+		gameManager->logFatal("Error while creating RenderManager", __LINE__, __FILE__);
 
 	}
 
@@ -65,12 +76,11 @@ RenderManager::RenderManager(GameManager *gman){
 
 }
 
+//the destructor will stop rendering, unload any loaded resources, close the window.
 RenderManager::~RenderManager(){
 
 	//stop rendering things
 	stopRendering();
-
-	gameManager->unloadResources();
 
 	//clear the scene
 	if (sceneManager){
@@ -78,6 +88,8 @@ RenderManager::~RenderManager(){
 		sceneManager->destroyAllCameras();
 		sceneManager->clearScene();
 	}
+
+	gameManager->unloadResources();
 
 	if (window){
 
@@ -96,7 +108,7 @@ RenderManager::~RenderManager(){
 
 } 
 
-//the getter methods
+//the getter methods are pretty self-explanitory
 size_t RenderManager::getRenderWindowHandle(){
 
 	return windowHandle;
@@ -127,7 +139,7 @@ Ogre::SceneManager *RenderManager::getSceneManager(){
 
 }
 
-//the setter methods
+//the setter methods are also pretty self-explanitory
 void RenderManager::setTimeSinceLastFrame(Ogre::Real timeElapsed){
 
 	frameTimeElapsed = timeElapsed;
@@ -166,14 +178,13 @@ void RenderManager::unloadResourceGroup(const string &group){
 
 	Ogre::ResourceGroupManager &resourceManager = Ogre::ResourceGroupManager::getSingleton();
   
- 	//for some reason, this crashes the game... I ahve no idea why
+ 	//for some reason, this crashes the game... I have no idea why
  	//it works without it, so it's commented out.
  	//resourceManager.destroyResourceGroup(group);
 
 }
 
-//and actions
-
+//this function updates every animation every frame
 void RenderManager::processAnimations(const float timeStep){
 
    for (size_t i = 0; i < animationStates.size(); ++i){
@@ -184,6 +195,7 @@ void RenderManager::processAnimations(const float timeStep){
 
 }
 
+//this method tells the game manager to check for input
 void RenderManager::checkForInput(const float timeStep){
 
 	gameManager->checkForInput(timeStep);
@@ -206,6 +218,7 @@ void RenderManager::stopRendering(){
 
 }
 
+//this massive function will build a scene from XML given its filename and a group
 void RenderManager::buildSceneFromXML(const std::string &filename, const string &sceneName){
 
 	gameManager->logInfo("Building scene...");
@@ -241,7 +254,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								if (camera) break; //only allow one camera for the moment
 
-								//name, lookAt, location, viewport
 								TiXmlElement *cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("name"));
 								string cameraName;
 
@@ -592,6 +604,7 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 
 }
 
+//this method will change the scene based on the key pressed
 void RenderManager::keyPressed(const KeyboardKey key){
 
 	if (key == KB_D){
@@ -630,20 +643,8 @@ void RenderManager::keyPressed(const KeyboardKey key){
 
 		//move the truck forward
 		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-		SceneNode *leftWheel = sceneManager->getSceneNode("rear_drive_wheel");
-		SceneNode *rightWheel = sceneManager->getSceneNode("rear_pass_wheel");
 
 		truck->setPosition(truck->getPosition() + Vector3(1,0,0));
-
-		//now calculate a rotation if one is needed
-		//first find the midpoint between the two wheels
-		Vector3 leftPos = leftWheel->getPosition();
-		Vector3 rightPos = rightWheel->getPosition();
-		Vector3 difference = leftPos - rightPos;
-		difference = leftPos + difference;
-
-		//difference is now that location; rotate about it
-		//depending on the front wheel's current rotation
 
 
 	} else if (key == KB_DOWN){

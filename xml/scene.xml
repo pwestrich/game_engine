@@ -60,7 +60,7 @@
 					<node>
 						<name>entire_truck_node</name>
 						<type>scene</type>
-						<translate>0,1,25</translate>
+						<translate>0,1,0</translate>
 						<children>
 							<node>
 								<name>truck_node</name>

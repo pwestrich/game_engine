@@ -10,8 +10,18 @@
 #include "InputListener.h"
 #include "utilities.h"
 
+//forward-declare these classes so the compiler is happy
 class GameManager;
 class RenderListener;
+
+//enumeration for the states the camera can be in
+enum CameraState { CS_STILL, CS_UP, CS_DOWN, CS_FORWARD, CS_BACKWARD, CS_LEFT, CS_RIGHT };
+
+//enumeration for the wheel's state
+enum WheelState { WS_FORWARD, WS_LEFT, WS_RIGHT };
+
+//enumeration for the truck's state
+enum TruckState { TS_STILL, TS_FORWARD, TS_BACKWARD };
 
 class RenderManager {
 
@@ -26,18 +36,26 @@ private:
 	GameManager *gameManager;
     RenderListener *renderListener;
 
+    //Ogre scene stuff
 	Ogre::Root *root;
 	Ogre::RenderWindow *window;
     Ogre::SceneManager* sceneManager;
 
+    //the camera, viewport, and window we're rendering in
     Ogre::Camera *camera;
     Ogre::Viewport *viewport;
-
     size_t windowHandle;
-    Ogre::Real frameTimeElapsed;
 
+    //the animation states andthe time since last frame
+    Ogre::Real frameTimeElapsed;
     vector<Ogre::AnimationState*> animationStates;
 
+    //variables for keeping track of movement
+    CameraState cameraState;
+    WheelState wheelState;
+    TruckState truckState;
+
+    //functions to recursivley generate the scene graph from XML
     void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
     void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
 
