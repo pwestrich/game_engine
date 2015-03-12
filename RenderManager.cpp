@@ -37,6 +37,7 @@ RenderManager::RenderManager(GameManager *gman){
 
 	cameraMovement = Vector3::ZERO;
 	truckMovement = Vector3::ZERO;
+	truckRotation = Quaternion::IDENTITY;
 
 	try {
 
@@ -208,9 +209,25 @@ void RenderManager::checkForInput(const float timeStep){
 void RenderManager::updateMovement(const float timeStep){
 
 	camera->setPosition(camera->getPosition() + cameraMovement);
-	
-	SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-	truck->setPosition(truck->getPosition() + truckMovement);
+
+	//only move/rotate the truck if it is moving
+	if (truckMovement != Vector3::ZERO){
+
+		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+		truck->setPosition(truck->getPosition() + (truck->getOrientation() * truckMovement));
+
+		//only rotate the truck if its wheels are turned
+		if (wheelState == WS_LEFT){
+
+			truck->rotate(Quaternion(Degree(0.01), Vector3::UNIT_Y));
+
+		} else if (wheelState == WS_RIGHT){
+
+			truck->rotate(Quaternion(Degree(-0.01), Vector3::UNIT_Y));
+
+		}
+
+	}
 
 }
 

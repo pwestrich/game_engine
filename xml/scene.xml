@@ -60,6 +60,7 @@
 					<node>
 						<name>entire_truck_node</name>
 						<type>scene</type>
+						<camera>Camera1</camera>
 						<translate>0,1,0</translate>
 						<children>
 							<node>
@@ -67,7 +68,6 @@
 								<type>scene</type>
 								<scale>3,1,2</scale>
 								<translate>2,1,0</translate>
-								<camera>Camera1</camera>
 								<entity>
 									<name>truck</name>
 									<mesh>truck.mesh</mesh>

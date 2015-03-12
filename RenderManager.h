@@ -53,6 +53,7 @@ private:
 
     Ogre::Vector3 cameraMovement;
     Ogre::Vector3 truckMovement;
+    Ogre::Quaternion truckRotation;
 
     //functions to recursivley generate the scene graph from XML
     void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
