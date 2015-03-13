@@ -39,6 +39,9 @@ private:
 	//function to map keys
 	KeyboardKey keyMap(const OIS::KeyEvent &event);
 
+   //maps mouse clicks
+   MouseButton mouseMap(const OIS::MouseButtonID id);
+
 public:
 
 	InputManager(GameManager *gman);
@@ -47,24 +50,24 @@ public:
 	void addListener(InputListener *newListener);
 	void checkForInput(const float time_step);
 
-    //key listener methods
-    bool keyPressed(const OIS::KeyEvent& e);
-    bool keyReleased(const OIS::KeyEvent& e);
+   //key listener methods
+   bool keyPressed(const OIS::KeyEvent& e);
+   bool keyReleased(const OIS::KeyEvent& e);
 
-    //mouse listener methods
-    bool mouseMoved(const OIS::MouseEvent& e);
-    bool mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id);
-    bool mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id);
+   //mouse listener methods
+   bool mouseMoved(const OIS::MouseEvent& e);
+   bool mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id);
+   bool mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id);
 
-    //joystick listener methods
-    bool buttonPressed (const OIS::JoyStickEvent &arg, int button);
-    bool buttonReleased (const OIS::JoyStickEvent &arg, int button);
-    bool axisMoved (const OIS::JoyStickEvent &arg, int axis);
+   //joystick listener methods
+   bool buttonPressed (const OIS::JoyStickEvent &arg, int button);
+   bool buttonReleased (const OIS::JoyStickEvent &arg, int button);
+   bool axisMoved (const OIS::JoyStickEvent &arg, int axis);
 
-    //not common
-    bool sliderMoved (const OIS::JoyStickEvent &, int index);
-    bool povMoved (const OIS::JoyStickEvent &arg, int index);
-    bool vector3Moved (const OIS::JoyStickEvent &arg, int index);
+   //not common
+   bool sliderMoved (const OIS::JoyStickEvent &, int index);
+   bool povMoved (const OIS::JoyStickEvent &arg, int index);
+   bool vector3Moved (const OIS::JoyStickEvent &arg, int index);
 
 };
 

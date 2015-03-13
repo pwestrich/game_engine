@@ -66,7 +66,12 @@ void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t d
 
 }
 
-void GameManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){}
+void GameManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){
+
+	//tell the render manager to do something with it
+	renderManager->mousePressed(x, y, button);
+
+}
 
 void GameManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){}
 

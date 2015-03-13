@@ -115,12 +115,12 @@ bool InputManager::keyPressed(const OIS::KeyEvent& e){
 
 	KeyboardKey key = keyMap(e);
 
-	/*if (key == KB_INVALID){
+	if (key == KB_INVALID){
 
 		//don't bother if it was an invalid key
 		return true;
 
-	}*/
+	}
 
 	//othersise, notify the listeners
 	for (size_t i = 0; i < listeners.size(); ++i){
@@ -168,7 +168,28 @@ bool InputManager::mouseMoved(const OIS::MouseEvent& e){
 	return true;
 }
 
-bool InputManager::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id){ return true; }
+bool InputManager::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id){ 
+
+   //set the window width and height in the event
+   e.state.width = gameManager->getWindowWidth(); //windowWidth;
+   e.state.height = gameManager->getWindowHeight(); //windowHeight;
+
+   //determine mouse info
+   uint32_t x = e.state.X.abs;
+   uint32_t y = e.state.Y.abs;
+   MouseButton button = mouseMap(id);
+
+   //and notify each listener
+   for (size_t i = 0; i < listeners.size(); ++i){
+
+      listeners[i]->mousePressed(x, y, button);
+
+   }
+
+   return true;
+
+}
+
 bool InputManager::mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id){ return true; }
 
 //joystick listener methods
@@ -239,5 +260,19 @@ KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
 	}
 
 	return key;
+
+}
+
+MouseButton InputManager::mouseMap(const OIS::MouseButtonID id){
+
+   switch (id) {
+
+      case 0: return M_LEFT;
+      case 1: return M_RIGHT;
+      case 2: return M_MIDDLE;
+      case 3: return M_BACK;
+      case 4: return M_SCROLL;
+      default: return M_INVALID;
+   }
 
 }

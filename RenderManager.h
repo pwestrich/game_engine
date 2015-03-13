@@ -24,40 +24,36 @@ class RenderManager {
 
 private:
 
-    //axis vectors
-    static Ogre::Vector3 xAxis;
-    static Ogre::Vector3 yAxis;
-    static Ogre::Vector3 zAxis;
-
 	//keep a copy of the game manager
 	GameManager *gameManager;
-    RenderListener *renderListener;
+   RenderListener *renderListener;
 
-    //Ogre scene stuff
+   //Ogre scene stuff
 	Ogre::Root *root;
 	Ogre::RenderWindow *window;
-    Ogre::SceneManager* sceneManager;
+   Ogre::SceneManager* sceneManager;
 
-    //the camera, viewport, and window we're rendering in
-    Ogre::Camera *camera;
-    Ogre::Viewport *viewport;
-    size_t windowHandle;
+   //the camera, viewport, and window we're rendering in
+   Ogre::Camera *camera;
+   Ogre::Viewport *viewport;
+   size_t windowHandle;
 
-    //the animation states andthe time since last frame
-    Ogre::Real frameTimeElapsed;
-    vector<Ogre::AnimationState*> animationStates;
+   //the animation states andthe time since last frame
+   Ogre::Real frameTimeElapsed;
+   vector<Ogre::AnimationState*> animationStates;
 
-    //variables for keeping track of movement
-    int wheelState;
-    TruckState truckState;
+   //variables for keeping track of movement
+   int wheelState;
+   TruckState truckState;
 
-    Ogre::Vector3 cameraMovement;
-    Ogre::Vector3 truckMovement;
-    Ogre::Quaternion truckRotation;
+   bool cameraLocked;
 
-    //functions to recursivley generate the scene graph from XML
-    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
-    void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
+   Ogre::Vector3 cameraMovement;
+   Ogre::Vector3 truckMovement;
+
+   //functions to recursivley generate the scene graph from XML
+   void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
+   void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
 
 public:
 
@@ -94,6 +90,7 @@ public:
 
 	//methods to alter the scene based on input
 	void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy);
+   void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button);
 	void keyPressed(const KeyboardKey key);
 	void keyReleased(const KeyboardKey key);
 

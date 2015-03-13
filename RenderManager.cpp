@@ -5,13 +5,7 @@
 
 using namespace Ogre;
 
-//define the static variables
-Ogre::Vector3 RenderManager::xAxis(1, 0, 0);
-Ogre::Vector3 RenderManager::yAxis(0, 1, 0);
-Ogre::Vector3 RenderManager::zAxis(0, 0, 1);
-
 //public methods start here ----------------------------------------------------------------------------------------------------------------------
-
 RenderManager::RenderManager(GameManager *gman){
 
 	if (gman == NULL){
@@ -34,10 +28,9 @@ RenderManager::RenderManager(GameManager *gman){
 	//set the default states
 	truckState = TS_STILL;
 	wheelState = WS_FORWARD;
-
+   cameraLocked = false;
 	cameraMovement = Vector3::ZERO;
 	truckMovement = Vector3::ZERO;
-	truckRotation = Quaternion::IDENTITY;
 
 	try {
 
@@ -208,12 +201,14 @@ void RenderManager::checkForInput(const float timeStep){
 //update the movement after input is checked and processed
 void RenderManager::updateMovement(const float timeStep){
 
-	camera->setPosition(camera->getPosition() + cameraMovement);
+	SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+
+	//because the camera is attached to the truck, it must play a part
+	camera->setPosition(camera->getPosition() + (truck->getOrientation() * cameraMovement));
 
 	//only move/rotate the truck if it is moving
 	if (truckMovement != Vector3::ZERO){
 
-		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
 		truck->setPosition(truck->getPosition() + (truck->getOrientation() * truckMovement));
 
 		//only rotate the truck if its wheels are turned
@@ -250,9 +245,12 @@ void RenderManager::stopRendering(){
 //methods to alter the scene based on input -------------------------------------------------------
 void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
 
+	SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
+	Quaternion tq = truck->getOrientation();
+
 	//the mouse will rotate the camera so it looks elsewhere
-	Quaternion xq(Degree((dx * -1.0) / 2), camera->getRealUp());
-	Quaternion yq(Degree((dy * -1.0) / 2), camera->getRealRight());
+	Quaternion xq(Degree((dx * -1.0) / 2), (tq * camera->getRealUp()));
+	Quaternion yq(Degree((dy * -1.0) / 2), (tq * camera->getRealRight()));
 	Quaternion cq = camera->getOrientation();
 
 	//rotate the camera relative to its current orientation
@@ -260,38 +258,62 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 
 }
 
+void RenderManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){
+
+   if (button == M_LEFT){
+
+      //the left button will lock/unlock the camera
+      cameraLocked = !cameraLocked;
+
+   } else if (button == M_RIGHT){
+
+      //the right button will reset the camera
+      cameraMovement = Vector3::ZERO;
+      camera->setOrientation(Quaternion(Degree(-90), Vector3(0,1,0)));
+      camera->setPosition(Vector3(-7,7,0));
+
+   }
+
+}
+
 //this method will change the scene based on the key pressed
 void RenderManager::keyPressed(const KeyboardKey key){
 
-	if (key == KB_D){
+   if (!cameraLocked){
 
-		cameraMovement += Vector3(0,0,0.001);
+   	if (key == KB_D){
 
-	} else if (key == KB_A){
+	     	cameraMovement += Vector3(0,0,0.001);
 
-		cameraMovement += Vector3(0,0,-0.001);
+	  } else if (key == KB_A){
 
-	} else if (key == KB_S){
+   		cameraMovement += Vector3(0,0,-0.001);
 
-		cameraMovement += Vector3(-0.001,0,0);
+   	} else if (key == KB_S){
 
-	} else if (key == KB_W){
+   		cameraMovement += Vector3(-0.001,0,0);
 
-		cameraMovement += Vector3(0.001,0,0);
+   	} else if (key == KB_W){
 
-	} else if (key == KB_LSHIFT){
+   		cameraMovement += Vector3(0.001,0,0);
 
-		cameraMovement += Vector3(0,-0.001,0);
+   	} else if (key == KB_LSHIFT){
 
-	} else if (key == KB_SPACE){
+		   cameraMovement += Vector3(0,-0.001,0);
 
-		cameraMovement += Vector3(0,0.001,0);
+   	} else if (key == KB_SPACE){
 
-	} else if (key == KB_TAB){
+	    	cameraMovement += Vector3(0,0.001,0);
 
-		cameraMovement = Vector3(0,0,0);
+	   } else if (key == KB_TAB){
 
-	} else if (key == KB_UP){
+	  	  cameraMovement = Vector3(0,0,0);
+
+      }
+
+   } 
+
+   if (key == KB_UP){
 
 		//move the truck forward
 		truckMovement += Vector3(0.001,0,0);
@@ -311,7 +333,7 @@ void RenderManager::keyPressed(const KeyboardKey key){
 			SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
 			SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
 
-			Quaternion q(Degree(45), RenderManager::yAxis);
+			Quaternion q(Degree(45), Vector3::UNIT_Y);
 			Quaternion rwq = rightWheel->getOrientation();
 			Quaternion lwq = leftWheel->getOrientation();
 
@@ -330,7 +352,7 @@ void RenderManager::keyPressed(const KeyboardKey key){
 			SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
 			SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
 
-			Quaternion q(Degree(-45), RenderManager::yAxis);
+			Quaternion q(Degree(-45), Vector3::UNIT_Y);
 			Quaternion rwq = rightWheel->getOrientation();
 			Quaternion lwq = leftWheel->getOrientation();
 
