@@ -1,16 +1,34 @@
 
 Dr. Boshart,
 
-Our game is on GitHub here: https://github.com/pwestrich/game_engine. The version
-you should grade is marked 0.1.
+My game is in the same place: https://github.com/pwestrich/game_engine.
+This time, use version 0.2. It should compile just the same as the last did.
 
-All you ahve to do to run and build the game should be:
+I don't own a joystick like yours, not could I find someone who owned one, so
+I wasn't able to include any joystick inputs.
 
-1. Change the PATH variable in the build_game.bat
-2. Change the INC_DIRS in the Makefile
-3. Change the LIB_DIRS in the Makefile
-4. Run the batch script
+Instead, you get mouse and keyboard. Her's the controls:
 
-If you have any problems grading it, let me know. I'll lend you my flash drive I've built it on.
+Mouse movement rotates the camera.
+Left click locks the camera in place. A second click will unlock it.
+Right click resets the camera position.
 
--Philip Westrich and Mitchell White
+W-S moves the camera along the Z-axis.
+A-D moves the camera along the X-axis.
+LSHIFT-SPACE moves the camera along the Y-axis.
+TAB stops camera movement.
+
+When moving the camera, hitting the key will accellerate the camera's movement in that direction,
+i.e., if you tap W, the camera will start moving in the megative Z direction. Tapping S will stop it,
+because it adds accelleration in the positive Z direction.
+
+UPARROW-DOWNARROW moves the truck forwards and backwards, using the same scheme as moving the camera.
+The camera will also follow the truck wherever it goes.
+LEFTARROW-RIGHTARROW will turn the wheels 45 degrees left or right. The truck will start turning if it is moving.
+
+Hopefully the controls aren't too confusing; I had a good idea for joystick input, but I found that the one 
+I own won't work very well.
+
+I think camera rotation gets a little messed up when you turn the truck; that's why you can reset the camera's location.
+
+-Philip Westrich

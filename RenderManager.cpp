@@ -28,7 +28,7 @@ RenderManager::RenderManager(GameManager *gman){
 	//set the default states
 	truckState = TS_STILL;
 	wheelState = WS_FORWARD;
-   cameraLocked = false;
+    cameraLocked = false;
 	cameraMovement = Vector3::ZERO;
 	truckMovement = Vector3::ZERO;
 
@@ -249,8 +249,8 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 	Quaternion tq = truck->getOrientation();
 
 	//the mouse will rotate the camera so it looks elsewhere
-	Quaternion xq(Degree((dx * -1.0) / 2), (tq * camera->getRealUp()));
-	Quaternion yq(Degree((dy * -1.0) / 2), (tq * camera->getRealRight()));
+	Quaternion xq(Degree((dx * -1.0) / 2), camera->getRealUp());
+	Quaternion yq(Degree((dy * -1.0) / 2), camera->getRealRight());
 	Quaternion cq = camera->getOrientation();
 
 	//rotate the camera relative to its current orientation
@@ -279,13 +279,14 @@ void RenderManager::mousePressed(const uint32_t x, const uint32_t y, const Mouse
 //this method will change the scene based on the key pressed
 void RenderManager::keyPressed(const KeyboardKey key){
 
+	//camera movement
    if (!cameraLocked){
 
    	if (key == KB_D){
 
-	     	cameraMovement += Vector3(0,0,0.001);
+	    cameraMovement += Vector3(0,0,0.001);
 
-	  } else if (key == KB_A){
+	} else if (key == KB_A){
 
    		cameraMovement += Vector3(0,0,-0.001);
 
@@ -299,20 +300,21 @@ void RenderManager::keyPressed(const KeyboardKey key){
 
    	} else if (key == KB_LSHIFT){
 
-		   cameraMovement += Vector3(0,-0.001,0);
+		cameraMovement += Vector3(0,-0.001,0);
 
    	} else if (key == KB_SPACE){
 
-	    	cameraMovement += Vector3(0,0.001,0);
+	    cameraMovement += Vector3(0,0.001,0);
 
-	   } else if (key == KB_TAB){
+	} else if (key == KB_TAB){
 
-	  	  cameraMovement = Vector3(0,0,0);
+	  	cameraMovement = Vector3(0,0,0);
 
-      }
+	}
 
    } 
 
+   //truck movement
    if (key == KB_UP){
 
 		//move the truck forward
