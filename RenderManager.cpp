@@ -256,7 +256,7 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 		Quaternion yq(Degree((dy * -1.0) / 2), camera->getRealRight());
 		Quaternion cq = camera->getOrientation();
 
-		//rotate the camera relative to its current orientation
+		//rotate the camera 
 		camera->rotate(xq * yq); 
 
 	}
