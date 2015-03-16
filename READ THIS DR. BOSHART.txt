@@ -29,6 +29,7 @@ LEFTARROW-RIGHTARROW will turn the wheels 45 degrees left or right. The truck wi
 Hopefully the controls aren't too confusing; I had a good idea for joystick input, but I found that the one 
 I own won't work very well.
 
-I think camera rotation gets a little messed up when you turn the truck; that's why you can reset the camera's location.
+I fixed the camera rotation problem a little bit. It's not perfect, but it is much better than it used to be.
+If you get the camera lost, you can always reset its position.
 
 -Philip Westrich

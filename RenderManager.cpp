@@ -245,6 +245,7 @@ void RenderManager::stopRendering(){
 //methods to alter the scene based on input -------------------------------------------------------
 void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
 
+	//locking the camera will also lock rotation
 	if (!cameraLocked){
 
 		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
@@ -256,7 +257,7 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 		Quaternion cq = camera->getOrientation();
 
 		//rotate the camera relative to its current orientation
-		camera->setOrientation(xq * yq * cq); 
+		camera->rotate(xq * yq); 
 
 	}
 
