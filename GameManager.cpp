@@ -199,3 +199,58 @@ void GameManager::unloadResources(){
 	resourceManager->unloadResources();
 
 }
+
+//methods to tell the AudioManager to do things
+void GameManager::playAudio(AudioResourceInfo *info, const int numRepeats){
+
+	audioManager->playAudio(info, numRepeats);
+
+}
+
+void GameManager::updateAudio(){
+
+	audioManager->updateAudio();
+
+}
+
+void GameManager::pauseAudio(){
+
+	audioManager->pause();
+
+}
+
+void GameManager::startAudio(){
+
+	audioManager->start();
+
+}
+
+void GameManager::setVolume(const float volume){
+
+	audioManager->setVolume(volume);
+
+}
+
+void GameManager::loadAudioSample(const string &filename, AudioResourceInfo *info){
+
+	audioManager->loadAudioSample(filename, info);
+
+}
+
+void GameManager::loadAudioStream(const string &filename, AudioResourceInfo *info){
+
+	audioManager->loadAudioStream(filename, info);
+
+}
+
+void GameManager::unloadAudio(AudioResourceInfo *info){
+
+	audioManager->unloadAudio(info);
+
+}
+
+AudioResourceInfo *GameManager::createAudioInfo(){
+
+	return audioManager->createAudioInfo();
+
+}

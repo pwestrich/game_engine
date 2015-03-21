@@ -16,6 +16,8 @@ class ResourceManager;
 class InputManager;
 class AudioManager;
 
+struct AudioResourceInfo;
+
 class GameManager : public InputListener {
 
 private:
@@ -78,6 +80,22 @@ public:
 	//methods to make the ResourceManager do things
 	void loadResourcesFromXML(const std::string &filename, const std::string &group);
 	void unloadResources();
+
+	//methods to tell the AudioManager to do things
+	void playAudio(AudioResourceInfo *info, const int numRepeats);
+	void updateAudio();
+
+	void pauseAudio();
+	void startAudio();
+
+	void setVolume(const float volume);
+
+	void loadAudioSample(const string &filename, AudioResourceInfo *info);
+	void loadAudioStream(const string &filename, AudioResourceInfo *info);
+
+	void unloadAudio(AudioResourceInfo *info);
+
+	AudioResourceInfo *createAudioInfo();
 
 };
 

@@ -48,7 +48,7 @@ public:
 
 	//methods for loading and unloading ausio resources
 	void loadAudioSample(const string &filename, AudioResourceInfo *info);
-	void loadSudioStream(const string &filename, AudioResourceInfo *info);
+	void loadAudioStream(const string &filename, AudioResourceInfo *info);
 
 	void unloadAudio(AudioResourceInfo *info);
 

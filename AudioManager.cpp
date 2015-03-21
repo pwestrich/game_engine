@@ -75,7 +75,7 @@ void AudioManager::loadAudioSample(const string &filename, AudioResourceInfo *in
 
 }
 
-void AudioManager::loadSudioStream(const string &filename, AudioResourceInfo *info){
+void AudioManager::loadAudioStream(const string &filename, AudioResourceInfo *info){
 
 	assert(info != NULL);
 
