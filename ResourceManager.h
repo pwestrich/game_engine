@@ -3,12 +3,15 @@
 #define RESOURCE_MANAGER
 
 #include <string>
+#include <vector>
 
 #include "tinyxml.h"	//to read in from XML
 
 using namespace std;
 
 class GameManager;
+
+struct AudioResourceInfo;
 
 class ResourceManager {
 
@@ -19,6 +22,8 @@ private:
 
 	//the currently loaded group
 	string groupLoaded;
+
+	vector<AudioResourceInfo*> sounds;
 
 public:
 

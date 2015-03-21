@@ -1,5 +1,5 @@
 
-<ogre_groups>
+<groups>
 	<group>
 		<name>0</name>
 		<paths>
@@ -10,6 +10,9 @@
 		<meshes>
 			<mesh>cube.mesh</mesh>
 			<mesh>ground.mesh</mesh>
+			<mesh>spokes.mesh</mesh>
+			<mesh>truck.mesh</mesh>
+			<mesh>wheel.mesh</mesh>
 		</meshes>
 	</group>
 	
@@ -23,4 +26,4 @@
 			<mesh>Submarine.mesh</mesh>
 		</meshes>
 	</group>
-</ogre_groups>
+</groups>
