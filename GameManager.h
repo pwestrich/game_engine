@@ -14,6 +14,7 @@ class RenderManager;
 class LogManager;
 class ResourceManager;
 class InputManager;
+class AudioManager;
 
 class GameManager : public InputListener {
 
@@ -24,6 +25,7 @@ private:
 	LogManager *logManager;
 	ResourceManager *resourceManager;
 	InputManager *inputManager;
+	AudioManager *audioManager;
 
 	//only one copy at a time is allowed
 	GameManager();

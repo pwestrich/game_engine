@@ -4,6 +4,7 @@
 #include "RenderManager.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "AudioManager.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ GameManager::GameManager(){
 	renderManager = new RenderManager(this);
 	resourceManager = new ResourceManager(this);
 	inputManager = new InputManager(this);
+	audioManager = new AudioManager(this);
 
 	//set input listeners
 	inputManager->addListener(this);
