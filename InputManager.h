@@ -48,6 +48,7 @@ public:
 	virtual ~InputManager();
 
 	void addListener(InputListener *newListener);
+	void removeListener(InputListener *listener);
 	void checkForInput(const float time_step);
 
    //key listener methods

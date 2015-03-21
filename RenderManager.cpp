@@ -378,6 +378,11 @@ void RenderManager::keyReleased(const KeyboardKey key){
 
 }
 
+//not used
+void RenderManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){}
+void RenderManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount) {}
+void RenderManager::joystickButtonPressed(const JoystickButton button){}
+
 //this massive function will build a scene from XML given its filename and a group
 void RenderManager::buildSceneFromXML(const std::string &filename, const string &sceneName){
 

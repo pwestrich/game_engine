@@ -15,11 +15,13 @@ GameManager::GameManager(){
 	resourceManager = new ResourceManager(this);
 	inputManager = new InputManager(this);
 
+	//set input listeners
+	inputManager->addListener(this);
+	inputManager->addListener(renderManager);
+
 }
 
 GameManager::~GameManager(){
-
-	unloadResources();
 
 	//delete everything
 	delete inputManager;
@@ -50,9 +52,6 @@ void GameManager::keyPressed(const KeyboardKey key){
 		exit(EXIT_SUCCESS);
 
 	}
-
-	//otherwise, pass they key on to the render manager to change the scene
-	renderManager->keyPressed(key);
 
 }
 

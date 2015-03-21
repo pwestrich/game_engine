@@ -20,7 +20,7 @@ enum WheelState { WS_LEFT = 0, WS_FORWARD = 1, WS_RIGHT = 2 };
 //enumeration for the truck's state
 enum TruckState { TS_STILL, TS_FORWARD, TS_BACKWARD };
 
-class RenderManager {
+class RenderManager : public InputListener {
 
 private:
 
@@ -89,11 +89,17 @@ public:
 	void stopRendering();
 
 	//methods to alter the scene based on input
-	void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy);
-   void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button);
 	void keyPressed(const KeyboardKey key);
 	void keyReleased(const KeyboardKey key);
 
+	void mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy);
+	void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button);
+	void mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button);
+
+	void joystickAxisMoved(const JoystickAxis axis, const uint32_t amount);
+	void joystickButtonPressed(const JoystickButton button);
+
+	//methods to build the scene
 	void buildSceneFromXML(const std::string &filename, const string &sceneName);
 	void buildSceneManually();
 

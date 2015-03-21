@@ -12,7 +12,6 @@ InputManager::InputManager(GameManager *gman){
 	gameManager = gman;
 
 	listeners.reserve(8);
-	listeners.push_back(gameManager);
 
 	windowHandle = gameManager->getWindowHandle();
 	/*windowWidth = gameManager->getWindowWidth();
@@ -85,6 +84,23 @@ void InputManager::addListener(InputListener *newListener){
 	assert(newListener != NULL);
 
 	listeners.push_back(newListener);
+
+}
+
+void InputManager::removeListener(InputListener *listener){
+
+	assert(listener != NULL);
+
+	for (size_t i = 0; i < listeners.size(); ++i){
+
+		if (listeners[i] == listener){
+
+			listeners.erase(listeners.begin() + i);
+			return;
+
+		}
+
+	}
 
 }
 
