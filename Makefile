@@ -10,9 +10,9 @@ LIBS=-lboost_system-mgw48-mt-1_57 -lOgreMain -ltinyxml -lOIS -lbass
 COMPILE = $(CC) $(INC_DIRS) -g -O0 -c 
 LINK = $(CC) $(LIB_DIRS) -g -O0 -o
 
-GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h
-GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp
-GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o
+GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h
+GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp AudioPlayer.cpp
+GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o AudioPlayer.o
 
 .PHONY: run_quat run_game
 
@@ -55,6 +55,10 @@ RenderListener.o: RenderListener.cpp $(GAME_HEADER)
 AudioManager.o: AudioManager.cpp $(GAME_HEADER)
 
 	$(COMPILE) AudioManager.cpp
+
+AudioPlayer.o: AudioPlayer.cpp $(GAME_HEADER)
+
+	$(COMPILE) AudioPlayer.cpp
 
 utilities.o: utilities.cpp utilities.h
 
