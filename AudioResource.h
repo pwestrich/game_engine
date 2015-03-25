@@ -13,10 +13,11 @@ class AudioResource : public GameResource {
 private:
 
 	AudioResourceInfo *info;
+	string type;
 
 public:
 
-	AudioResource(uint32_t newID, const string &newGroup, const string &newName, GameManager *gm, AudioResourceInfo *newInfo);
+	AudioResource(uint32_t newID, const string &newGroup, const string &newName, GameManager *gm, AudioResourceInfo *newInfo, const string &newType);
 	~AudioResource();
 
 	AudioResourceInfo *getInfo();

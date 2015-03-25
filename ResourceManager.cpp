@@ -87,7 +87,8 @@ void ResourceManager::loadResourcesFromXML(const string &filename){
                         gameManager->logWarn("You don't have any meshes... Are you sure about that?");
 
                   }
-                   TiXmlNode *audioTree = group->FirstChild("audio");
+
+                   TiXmlNode *audioTree = group->FirstChild("audios");
 
                   if (audioTree){
 
@@ -102,7 +103,7 @@ void ResourceManager::loadResourcesFromXML(const string &filename){
                             audioElement = static_cast<TiXmlElement*>(audio->FirstChild("id"));
                             uint32_t id = strtoul(audioElement->GetText(), NULL, 0);
 
-                            AudioResource *item = new AudioResource(id, groupName, audioFile, gameManager, gameManager->createAudioInfo());
+                            AudioResource *item = new AudioResource(id, groupName, audioFile, gameManager, gameManager->createAudioInfo(), audioType);
                             thisGroup.push_back(item);
 
                         }
@@ -113,7 +114,6 @@ void ResourceManager::loadResourcesFromXML(const string &filename){
 
                   }
 
-               cerr << groupName << ": " << thisGroup.size() << endl;
 
             	}
 

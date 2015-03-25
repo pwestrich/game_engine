@@ -226,6 +226,12 @@ void RenderManager::updateMovement(const float timeStep){
 
 }
 
+void RenderManager::updateAudio(const float timeStep){
+
+	gameManager->updateAudio(timeStep);
+
+}
+
 void RenderManager::startRendering(){
 
 	gameManager->logInfo("Starting renderer...");

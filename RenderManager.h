@@ -84,6 +84,7 @@ public:
     void processAnimations(const float timeStep);
     void checkForInput(const float timeStep);
     void updateMovement(const float timeStep);
+    void updateAudio(const float timeStep);
 
 	void startRendering();
 	void stopRendering();

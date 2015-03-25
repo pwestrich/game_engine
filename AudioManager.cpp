@@ -90,26 +90,6 @@ void AudioManager::loadAudioStream(const string &filename, AudioResourceInfo *in
 
 }
 
-void AudioManager::loadAudio(const string &filename, AudioResourceInfo *info){
-
-	assert(info != NULL);
-
-	if (info->type == A_STREAM){
-
-		loadAudioStream(filename, info);
-
-	} else if (info->type == A_SAMPLE){
-
-		loadAudioSample(filename, info);
-
-	} else {
-
-		gameManager->logFatal("ERROR: Invalid audio type!", __LINE__, __FILE__);
-
-	}
-
-}
-
 void AudioManager::unloadAudio(AudioResourceInfo *info){
 
 	assert(info != NULL);
@@ -191,7 +171,6 @@ void AudioManager::updateAudio(){
 
 	}
 
-
 }
 
 void AudioManager::playAudio(AudioResourceInfo *info, const int numRepeats){
@@ -201,5 +180,7 @@ void AudioManager::playAudio(AudioResourceInfo *info, const int numRepeats){
 
 	//make a new player and store it
 	players.push_back(new AudioPlayer(info, numRepeats));
+
+	gameManager->logInfo("Playing sound.");
 
 }

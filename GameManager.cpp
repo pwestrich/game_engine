@@ -5,6 +5,8 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include "AudioManager.h"
+#include "GameResource.h"
+#include "AudioResource.h"
 
 using namespace std;
 
@@ -20,6 +22,19 @@ GameManager::GameManager(){
 	//set input listeners
 	inputManager->addListener(this);
 	inputManager->addListener(renderManager);
+
+	loadResourcesFromXML("./xml/resources.xml");
+	loadResources("0");
+	buildSceneFromXML("./xml/scene.xml", "0");
+	
+	AudioResource *music = static_cast<AudioResource*>(getResourceByID(7));
+	playAudio(music->getInfo(), 5);
+	startAudio();
+	setVolume(0.40);
+
+	cerr << "Music: " << music << endl;
+	
+	startRendering();
 
 }
 
@@ -219,7 +234,7 @@ void GameManager::playAudio(AudioResourceInfo *info, const int numRepeats){
 
 }
 
-void GameManager::updateAudio(){
+void GameManager::updateAudio(const float timeStep){
 
 	audioManager->updateAudio();
 
@@ -243,9 +258,15 @@ void GameManager::setVolume(const float volume){
 
 }
 
-void GameManager::loadAudio(const string &filename, AudioResourceInfo *info){
+void GameManager::loadAudioStream(const string &filename, AudioResourceInfo *info){
 
-	audioManager->loadAudio(filename, info);
+	audioManager->loadAudioStream(filename, info);
+
+}
+
+void GameManager::loadAudioSample(const string &filename, AudioResourceInfo *info){
+
+	audioManager->loadAudioSample(filename, info);
 
 }
 

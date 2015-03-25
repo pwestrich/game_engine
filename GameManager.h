@@ -87,14 +87,15 @@ public:
 
 	//methods to tell the AudioManager to do things
 	void playAudio(AudioResourceInfo *info, const int numRepeats);
-	void updateAudio();
+	void updateAudio(const float timeStep);
 
 	void pauseAudio();
 	void startAudio();
 
 	void setVolume(const float volume);
 
-	void loadAudio(const string &filename, AudioResourceInfo *info);
+	void loadAudioStream(const string &filename, AudioResourceInfo *info);
+	void loadAudioSample(const string &filename, AudioResourceInfo *info);
 	void unloadAudio(AudioResourceInfo *info);
 
 	AudioResourceInfo *createAudioInfo();

@@ -34,5 +34,12 @@
 				<id>6</id>
 			</mesh>
 		</meshes>
+		<audios>
+			<audio>
+				<file>./assets/audio/N64 Rainbow Road.mp3</file>
+				<type>stream</type>
+				<id>7</id>
+			</audio>
+		</audios>
 	</group>
 </groups>

@@ -1,15 +1,17 @@
 
 #include "AudioResource.h"
+#include "AudioManager.h"
 #include "GameManager.h"
 
 using namespace std;
 
-AudioResource::AudioResource(uint32_t newID, const string &newGroup, const string &newName, GameManager *gm, AudioResourceInfo *newInfo) 
+AudioResource::AudioResource(uint32_t newID, const string &newGroup, const string &newName, GameManager *gm, AudioResourceInfo *newInfo, const string &newType) 
 								: GameResource(newID, newGroup, newName, gm, RT_AUDIO) {
 
 	assert(newInfo != NULL);
 
 	info = newInfo;
+	type = newType;
 
 }
 
@@ -25,7 +27,21 @@ AudioResourceInfo *AudioResource::getInfo(){
 void AudioResource::load(){
 
 	gameManager->logInfo("Loading AudioResource");
-	gameManager->loadAudio(getFilename(), info);
+
+	if (type == "stream"){
+
+		gameManager->loadAudioStream(getFilename(), info);
+
+	} else if (type == "sample"){
+
+		gameManager->loadAudioSample(getFilename(), info);
+
+	} else {
+
+		gameManager->logFatal("Invalid audio type!", __LINE__, __FILE__);
+
+	}
+
 	loaded = true;
 
 }

@@ -38,6 +38,7 @@ bool RenderListener::frameStarted(const Ogre::FrameEvent &event){
 	renderManager->checkForInput(timeStep);
 	renderManager->processAnimations(timeStep);
 	renderManager->updateMovement(timeStep);
+	renderManager->updateAudio(timeStep);
 
 	//return this so we keep rendering
 	return render;
