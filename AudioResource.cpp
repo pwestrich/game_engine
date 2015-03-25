@@ -24,6 +24,7 @@ AudioResourceInfo *AudioResource::getInfo(){
 //methods from GameResource
 void AudioResource::load(){
 
+	gameManager->logInfo("Loading AudioResource");
 	gameManager->loadAudio(getFilename(), info);
 	loaded = true;
 

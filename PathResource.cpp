@@ -22,7 +22,8 @@ string PathResource::getPath(){
 //must be implemented from GameResource
 void PathResource::load(){
 
-	gameManager->addPathResource(getFilename(), "FileSystem", getGroup());
+	gameManager->logInfo("Loading PathResource");
+	gameManager->addPathResource(getPath(), "FileSystem", getGroup());
 	loaded = true;
 
 }

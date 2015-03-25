@@ -3,6 +3,7 @@
 #define RESOURCE_MANAGER
 
 #include <string>
+#include <sstream>
 #include <map>
 #include <vector>
 

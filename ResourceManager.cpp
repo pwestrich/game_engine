@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include "ResourceManager.h"
 #include "GameManager.h"
 
@@ -35,11 +37,10 @@ void ResourceManager::loadResourcesFromXML(const string &filename){
             for (TiXmlNode *group = groupsTree->FirstChild(); group; group = group->NextSibling()){
 
                 TiXmlElement *nameElement = static_cast<TiXmlElement*>(group->FirstChild("name"));
-
                 string groupName = nameElement->GetText();
 
                 //create this resource group
-                vector<GameResource*> thisGroup = resources[groupName];
+                vector<GameResource*> &thisGroup = resources[groupName];
 
                   TiXmlNode *pathTree = group->FirstChild("paths");
 
@@ -112,7 +113,9 @@ void ResourceManager::loadResourcesFromXML(const string &filename){
 
                   }
 
-            }
+               cerr << groupName << ": " << thisGroup.size() << endl;
+
+            	}
 
         } else {
 
@@ -136,6 +139,8 @@ void ResourceManager::loadGroup(const string &groupName){
 
 	vector<GameResource*> group = resources[groupName];
 
+	cerr << group.size() << endl;
+
 	for (size_t i = 0; i < group.size(); ++i){
 
 		group[i]->load();
@@ -158,7 +163,7 @@ void ResourceManager::unloadResources(){
 
   if (groupLoaded == "") return;
 
-  vector<GameResource*> group = resources[groupLoaded];
+  vector<GameResource*> &group = resources[groupLoaded];
 
   for (size_t i = 0; i < group.size(); ++i){
 
@@ -174,7 +179,7 @@ void ResourceManager::unloadResources(){
 
 GameResource *ResourceManager::getResourceByID(uint32_t id){
 
-	vector<GameResource*> group = resources[groupLoaded];
+	vector<GameResource*> &group = resources[groupLoaded];
 
 	for (size_t i = 0; i < group.size(); ++i){
 

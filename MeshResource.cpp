@@ -14,6 +14,7 @@ MeshResource::~MeshResource(){} //nothing here
 //methods from GameResource
 void MeshResource::load(){
 
+	gameManager->logInfo("Loading MeshResource");
 	gameManager->addMeshResource(getFilename(), "Mesh", getGroup());
 	loaded = true;
 
