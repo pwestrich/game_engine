@@ -31,8 +31,6 @@ GameManager::GameManager(){
 	playAudio(music->getInfo(), 5);
 	startAudio();
 	setVolume(0.40);
-
-	cerr << "Music: " << music << endl;
 	
 	startRendering();
 

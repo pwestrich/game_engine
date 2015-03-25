@@ -181,6 +181,4 @@ void AudioManager::playAudio(AudioResourceInfo *info, const int numRepeats){
 	//make a new player and store it
 	players.push_back(new AudioPlayer(info, numRepeats));
 
-	gameManager->logInfo("Playing sound.");
-
 }
