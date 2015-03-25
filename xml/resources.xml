@@ -3,27 +3,36 @@
 	<group>
 		<name>0</name>
 		<paths>
-			<path>./assets/models</path>
-			<path>./assets/materials/scripts</path>
-			<path>./assets/materials</path>
+			<path>
+				<name>./assets/models</name>
+				<id>0</id>
+			</path>
+			<path>
+				<name>./assets/materials/scripts</name>
+				<id>1</id>
+			</path>
+			<path>
+				<name>./assets/materials</name>
+				<id>2</id>
+			</path>
 		</paths>
 		<meshes>
-			<mesh>cube.mesh</mesh>
-			<mesh>ground.mesh</mesh>
-			<mesh>spokes.mesh</mesh>
-			<mesh>truck.mesh</mesh>
-			<mesh>wheel.mesh</mesh>
-		</meshes>
-	</group>
-	
-	<group>
-		<name>1</name>
-		<paths>
-			<path>./assets/models</path>
-			<path>./assets/materials/scripts</path>
-		</paths>
-		<meshes>
-			<mesh>Submarine.mesh</mesh>
+			<mesh>
+				<name>ground.mesh</name>
+				<id>3</id>
+			</mesh>
+			<mesh>
+				<name>spokes.mesh</name>
+				<id>4</id>
+			</mesh>
+			<mesh>
+				<name>truck.mesh</name>
+				<id>5</id>
+			</mesh>
+			<mesh>
+				<name>wheel.mesh</name>
+				<id>6</id>
+			</mesh>
 		</meshes>
 	</group>
 </groups>

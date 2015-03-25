@@ -58,8 +58,6 @@ AudioManager::~AudioManager(){
 //methods for loading and unloading ausio resources
 void AudioManager::loadAudioSample(const string &filename, AudioResourceInfo *info){
 
-	assert(info != NULL);
-
 	info->data = BASS_SampleLoad(false, filename.c_str(), 0, 0, 1, 0);
 
 	if (info->data){
@@ -77,8 +75,6 @@ void AudioManager::loadAudioSample(const string &filename, AudioResourceInfo *in
 
 void AudioManager::loadAudioStream(const string &filename, AudioResourceInfo *info){
 
-	assert(info != NULL);
-
 	info->data = BASS_StreamCreateFile(false, filename.c_str(), 0, 0, 0);
 
 	if (info->data){
@@ -89,6 +85,26 @@ void AudioManager::loadAudioStream(const string &filename, AudioResourceInfo *in
 	} else {
 
 		gameManager->logFatal("Error loading audio resource.", __LINE__, __FILE__);
+
+	}
+
+}
+
+void AudioManager::loadAudio(const string &filename, AudioResourceInfo *info){
+
+	assert(info != NULL);
+
+	if (info->type == A_STREAM){
+
+		loadAudioStream(filename, info);
+
+	} else if (info->type == A_SAMPLE){
+
+		loadAudioSample(filename, info);
+
+	} else {
+
+		gameManager->logFatal("ERROR: Invalid audio type!", __LINE__, __FILE__);
 
 	}
 

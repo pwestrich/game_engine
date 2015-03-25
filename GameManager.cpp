@@ -187,16 +187,28 @@ void GameManager::logFatal(const string &message, const int line, const char *fi
 }
 
 //resource manager methods ------------------------------------------------------------------------
-void GameManager::loadResourcesFromXML(const string &filename, const string &group){
+void GameManager::loadResourcesFromXML(const string &filename){
 
 	//render manager still does this for now
-	resourceManager->loadResourcesFromXML(filename, group);
+	resourceManager->loadResourcesFromXML(filename);
 
 }
 
 void GameManager::unloadResources(){
 
 	resourceManager->unloadResources();
+
+}
+
+void GameManager::loadResources(const string &group){
+
+	resourceManager->loadGroup(group);
+
+}
+
+GameResource *GameManager::getResourceByID(uint32_t id){
+
+	return resourceManager->getResourceByID(id);
 
 }
 
@@ -231,15 +243,9 @@ void GameManager::setVolume(const float volume){
 
 }
 
-void GameManager::loadAudioSample(const string &filename, AudioResourceInfo *info){
+void GameManager::loadAudio(const string &filename, AudioResourceInfo *info){
 
-	audioManager->loadAudioSample(filename, info);
-
-}
-
-void GameManager::loadAudioStream(const string &filename, AudioResourceInfo *info){
-
-	audioManager->loadAudioStream(filename, info);
+	audioManager->loadAudio(filename, info);
 
 }
 

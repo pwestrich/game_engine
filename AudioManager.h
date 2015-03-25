@@ -33,6 +33,9 @@ private:
 	//list of players
 	vector<AudioPlayer*> players;
 
+	void loadAudioSample(const string &filename, AudioResourceInfo *info);
+	void loadAudioStream(const string &filename, AudioResourceInfo *info);
+
 	void unloadAudioSample(AudioResourceInfo *info);
 	void unloadAudioStream(AudioResourceInfo *info);
 
@@ -47,8 +50,7 @@ public:
 	void setVolume(const float volume) { BASS_SetVolume(volume); }
 
 	//methods for loading and unloading ausio resources
-	void loadAudioSample(const string &filename, AudioResourceInfo *info);
-	void loadAudioStream(const string &filename, AudioResourceInfo *info);
+	void loadAudio(const string &filename, AudioResourceInfo *info);
 
 	void unloadAudio(AudioResourceInfo *info);
 

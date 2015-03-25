@@ -15,6 +15,7 @@ class LogManager;
 class ResourceManager;
 class InputManager;
 class AudioManager;
+class GameResource;
 
 struct AudioResourceInfo;
 
@@ -78,8 +79,11 @@ public:
 	void logFatal(const string &message, const int line, const char *file);
 
 	//methods to make the ResourceManager do things
-	void loadResourcesFromXML(const std::string &filename, const std::string &group);
+	void loadResourcesFromXML(const std::string &filename);
 	void unloadResources();
+
+	void loadResources(const string &group);
+	GameResource *getResourceByID(uint32_t id);
 
 	//methods to tell the AudioManager to do things
 	void playAudio(AudioResourceInfo *info, const int numRepeats);
@@ -90,9 +94,7 @@ public:
 
 	void setVolume(const float volume);
 
-	void loadAudioSample(const string &filename, AudioResourceInfo *info);
-	void loadAudioStream(const string &filename, AudioResourceInfo *info);
-
+	void loadAudio(const string &filename, AudioResourceInfo *info);
 	void unloadAudio(AudioResourceInfo *info);
 
 	AudioResourceInfo *createAudioInfo();

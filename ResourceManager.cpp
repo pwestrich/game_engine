@@ -2,7 +2,11 @@
 #include "ResourceManager.h"
 #include "GameManager.h"
 
-#include <iostream>
+#include "PathResource.h"
+#include "MeshResource.h"
+#include "AudioResource.h"
+
+using namespace std;
 
 ResourceManager::ResourceManager(GameManager *gm){
 
@@ -18,81 +22,7 @@ ResourceManager::~ResourceManager(){
 
 }
 
-//loads resources from the given XML files
-//stolen from Dr. Boshart (still)
-/*void ResourceManager::loadResourcesFromXML(const std::string &filename, const std::string &group_name){
-
-  //use tiny xml to parse an xml file with the ogre paths in it
-  TiXmlDocument doc(filename.c_str());
-  if (doc.LoadFile()){
-
-    TiXmlNode* ogre_groups_tree = doc.FirstChild("ogre_groups");
-    if (ogre_groups_tree){
-
-      //Enumerate group objects (eventually, child will be false and loop will terminate)
-      for(TiXmlNode* child = ogre_groups_tree->FirstChild(); child; child = child->NextSibling()){
-
-        TiXmlElement* group_element = child->ToElement();
-        if(group_element){
-
-          TiXmlElement* name_element = (TiXmlElement*) group_element->FirstChild("name");
-          std::string name_text = name_element->GetText();
-
-          //continue with this section if it matches the requested section
-          if (name_text == group_name){
-
-            TiXmlNode* paths_tree = group_element->FirstChild("paths");
-            if (paths_tree){
-
-              //Enumerate path objects
-              for(TiXmlNode* child = paths_tree->FirstChild(); child; child = child->NextSibling()){
-
-                TiXmlElement* path_element = (TiXmlElement*) child->ToElement();
-                std::string path_text = path_element->GetText();
-
-                gameManager->addPathResource(path_text, "FileSystem", group_name);
-              }
-
-            }
-
-            TiXmlNode* meshes_tree = group_element->FirstChild("meshes");
-            if (meshes_tree){
-
-              //Enumerate path objects
-              for(TiXmlNode* child = meshes_tree->FirstChild(); child; child = child->NextSibling()){
-
-                TiXmlElement* mesh_element = (TiXmlElement*) child->ToElement();
-                std::string mesh_text = mesh_element->GetText();
-
-                gameManager->addMeshResource(mesh_text, "Mesh", group_name);
-              }
-
-            }
-
-            //scripts loaded and resources are created, but not loaded
-            //use load/unload resource group to manage resource memory footprint
-            gameManager->initResourceGroup(group_name);
-            gameManager->loadResourceGroup(group_name);  //load the resources in the specific paths
- 
-            groupLoaded = group_name;
-
-          }
-
-        }
-
-      }
-
-    }
-
-  } else {
-
-    cerr << "ERROR: Resource file not found: " << filename << endl;
-
-  }
-
-}*/
-
-void ResourceManager::loadResourcesFromXML(const string &filename, const string &group_name){
+void ResourceManager::loadResourcesFromXML(const string &filename){
 
     TiXmlDocument document(filename.c_str());
 
@@ -106,49 +36,59 @@ void ResourceManager::loadResourcesFromXML(const string &filename, const string 
 
                 TiXmlElement *nameElement = static_cast<TiXmlElement*>(group->FirstChild("name"));
 
-                if (group_name == nameElement->GetText()){
+                string groupName = nameElement->GetText();
 
-                    TiXmlNode *pathTree = group->FirstChild("paths");
+                //create this resource group
+                vector<GameResource*> thisGroup = resources[groupName];
 
-                    if (pathTree){
+                  TiXmlNode *pathTree = group->FirstChild("paths");
+
+                  if (pathTree){
 
                         for (TiXmlNode *path = pathTree->FirstChild(); path; path = path->NextSibling()){
 
-                            TiXmlElement *pathElement = static_cast<TiXmlElement*>(path->ToElement());
-
+                            TiXmlElement *pathElement = static_cast<TiXmlElement*>(path->FirstChild("name"));
                             string pathText = pathElement->GetText();
-                            gameManager->addPathResource(pathText, "FileSystem", group_name);
+
+                            pathElement = static_cast<TiXmlElement*>(path->FirstChild("id"));
+                            uint32_t id = strtoul(pathElement->GetText(), NULL, 0);
+                            
+                            PathResource *item = new PathResource(id, groupName, pathText, gameManager);
+                            thisGroup.push_back(item);
 
                         }
 
-                    } else {
+                  } else {
 
                         gameManager->logWarn("You have no paths set... Are you sure about that?");
 
-                    }
+                  }
 
-                    TiXmlNode *meshTree = group->FirstChild("meshes");
+                  TiXmlNode *meshTree = group->FirstChild("meshes");
 
-                    if (meshTree){
+                  if (meshTree){
 
                         for (TiXmlNode *mesh = meshTree->FirstChild(); mesh; mesh = mesh->NextSibling()){
 
-                            TiXmlElement *meshElement = static_cast<TiXmlElement*>(mesh->ToElement());
-
+                            TiXmlElement *meshElement = static_cast<TiXmlElement*>(mesh->FirstChild("name"));
                             string meshString = meshElement->GetText();
-                            gameManager->addMeshResource(meshString, "Mesh", group_name);
+
+                            meshElement = static_cast<TiXmlElement*>(mesh->FirstChild("id"));
+                            uint32_t id = strtoul(meshElement->GetText(), NULL, 0);
+
+                            MeshResource *item = new MeshResource(id, groupName, meshString, gameManager);
+                            thisGroup.push_back(item);
 
                         }
 
-                    } else {
+                  } else {
 
                         gameManager->logWarn("You don't have any meshes... Are you sure about that?");
 
-                    }
+                  }
+                   TiXmlNode *audioTree = group->FirstChild("audio");
 
-                    TiXmlNode *audioTree = group->FirstChild("audio");
-
-                    if (audioTree){
+                  if (audioTree){
 
                         for (TiXmlNode *audio = audioTree->FirstChild(); audio; audio = audio->NextSibling()){
 
@@ -158,31 +98,19 @@ void ResourceManager::loadResourcesFromXML(const string &filename, const string 
                             audioElement = static_cast<TiXmlElement*>(audio->FirstChild("type"));
                             string audioType = audioElement->GetText();
 
-                            sounds.push_back(gameManager->createAudioInfo());
+                            audioElement = static_cast<TiXmlElement*>(audio->FirstChild("id"));
+                            uint32_t id = strtoul(audioElement->GetText(), NULL, 0);
 
-                            if (audioType == "stream"){
-
-                                gameManager->loadAudioStream(audioFile, sounds[sounds.size() - 1]);
-
-                            } else if (audioType == "sample"){
-
-                                gameManager->loadAudioSample(audioFile, sounds[sounds.size() - 1]);
-
-                            } else {
-
-                                gameManager->logFatal("Error: Invalid audio type.", __LINE__, __FILE__);
-
-                            }
+                            AudioResource *item = new AudioResource(id, groupName, audioFile, gameManager, gameManager->createAudioInfo());
+                            thisGroup.push_back(item);
 
                         }
 
-                    } else {
+                  } else {
 
-                        gameManager->logInfo("No audio in this group.");
+                      gameManager->logInfo("No audio in this group.");
 
-                    }
-
-                }
+                  }
 
             }
 
@@ -198,22 +126,66 @@ void ResourceManager::loadResourcesFromXML(const string &filename, const string 
 
     }
 
-    gameManager->initResourceGroup(group_name);
-    gameManager->loadResourceGroup(group_name);  //load the resources in the specific paths
-    groupLoaded = group_name;
+}
+
+void ResourceManager::loadGroup(const string &groupName){
+
+	if (groupLoaded == groupName) return;
+
+	gameManager->logInfo("Loading resources...");
+
+	vector<GameResource*> group = resources[groupName];
+
+	for (size_t i = 0; i < group.size(); ++i){
+
+		group[i]->load();
+
+	}
+
+	gameManager->logInfo("Initalizing Ogre resource group...");
+	gameManager->initResourceGroup(groupName);
+
+	gameManager->logInfo("Loading Ogre resources...");
+	gameManager->loadResourceGroup(groupName);
+
+	gameManager->logInfo("Resources loaded!");
+
+	groupLoaded = groupName;
 
 }
 
 void ResourceManager::unloadResources(){
 
-  if (groupLoaded == ""){
+  if (groupLoaded == "") return;
 
-    return;
+  vector<GameResource*> group = resources[groupLoaded];
+
+  for (size_t i = 0; i < group.size(); ++i){
+
+  		group[i]->unload();
 
   }
 
   gameManager->unloadResourceGroup(groupLoaded);
 
   groupLoaded = "";
+
+}
+
+GameResource *ResourceManager::getResourceByID(uint32_t id){
+
+	vector<GameResource*> group = resources[groupLoaded];
+
+	for (size_t i = 0; i < group.size(); ++i){
+
+		if (group[i]->getResourceID() == id){
+
+			return group[i];
+
+		}
+
+	}
+
+	return NULL;
 
 }

@@ -3,7 +3,10 @@
 #define RESOURCE_MANAGER
 
 #include <string>
+#include <map>
 #include <vector>
+
+class GameResource;
 
 #include "tinyxml.h"	//to read in from XML
 
@@ -23,7 +26,7 @@ private:
 	//the currently loaded group
 	string groupLoaded;
 
-	vector<AudioResourceInfo*> sounds;
+	map<string, vector<GameResource*>> resources;
 
 public:
 
@@ -31,10 +34,14 @@ public:
 	~ResourceManager();
 
 	//loads resources from the given XML files
-	void loadResourcesFromXML(const string &filename, const string &group_name);
+	void loadResourcesFromXML(const string &filename);
+
+	void loadGroup(const string &groupName);
 
 	//unloads the currently loaded group
 	void unloadResources();
+
+	GameResource *getResourceByID(uint32_t id);
 
 };
 
