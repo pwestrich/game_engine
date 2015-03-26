@@ -13,6 +13,7 @@
 //forward-declare these classes so the compiler is happy
 class GameManager;
 class RenderListener;
+class GUIManager;
 
 //enumeration for the wheel's state
 enum WheelState { WS_LEFT = 0, WS_FORWARD = 1, WS_RIGHT = 2 };
@@ -27,6 +28,7 @@ private:
 	//keep a copy of the game manager
 	GameManager *gameManager;
    RenderListener *renderListener;
+   GUIManager *guiManager;
 
    //Ogre scene stuff
 	Ogre::Root *root;
@@ -85,6 +87,12 @@ public:
     void checkForInput(const float timeStep);
     void updateMovement(const float timeStep);
     void updateAudio(const float timeStep);
+
+	//methods to log things (pass to GameManager)
+	void logInfo(const string &message);
+	void logWarn(const string &message);
+	void logDebug(const string &message);
+	void logFatal(const string &message, const int line, const char *file);
 
 	void startRendering();
 	void stopRendering();

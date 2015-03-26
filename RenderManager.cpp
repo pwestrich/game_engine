@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "RenderManager.h"
 #include "RenderListener.h"
+#include "GUIManager.h"
 
 using namespace Ogre;
 
@@ -58,6 +59,8 @@ RenderManager::RenderManager(GameManager *gman){
      	renderListener = new RenderListener(this);
       	root->addFrameListener(renderListener);
 
+      	guiManager = new GUIManager(this);
+
 	} catch (Ogre::Exception &it){
 
 		gameManager->logFatal(it.what(), __LINE__, __FILE__);
@@ -93,6 +96,8 @@ RenderManager::~RenderManager(){
 		window->destroy();
 
 	}
+
+	delete guiManager;
 
 	//this also sometimes crashes the game on quit
 	/*if (root){
@@ -229,6 +234,28 @@ void RenderManager::updateMovement(const float timeStep){
 void RenderManager::updateAudio(const float timeStep){
 
 	gameManager->updateAudio(timeStep);
+
+}
+
+void RenderManager::logInfo(const string &message){
+
+	gameManager->logInfo(message);
+
+}
+void RenderManager::logWarn(const string &message){
+
+	gameManager->logWarn(message);
+
+}
+void RenderManager::logDebug(const string &message){
+
+	gameManager->logDebug(message);
+
+}
+
+void RenderManager::logFatal(const string &message, const int line, const char *file){
+
+	gameManager->logFatal(message, line, file);
 
 }
 
