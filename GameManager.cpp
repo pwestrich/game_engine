@@ -23,9 +23,9 @@ GameManager::GameManager(){
 	inputManager->addListener(this);
 	inputManager->addListener(renderManager);
 
-	loadResourcesFromXML("./xml/resources.xml");
+	loadResourcesFromXML("./assets/xml/resources.xml");
 	loadResources("0");
-	buildSceneFromXML("./xml/scene.xml", "0");
+	buildSceneFromXML("./assets/xml/scene.xml", "0");
 	
 	AudioResource *music = static_cast<AudioResource*>(getResourceByID(7));
 	playAudio(music->getInfo(), 5);
