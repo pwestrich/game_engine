@@ -9,6 +9,7 @@
 #include "MyGUI.h"
 #include "MyGUI_OgrePlatform.h"
 #include "tinyxml.h"
+#include "utilities.h"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ private:
 	MyGUI::Gui *gui;
 	MyGUI::OgrePlatform *ogrePlatform;
 
+	void buildGUIFromXML(const string &filename);
+
 public:
 
 	GUIManager(RenderManager *rm);
@@ -29,8 +32,6 @@ public:
 
 	void loadResourceGroup(const string &groupName);
 	void unloadResourceGroup();
-
-	void buildGUIFromXML(const string &filename);
 
 };
 

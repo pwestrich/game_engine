@@ -15,30 +15,33 @@
 				<name>./assets/materials</name>
 				<id>2</id>
 			</path>
+			<path>
+				<name>./assets/mygui</name>
+				<id>3</id>
 		</paths>
 		<meshes>
 			<mesh>
 				<name>ground.mesh</name>
-				<id>3</id>
-			</mesh>
-			<mesh>
-				<name>spokes.mesh</name>
 				<id>4</id>
 			</mesh>
 			<mesh>
-				<name>truck.mesh</name>
+				<name>spokes.mesh</name>
 				<id>5</id>
 			</mesh>
 			<mesh>
-				<name>wheel.mesh</name>
+				<name>truck.mesh</name>
 				<id>6</id>
+			</mesh>
+			<mesh>
+				<name>wheel.mesh</name>
+				<id>7</id>
 			</mesh>
 		</meshes>
 		<audios>
 			<audio>
 				<file>./assets/audio/N64 Rainbow Road.mp3</file>
 				<type>stream</type>
-				<id>7</id>
+				<id>8</id>
 			</audio>
 		</audios>
 	</group>

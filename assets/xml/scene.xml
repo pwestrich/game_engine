@@ -2,6 +2,7 @@
 <scenes>
 	<scene>
 		<name>0</name>
+		<gui>./assets/xml/gui.xml</gui>
 		<cameras>
 			<camera>
 				<name>Camera1</name>

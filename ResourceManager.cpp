@@ -26,6 +26,8 @@ ResourceManager::~ResourceManager(){
 
 void ResourceManager::loadResourcesFromXML(const string &filename){
 
+  gameManager->logInfo(filename);
+
     TiXmlDocument document(filename.c_str());
 
     if (document.LoadFile()){

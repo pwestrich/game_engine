@@ -97,6 +97,7 @@ RenderManager::~RenderManager(){
 
 	}
 
+	guiManager->unloadResourceGroup();
 	delete guiManager;
 
 	//this also sometimes crashes the game on quit
@@ -441,6 +442,13 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 					std::string name = sceneElement->GetText();
 
 					if (name == sceneName){
+
+						//gui
+						TiXmlNode *guiNode = scenes->FirstChild("gui");
+						TiXmlElement *guiElement = guiNode->ToElement();
+						string guiFile = guiElement->GetText();
+
+						guiManager->loadResourceGroup(guiFile);
 
 						//cameras
 						TiXmlNode *cameraTree = scenes->FirstChild("cameras");

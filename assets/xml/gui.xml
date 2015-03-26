@@ -1,0 +1,40 @@
+
+<gui>
+	<windows>
+		<window>
+			<name>window1</name>
+			<caption>window</caption>
+			<skin>WindowC</skin>
+			<position>250,450</position>
+			<size>350, 150</size>
+			<align>Default</align>
+			<layer>Overlapped</layer>
+			<buttons>
+				<button>
+					<name>test</name>
+					<caption>test</caption>
+					<skin>Button</skin>
+					<position>5,10</position>
+					<size>95,40</size>
+					<align>Defailt</align>
+					<fonr>20</fonr>
+				</button>
+			</buttons>
+			<combos>
+				<combo>
+					<name>combo</name>
+					<skin>ComboBox</skin>
+					<size>290, 30</size>
+					<align>Default</align>
+					<font>20</font>
+					<selected>0</selected>
+					<options>
+						<option>0</option>
+						<option>1</option>
+						<option>2</option>
+					</options>
+				</combo>
+			</combos>
+		</window>
+	</windows>
+</gui>

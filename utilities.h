@@ -8,6 +8,6 @@
 using namespace std;
 
 void parseFloats(string str, float *values);
-void parseInts(std::string str, int *values);
+void parseInts(string str, int *values);
 
 #endif
