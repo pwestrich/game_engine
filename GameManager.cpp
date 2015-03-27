@@ -40,8 +40,9 @@ GameManager::~GameManager(){
 
 	//delete everything
 	delete inputManager;
-	delete renderManager;
 	delete resourceManager;
+	delete renderManager;
+	delete audioManager;
 	delete logManager;
 
 }

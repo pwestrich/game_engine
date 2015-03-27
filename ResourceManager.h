@@ -7,14 +7,10 @@
 #include <map>
 #include <vector>
 
-class GameResource;
-
-#include "tinyxml.h"	//to read in from XML
-
 using namespace std;
 
 class GameManager;
-
+class GameResource;
 struct AudioResourceInfo;
 
 class ResourceManager {

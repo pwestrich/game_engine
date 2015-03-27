@@ -1,16 +1,16 @@
 
-#include <iostream>
-
 #include "ResourceManager.h"
 #include "GameManager.h"
-
 #include "PathResource.h"
 #include "MeshResource.h"
 #include "AudioResource.h"
+#include "tinyxml.h"
 
 using namespace std;
 
 ResourceManager::ResourceManager(GameManager *gm){
+
+    assert(gm != NULL);
 
 	gameManager = gm;
 	groupLoaded = ""; //nothing loaded
@@ -25,8 +25,6 @@ ResourceManager::~ResourceManager(){
 }
 
 void ResourceManager::loadResourcesFromXML(const string &filename){
-
-  gameManager->logInfo(filename);
 
     TiXmlDocument document(filename.c_str());
 
@@ -116,7 +114,6 @@ void ResourceManager::loadResourcesFromXML(const string &filename){
 
                   }
 
-
             	}
 
         } else {
@@ -140,8 +137,6 @@ void ResourceManager::loadGroup(const string &groupName){
 	gameManager->logInfo("Loading resources...");
 
 	vector<GameResource*> group = resources[groupName];
-
-	cerr << group.size() << endl;
 
 	for (size_t i = 0; i < group.size(); ++i){
 
