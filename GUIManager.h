@@ -30,7 +30,7 @@ public:
 	GUIManager(RenderManager *rm);
 	~GUIManager();
 
-	void loadResourceGroup(const string &groupName);
+	void loadResourceGroup(const string &filename, const string &groupName);
 	void unloadResourceGroup();
 
 };

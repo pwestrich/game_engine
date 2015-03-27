@@ -448,7 +448,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 						TiXmlElement *guiElement = guiNode->ToElement();
 						string guiFile = guiElement->GetText();
 
-						guiManager->loadResourceGroup(guiFile);
+						guiManager->loadResourceGroup(guiFile, sceneName);
 
 						//cameras
 						TiXmlNode *cameraTree = scenes->FirstChild("cameras");

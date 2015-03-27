@@ -17,7 +17,7 @@
 					<position>5,10</position>
 					<size>95,40</size>
 					<align>Defailt</align>
-					<fonr>20</fonr>
+					<font>20</font>
 				</button>
 			</buttons>
 			<combos>

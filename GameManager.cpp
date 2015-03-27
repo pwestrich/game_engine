@@ -23,15 +23,18 @@ GameManager::GameManager(){
 	inputManager->addListener(this);
 	inputManager->addListener(renderManager);
 
+	//load resources and build the scene
 	loadResourcesFromXML("./assets/xml/resources.xml");
 	loadResources("0");
 	buildSceneFromXML("./assets/xml/scene.xml", "0");
 	
-	AudioResource *music = static_cast<AudioResource*>(getResourceByID(7));
-	playAudio(music->getInfo(), 5);
+	//play the background muxic
+	AudioResource *music = static_cast<AudioResource*>(getResourceByID(8));
+	playAudio(music->getInfo(), 8);
 	startAudio();
 	setVolume(0.40);
 	
+	//start drawing
 	startRendering();
 
 }
@@ -217,6 +220,7 @@ void GameManager::unloadResources(){
 void GameManager::loadResources(const string &group){
 
 	resourceManager->loadGroup(group);
+
 
 }
 

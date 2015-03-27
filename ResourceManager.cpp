@@ -124,6 +124,7 @@ void ResourceManager::loadResourcesFromXML(const string &filename){
 
     } else {
 
+        gameManager->logInfo(document.ErrorDesc());
         gameManager->logFatal("Error: Resource file not found.", __LINE__, __FILE__);
 
     }

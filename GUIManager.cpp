@@ -16,30 +16,38 @@ GUIManager::GUIManager(RenderManager *rm){
 
 GUIManager::~GUIManager(){} //nothing here
 
-void GUIManager::loadResourceGroup(const string &groupName){
+void GUIManager::loadResourceGroup(const string &filename, const string &groupName){
 
-	ogrePlatform = new MyGUI::OgrePlatform();
-	ogrePlatform->initialise(renderManager->getRenderWindow(), renderManager->getSceneManager(), groupName);
-
-	gui = new MyGUI::Gui();
-	gui->initialise();
-
-	MyGUI::ResourceManager& myGUIResourceManager = MyGUI::Singleton<MyGUI::ResourceManager>::getInstance();
-	myGUIResourceManager.load("MyGUI_Core.xml");
+	renderManager->logInfo("Loading GUI...");
 
 	try {
 
-		buildGUIFromXML(groupName);
+		ogrePlatform = new MyGUI::OgrePlatform();
+		ogrePlatform->initialise(renderManager->getRenderWindow(), renderManager->getSceneManager(), groupName);
 
-	} catch (MyGUI::Exception &it) {
+		gui = new MyGUI::Gui();
+		gui->initialise();
+
+		MyGUI::ResourceManager& myGUIResourceManager = MyGUI::Singleton<MyGUI::ResourceManager>::getInstance();
+		myGUIResourceManager.load("MyGUI_Core.xml");
+
+		buildGUIFromXML(filename);
+
+	} catch (MyGUI::Exception &it){
 
 		renderManager->logWarn(it.what());
+
+	} catch (Ogre::Exception &it){
+
+		renderManager->logFatal(it.what(), __LINE__, __FILE__);
 
 	} catch (...){
 
 		renderManager->logFatal("Unexpected error while initalizing GUI.", __LINE__, __FILE__);
 
 	}
+
+	renderManager->logInfo("GUI built.");
 
 }
 
@@ -61,6 +69,8 @@ void GUIManager::unloadResourceGroup(){
 }
 
 void GUIManager::buildGUIFromXML(const string &filename){
+
+	renderManager->logInfo("Building GUI...");
 
 	int values[5] = {0,0,0,0,0};
 	TiXmlDocument doc(filename.c_str());
@@ -122,9 +132,9 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							windowElement = static_cast<TiXmlElement*>(button->FirstChild("size"));
 							size = windowElement->GetText();
 
-							windowElement = static_cast<TiXmlElement*>(button->FirstChild("layer"));
+							windowElement = static_cast<TiXmlElement*>(button->FirstChild("font"));
 							string font = windowElement->GetText();
-
+							
 							parseInts(position, values);
 							parseInts(size, values + 2);
 							parseInts(font, values + 4);
