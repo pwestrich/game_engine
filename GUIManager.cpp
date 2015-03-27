@@ -26,7 +26,7 @@ void GUIManager::loadResourceGroup(const string &filename, const string &groupNa
 		ogrePlatform->initialise(renderManager->getRenderWindow(), renderManager->getSceneManager(), groupName);
 
 		gui = new MyGUI::Gui();
-		gui->initialise();
+		gui->initialise("MyGUI_Core.xml");
 
 		MyGUI::ResourceManager& myGUIResourceManager = MyGUI::Singleton<MyGUI::ResourceManager>::getInstance();
 		myGUIResourceManager.load("MyGUI_Core.xml");
@@ -68,6 +68,35 @@ void GUIManager::unloadResourceGroup(){
 
 }
 
+//InputListener methods ---------------------------------------------------------------------------
+void GUIManager::keyPressed(const KeyboardKey key){}
+void GUIManager::keyReleased(const KeyboardKey key){}
+
+void GUIManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
+
+	MyGUI::InputManager& inputManager = MyGUI::Singleton<MyGUI::InputManager>::getInstance();
+	inputManager.injectMouseMove(x, y, 0);
+
+}
+
+void GUIManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){
+
+	MyGUI::InputManager& inputManager = MyGUI::Singleton<MyGUI::InputManager>::getInstance();
+	inputManager.injectMousePress(x, y, MyGUI::MouseButton::Enum(button));
+
+}
+
+void GUIManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){
+
+	MyGUI::InputManager& inputManager = MyGUI::Singleton<MyGUI::InputManager>::getInstance();
+	inputManager.injectMouseRelease(x, y, MyGUI::MouseButton::Enum(button));
+
+}
+
+void GUIManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount){}
+void GUIManager::joystickButtonPressed(const JoystickButton button){}
+
+//private methods below here ----------------------------------------------------------------------
 void GUIManager::buildGUIFromXML(const string &filename){
 
 	renderManager->logInfo("Building GUI...");
@@ -110,6 +139,7 @@ void GUIManager::buildGUIFromXML(const string &filename){
 
 					MyGUI::Window *win = gui->createWidget<MyGUI::Window>(skin, values[0], values[1], values[2], values[3], MyGUI::Align::Default, layer, name);
 					win->setCaption(caption);
+					win->setVisible(true);
 
 					TiXmlNode *buttonsNode = window->FirstChild("buttons");
 

@@ -279,6 +279,9 @@ void RenderManager::stopRendering(){
 //methods to alter the scene based on input -------------------------------------------------------
 void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
 
+	guiManager->mouseMoved(x, y, dx, dy);
+
+	/*
 	//locking the camera will also lock rotation
 	if (!cameraLocked){
 
@@ -293,12 +296,15 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 		//rotate the camera 
 		camera->rotate(xq * yq); 
 
-	}
+	}*/
 
 }
 
 void RenderManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){
 
+	guiManager->mousePressed(x, y, button);
+
+	/*
    if (button == M_LEFT){
 
       //the left button will lock/unlock the camera
@@ -311,7 +317,13 @@ void RenderManager::mousePressed(const uint32_t x, const uint32_t y, const Mouse
       camera->setOrientation(Quaternion(Degree(-90), Vector3(0,1,0)));
       camera->setPosition(Vector3(-7,7,0));
 
-   }
+   }*/
+
+}
+
+void RenderManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){
+
+	guiManager->mouseReleased(x, y, button);
 
 }
 
@@ -413,7 +425,6 @@ void RenderManager::keyReleased(const KeyboardKey key){
 }
 
 //not used
-void RenderManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){}
 void RenderManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount) {}
 void RenderManager::joystickButtonPressed(const JoystickButton button){}
 
