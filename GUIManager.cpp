@@ -26,7 +26,7 @@ void GUIManager::loadResourceGroup(const string &filename, const string &groupNa
 		ogrePlatform->initialise(renderManager->getRenderWindow(), renderManager->getSceneManager(), groupName);
 
 		gui = new MyGUI::Gui();
-		gui->initialise("MyGUI_Core.xml");
+		gui->initialise();
 
 		MyGUI::ResourceManager& myGUIResourceManager = MyGUI::Singleton<MyGUI::ResourceManager>::getInstance();
 		myGUIResourceManager.load("MyGUI_Core.xml");

@@ -7,7 +7,6 @@
 			<skin>WindowC</skin>
 			<position>250,450</position>
 			<size>350,150</size>
-			<align>Default</align>
 			<layer>Overlapped</layer>
 			<buttons>
 				<button>
@@ -25,7 +24,6 @@
 					<name>combo</name>
 					<skin>ComboBox</skin>
 					<size>290,30</size>
-					<align>Default</align>
 					<font>20</font>
 					<selected>0</selected>
 					<options>

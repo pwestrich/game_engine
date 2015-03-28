@@ -454,13 +454,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 					if (name == sceneName){
 
-						//gui
-						TiXmlNode *guiNode = scenes->FirstChild("gui");
-						TiXmlElement *guiElement = guiNode->ToElement();
-						string guiFile = guiElement->GetText();
-
-						guiManager->loadResourceGroup(guiFile, sceneName);
-
 						//cameras
 						TiXmlNode *cameraTree = scenes->FirstChild("cameras");
 
@@ -540,6 +533,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									parseFloats(temp, values);
 
 									viewport = window->addViewport(camera, values[0], values[1], values[2], values[3], values[4]);
+									viewport->setOverlaysEnabled(true);
 									camera->setAspectRatio((float)(viewport->getActualWidth() / viewport->getActualHeight()));
 
 								} else {
@@ -780,6 +774,13 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 						}
 
+						//gui
+						TiXmlNode *guiNode = scenes->FirstChild("gui");
+						TiXmlElement *guiElement = guiNode->ToElement();
+						string guiFile = guiElement->GetText();
+
+						guiManager->loadResourceGroup(guiFile, sceneName);
+
 					}
 
 				} else {
@@ -801,6 +802,8 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 		gameManager->logFatal("Error: Invalid scene file.", __LINE__, __FILE__);
 
 	}
+
+	//guiManager->loadResourceGroup("./assets/xml/gui.xml", sceneName);
 
 	gameManager->logInfo("Scene built successfully!");
 
