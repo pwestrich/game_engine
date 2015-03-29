@@ -206,7 +206,27 @@ bool InputManager::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id)
 
 }
 
-bool InputManager::mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id){ return true; }
+bool InputManager::mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id){ 
+
+	//set the window width and height in the event
+    e.state.width = gameManager->getWindowWidth(); //windowWidth;
+    e.state.height = gameManager->getWindowHeight(); //windowHeight;
+
+    //determine mouse info
+    uint32_t x = e.state.X.abs;
+    uint32_t y = e.state.Y.abs;
+    MouseButton button = mouseMap(id);
+
+
+	for (size_t i = 0; i < listeners.size(); ++i){
+
+		listeners[i]->mouseReleased(x, y, button);
+
+	}
+
+	return true; 
+
+}
 
 //joystick listener methods
 bool InputManager::buttonPressed (const OIS::JoyStickEvent &arg, int button){ return true; }

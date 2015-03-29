@@ -35,6 +35,10 @@ public:
 	void loadResourceGroup(const string &filename, const string &groupName);
 	void unloadResourceGroup();
 
+	//GUI listener methods
+	void buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::MouseButton id);
+	void scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI::MouseButton id);
+
 	//InputListener methods
 	void keyPressed(const KeyboardKey key);
 	void keyReleased(const KeyboardKey key);

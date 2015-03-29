@@ -68,6 +68,41 @@ void GUIManager::unloadResourceGroup(){
 
 }
 
+//GUI Listener methods ----------------------------------------------------------------------------
+void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::MouseButton id){
+
+	MyGUI::Button *button = static_cast<MyGUI::Button*>(sender);
+
+	cerr << button->getName() << endl;
+
+	if (button->getName() == "Stop"){
+
+		renderManager->setTruckMovement(0,0,0);
+
+	} else if (button->getName() == "Straight"){
+
+		renderManager->rotateWheels(45.0);
+
+	}
+
+}
+
+void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI::MouseButton id){
+
+	MyGUI::ScrollBar *bar = static_cast<MyGUI::ScrollBar*>(sender);
+
+	if (bar->getName() == "SpeedBar"){
+
+		renderManager->setTruckMovement(((static_cast<float>(bar->getScrollPosition()) - 45.0) / 500.0), 0, 0);
+
+	} else if (bar->getName() == "WheelBar"){
+
+		renderManager->rotateWheels(static_cast<float>(bar->getScrollPosition()));
+
+	}
+
+}
+
 //InputListener methods ---------------------------------------------------------------------------
 void GUIManager::keyPressed(const KeyboardKey key){}
 void GUIManager::keyReleased(const KeyboardKey key){}
@@ -173,7 +208,38 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							b->setCaption(caption);
 							b->setFontHeight(values[4]);
 							b->setTextColour(MyGUI::Colour(0,0,0));
-							//b->eventMouseButtonPressed += newDelegate(this, &GUIManager::buttonPressed);
+
+							TiXmlNode *scrollBar = button->FirstChild("scrollBar");
+
+							if (scrollBar){
+
+								windowElement = static_cast<TiXmlElement*>(scrollBar->FirstChild("name"));
+								name = windowElement->GetText();
+
+								windowElement = static_cast<TiXmlElement*>(scrollBar->FirstChild("skin"));
+								skin = windowElement->GetText();
+								
+								windowElement = static_cast<TiXmlElement*>(scrollBar->FirstChild("position"));
+								position = windowElement->GetText();
+
+								windowElement = static_cast<TiXmlElement*>(scrollBar->FirstChild("size"));
+								size = windowElement->GetText();
+
+								windowElement = static_cast<TiXmlElement*>(scrollBar->FirstChild("track"));
+								string track = windowElement->GetText();
+
+								MyGUI::ScrollBar *s = win->createWidget<MyGUI::ScrollBar>(skin, values[0], values[1], values[2], values[3], MyGUI::Align::Default, name);
+
+								s->setScrollRange(atoi(size.c_str()));
+								s->setTrackSize(atoi(track.c_str()));
+								s->setScrollPosition(atoi(position.c_str()));
+								s->eventMouseButtonPressed += newDelegate(this, &GUIManager::scrollBarMoved);
+
+							} else {
+
+								b->eventMouseButtonPressed += newDelegate(this, &GUIManager::buttonPressed);
+
+							}
 
 						}
 
@@ -187,7 +253,54 @@ void GUIManager::buildGUIFromXML(const string &filename){
 
 					if (combosNode){
 
+						for (TiXmlNode *comboNode = combosNode->FirstChild(); comboNode; comboNode = comboNode->NextSibling()){
 
+							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("name"));
+							name = windowElement->GetText();
+
+							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("skin"));
+							skin = windowElement->GetText();
+
+							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("position"));
+							position = windowElement->GetText();
+
+							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("size"));
+							size = windowElement->GetText();
+
+							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("font"));
+							string font = windowElement->GetText();
+
+							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("selected"));
+							string selected = windowElement->GetText();
+
+							parseInts(position, values);
+							parseInts(size, values + 2);
+							parseInts(font, values + 4);
+
+							MyGUI::ComboBox *c = win->createWidget<MyGUI::ComboBox>(skin, values[0], values[1], values[2], values[3], MyGUI::Align::Default, name);
+							c->setFontHeight(values[4]);
+							c->setTextColour(MyGUI::Colour(0,0,0));
+
+							TiXmlNode *optionsNode = comboNode->FirstChild("options");
+
+							if (optionsNode){
+
+								for (TiXmlNode *optionNode = optionsNode->FirstChild(); optionNode; optionNode = optionNode->NextSibling()){
+
+									string option = optionNode->ToElement()->GetText();
+									c->addItem(option);
+
+								}
+
+							} else {
+
+								renderManager->logWarn("This ComboBox has no options.");
+
+							}
+
+							c->setIndexSelected(atoi(selected.c_str()));
+
+						}
 
 					} else {
 

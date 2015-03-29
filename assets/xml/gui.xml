@@ -2,28 +2,66 @@
 <gui>
 	<windows>
 		<window>
-			<name>window1</name>
-			<caption>window</caption>
+			<name>controlWindow</name>
+			<caption>Controls</caption>
 			<skin>WindowC</skin>
-			<position>250,450</position>
-			<size>350,150</size>
+			<position>0,0</position>
+			<size>400,200</size>
 			<layer>Overlapped</layer>
 			<buttons>
 				<button>
-					<name>test</name>
-					<caption>test</caption>
+					<name>Speed</name>
+					<caption>Speed</caption>
 					<skin>Button</skin>
 					<position>5,10</position>
-					<size>95,40</size>
-					<align>Defailt</align>
+					<size>40,150</size>
+					<font>20</font>
+					<scrollBar>
+						<name>SpeedBar</name>
+						<skin>SliderV</skin>
+						<size>90</size>
+						<position>45</position>
+						<track>20</track>
+					</scrollBar>
+				</button>
+				<button>
+					<name>Wheels</name>
+					<caption>Wheels</caption>
+					<skin>Button</skin>
+					<position>75,120</position>
+					<size>300,40</size>
+					<font>20</font>
+					<scrollBar>
+						<name>WheelBar</name>
+						<skin>SliderH</skin>
+						<size>90</size>
+						<position>45</position>
+						<track>20</track>
+					</scrollBar>
+				</button>
+				<button>
+					<name>Stop</name>
+					<caption>Stop</caption>
+					<skin>Button</skin>
+					<position>60,10</position>
+					<size>80,40</size>
+					<font>20</font>
+				</button>
+				<button>
+					<name>Straight</name>
+					<caption>Stop</caption>
+					<skin>Button</skin>
+					<position>60,60</position>
+					<size>80,40</size>
 					<font>20</font>
 				</button>
 			</buttons>
-			<combos>
+			<!--<combos>
 				<combo>
 					<name>combo</name>
 					<skin>ComboBox</skin>
 					<size>290,30</size>
+					<position>5,75</position>
 					<font>20</font>
 					<selected>0</selected>
 					<options>
@@ -32,7 +70,7 @@
 						<option>2</option>
 					</options>
 				</combo>
-			</combos>
+			</combos>-->
 		</window>
 	</windows>
 </gui>

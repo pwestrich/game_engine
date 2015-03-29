@@ -10,7 +10,7 @@ using namespace std;
 enum KeyboardKey : uint32_t {KB_INVALID, KB_TAB, KB_ESC, KB_SPACE, KB_LSHIFT, KB_W, KB_A, KB_S, KB_D, 
                               KB_Q, KB_Z, KB_UP, KB_DOWN, KB_LEFT, KB_RIGHT, KB_RETURN };
 
-enum MouseButton : uint32_t {M_INVALID, M_LEFT, M_RIGHT, M_MIDDLE, M_BACK, M_SCROLL };
+enum MouseButton : uint32_t {M_INVALID, M_LEFT = 0, M_RIGHT = 1, M_MIDDLE = 2, M_BACK = 3, M_SCROLL = 4 };
 enum JoystickAxis : uint32_t {JA_INVALID};
 enum JoystickButton : uint32_t {JB_INVALID};
 

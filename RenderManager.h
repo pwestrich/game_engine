@@ -27,35 +27,36 @@ private:
 
 	//keep a copy of the game manager
 	GameManager *gameManager;
-   RenderListener *renderListener;
-   GUIManager *guiManager;
+    RenderListener *renderListener;
+    GUIManager *guiManager;
 
    //Ogre scene stuff
 	Ogre::Root *root;
 	Ogre::RenderWindow *window;
-   Ogre::SceneManager* sceneManager;
+    Ogre::SceneManager* sceneManager;
 
-   //the camera, viewport, and window we're rendering in
-   Ogre::Camera *camera;
-   Ogre::Viewport *viewport;
-   size_t windowHandle;
+    //the camera, viewport, and window we're rendering in
+    Ogre::Camera *camera;
+    Ogre::Viewport *viewport;
+    size_t windowHandle;
 
-   //the animation states andthe time since last frame
-   Ogre::Real frameTimeElapsed;
-   vector<Ogre::AnimationState*> animationStates;
+    //the animation states andthe time since last frame
+    Ogre::Real frameTimeElapsed;
+    vector<Ogre::AnimationState*> animationStates;
 
-   //variables for keeping track of movement
-   int wheelState;
-   TruckState truckState;
+    //variables for keeping track of movement
+    int wheelState;
+    TruckState truckState;
+    float wheelRotateAmount;
 
-   bool cameraLocked;
+    bool cameraLocked;
 
-   Ogre::Vector3 cameraMovement;
-   Ogre::Vector3 truckMovement;
+    Ogre::Vector3 cameraMovement;
+    Ogre::Vector3 truckMovement;
 
-   //functions to recursivley generate the scene graph from XML
-   void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
-   void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
+    //functions to recursivley generate the scene graph from XML
+    void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
+    void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
 
 public:
 
@@ -73,6 +74,13 @@ public:
 
 	//the setter methods
 	void setTimeSinceLastFrame(Ogre::Real timeElapsed);
+
+	void setCameraMovement(const float x, const float y, const float z);
+	void addCameraMovement(const float x, const float y, const float z);
+	void setTruckMovement(const float x, const float y, const float z);
+	void addTruckMovement(const float x, const float y, const float z);
+	void setWheelRotation(const float degree);
+	void rotateWheels(const float degree);
 
 	//methods for adding resources to Ogre's resource manager
 	void addPathResource(const string &path, const string &pathType, const string &group);

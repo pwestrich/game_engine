@@ -32,6 +32,7 @@ RenderManager::RenderManager(GameManager *gman){
     cameraLocked = false;
 	cameraMovement = Vector3::ZERO;
 	truckMovement = Vector3::ZERO;
+	wheelRotateAmount = 0.0;
 
 	try {
 
@@ -148,6 +149,50 @@ void RenderManager::setTimeSinceLastFrame(Ogre::Real timeElapsed){
 
 }
 
+void RenderManager::setCameraMovement(const float x, const float y, const float z){
+
+	cameraMovement = Vector3(x, y, z);
+
+}
+
+void RenderManager::addCameraMovement(const float x, const float y, const float z){
+
+	cameraMovement += Vector3(x, y, z);
+
+}
+
+void RenderManager::setTruckMovement(const float x, const float y, const float z){
+
+	truckMovement = Vector3(x, y, z);
+
+}
+
+void RenderManager::addTruckMovement(const float x, const float y, const float z){
+
+	truckMovement += Vector3(x, y, z);
+
+}
+
+void RenderManager::setWheelRotation(const float degree){
+
+	wheelRotateAmount = degree / 1000.0;
+
+}
+
+void RenderManager::rotateWheels(const float degree){
+
+	SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
+	SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
+
+	Quaternion q(Degree((degree - 45) * -1.0), Vector3::UNIT_Y);
+	leftWheel->setOrientation(q * Quaternion(Degree(90), Vector3::UNIT_Y) * Quaternion(Degree(90), Vector3::UNIT_Z));
+	rightWheel->setOrientation(q * Quaternion(Degree(90), Vector3::UNIT_Y) * Quaternion(Degree(90), Vector3::UNIT_Z));
+
+	setWheelRotation((degree - 45) * -1.0);
+
+}
+
+
 void RenderManager::addPathResource(const string &path, const string &pathType, const string &group){
 
 	Ogre::ResourceGroupManager &rgm = Ogre::ResourceGroupManager::getSingleton();
@@ -216,17 +261,7 @@ void RenderManager::updateMovement(const float timeStep){
 	if (truckMovement != Vector3::ZERO){
 
 		truck->setPosition(truck->getPosition() + (truck->getOrientation() * truckMovement));
-
-		//only rotate the truck if its wheels are turned
-		if (wheelState == WS_LEFT){
-
-			truck->rotate(Quaternion(Degree(0.01), Vector3::UNIT_Y));
-
-		} else if (wheelState == WS_RIGHT){
-
-			truck->rotate(Quaternion(Degree(-0.01), Vector3::UNIT_Y));
-
-		}
+		truck->rotate(Quaternion(Degree(wheelRotateAmount), Vector3::UNIT_Y));
 
 	}
 
@@ -335,31 +370,31 @@ void RenderManager::keyPressed(const KeyboardKey key){
 
    	if (key == KB_D){
 
-	    cameraMovement += Vector3(0,0,0.001);
+	    addCameraMovement(0,0,0.001);
 
 	} else if (key == KB_A){
 
-   		cameraMovement += Vector3(0,0,-0.001);
+   		addCameraMovement(0,0,-0.001);
 
    	} else if (key == KB_S){
 
-   		cameraMovement += Vector3(-0.001,0,0);
+   		addCameraMovement(-0.001,0,0);
 
    	} else if (key == KB_W){
 
-   		cameraMovement += Vector3(0.001,0,0);
+   		addCameraMovement(0.001,0,0);
 
    	} else if (key == KB_LSHIFT){
 
-		cameraMovement += Vector3(0,-0.001,0);
+		addCameraMovement(0,-0.001,0);
 
    	} else if (key == KB_SPACE){
 
-	    cameraMovement += Vector3(0,0.001,0);
+	    addCameraMovement(0,0.001,0);
 
 	} else if (key == KB_TAB){
 
-	  	cameraMovement = Vector3(0,0,0);
+	  	setCameraMovement(0,0,0);
 
 	}
 
@@ -369,12 +404,12 @@ void RenderManager::keyPressed(const KeyboardKey key){
    if (key == KB_UP){
 
 		//move the truck forward
-		truckMovement += Vector3(0.001,0,0);
+		addTruckMovement(0.01,0,0);
 
 	} else if (key == KB_DOWN){
 
 		//move the truck backwards
-		truckMovement += Vector3(-0.001,0,0);
+		addTruckMovement(-0.01,0,0);
 
 	} else if (key == KB_LEFT){
 
@@ -382,16 +417,7 @@ void RenderManager::keyPressed(const KeyboardKey key){
 
 			wheelState -= 1;
 
-			//turn the front wheels to the left
-			SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
-			SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
-
-			Quaternion q(Degree(45), Vector3::UNIT_Y);
-			Quaternion rwq = rightWheel->getOrientation();
-			Quaternion lwq = leftWheel->getOrientation();
-
-			leftWheel->setOrientation(q * lwq);
-			rightWheel->setOrientation(q * rwq);
+			rotateWheels(90);
 
 		}
 
@@ -401,17 +427,7 @@ void RenderManager::keyPressed(const KeyboardKey key){
 
 			wheelState += 1;
 
-			//turn the front wheels to the right
-			SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
-			SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
-
-			Quaternion q(Degree(-45), Vector3::UNIT_Y);
-			Quaternion rwq = rightWheel->getOrientation();
-			Quaternion lwq = leftWheel->getOrientation();
-
-			leftWheel->setOrientation(q * lwq);
-			rightWheel->setOrientation(q * rwq);
-
+			rotateWheels(0);
 		}
 
 	}
