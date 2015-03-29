@@ -29,7 +29,7 @@ void GUIManager::loadResourceGroup(const string &filename, const string &groupNa
 		gui->initialise();
 
 		MyGUI::ResourceManager& myGUIResourceManager = MyGUI::Singleton<MyGUI::ResourceManager>::getInstance();
-		myGUIResourceManager.load("MyGUI_Core.xml");
+		//myGUIResourceManager.load("MyGUI_Core.xml");
 
 		buildGUIFromXML(filename);
 
@@ -73,8 +73,6 @@ void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::
 
 	MyGUI::Button *button = static_cast<MyGUI::Button*>(sender);
 
-	cerr << button->getName() << endl;
-
 	if (button->getName() == "Stop"){
 
 		renderManager->setTruckMovement(0,0,0);
@@ -82,6 +80,14 @@ void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::
 	} else if (button->getName() == "Straight"){
 
 		renderManager->rotateWheels(45.0);
+
+	} else if (button->getName() == "CameraReset"){
+
+		renderManager->orientCamera(0,0,0);
+
+	} else if (button->getName() == "CameraStop"){
+
+
 
 	}
 
@@ -98,6 +104,18 @@ void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI:
 	} else if (bar->getName() == "WheelBar"){
 
 		renderManager->rotateWheels(static_cast<float>(bar->getScrollPosition()));
+
+	} else if (bar->getName() == "CameraXBar"){
+
+		renderManager->cameraYaw(bar->getScrollPosition() - 180.0);
+
+	} else if (bar->getName() == "CameraYBar"){
+
+		renderManager->cameraPitch(bar->getScrollPosition() - 180.0);
+
+	} else {
+
+		renderManager->logWarn("Someone is using the wrong method...");
 
 	}
 

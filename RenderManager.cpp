@@ -27,9 +27,6 @@ RenderManager::RenderManager(GameManager *gman){
 	viewport = NULL;
 
 	//set the default states
-	truckState = TS_STILL;
-	wheelState = WS_FORWARD;
-    cameraLocked = false;
 	cameraMovement = Vector3::ZERO;
 	truckMovement = Vector3::ZERO;
 	wheelRotateAmount = 0.0;
@@ -56,7 +53,7 @@ RenderManager::RenderManager(GameManager *gman){
      	window = root->initialise(true, "CSC 4903: Game Engine Programming");
     	window->getCustomAttribute("WINDOW", &windowHandle);
 
-    	//set a render listener, only one at a time
+    	//set a render listener
      	renderListener = new RenderListener(this);
       	root->addFrameListener(renderListener);
 
@@ -82,6 +79,9 @@ RenderManager::~RenderManager(){
 	//stop rendering things
 	stopRendering();
 
+	guiManager->unloadResourceGroup();
+	delete guiManager;
+
 	//clear the scene
 	if (sceneManager){
 
@@ -97,9 +97,6 @@ RenderManager::~RenderManager(){
 		window->destroy();
 
 	}
-
-	guiManager->unloadResourceGroup();
-	delete guiManager;
 
 	//this also sometimes crashes the game on quit
 	/*if (root){
@@ -192,6 +189,47 @@ void RenderManager::rotateWheels(const float degree){
 
 }
 
+void RenderManager::rotateCamera(const float x, const float y, const float z){
+
+	//the mouse will rotate the camera so it looks elsewhere
+	Quaternion xq(Degree((x * -1.0)), camera->getRealUp());
+	Quaternion yq(Degree((y * -1.0)), camera->getRealRight());
+	Quaternion zq(Degree((z * -1.0)), camera->getRealDirection());
+
+	//rotate the camera 
+	camera->rotate(xq * yq * zq); 
+
+}
+
+void RenderManager::orientCamera(const float x, const float y, const float z){
+
+	//the mouse will rotate the camera so it looks elsewhere
+	Quaternion xq(Degree((x * -1.0)), camera->getRealUp());
+	Quaternion yq(Degree((y * -1.0)), camera->getRealRight());
+	Quaternion zq(Degree((z * -1.0)), camera->getRealDirection());
+
+	//rotate the camera 
+	camera->setOrientation(xq * yq * zq); 
+
+}
+
+void RenderManager::cameraRoll(const float x){
+
+	camera->roll(Degree(-1.0 * x));
+
+}
+
+void RenderManager::cameraYaw(const float y){
+
+	camera->yaw(Degree(-1.0 * y));
+
+}
+
+void RenderManager::cameraPitch(const float z){
+
+	camera->pitch(Degree(-1.0 * z));
+
+}
 
 void RenderManager::addPathResource(const string &path, const string &pathType, const string &group){
 
@@ -316,43 +354,11 @@ void RenderManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t
 
 	guiManager->mouseMoved(x, y, dx, dy);
 
-	/*
-	//locking the camera will also lock rotation
-	if (!cameraLocked){
-
-		SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-		Quaternion tq = truck->getOrientation();
-
-		//the mouse will rotate the camera so it looks elsewhere
-		Quaternion xq(Degree((dx * -1.0) / 2), camera->getRealUp());
-		Quaternion yq(Degree((dy * -1.0) / 2), camera->getRealRight());
-		Quaternion cq = camera->getOrientation();
-
-		//rotate the camera 
-		camera->rotate(xq * yq); 
-
-	}*/
-
 }
 
 void RenderManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){
 
 	guiManager->mousePressed(x, y, button);
-
-	/*
-   if (button == M_LEFT){
-
-      //the left button will lock/unlock the camera
-      cameraLocked = !cameraLocked;
-
-   } else if (button == M_RIGHT){
-
-      //the right button will reset the camera
-      cameraMovement = Vector3::ZERO;
-      camera->setOrientation(Quaternion(Degree(-90), Vector3(0,1,0)));
-      camera->setPosition(Vector3(-7,7,0));
-
-   }*/
 
 }
 
@@ -366,8 +372,6 @@ void RenderManager::mouseReleased(const uint32_t x, const uint32_t y, const Mous
 void RenderManager::keyPressed(const KeyboardKey key){
 
 	//camera movement
-   if (!cameraLocked){
-
    	if (key == KB_D){
 
 	    addCameraMovement(0,0,0.001);
@@ -395,40 +399,6 @@ void RenderManager::keyPressed(const KeyboardKey key){
 	} else if (key == KB_TAB){
 
 	  	setCameraMovement(0,0,0);
-
-	}
-
-   } 
-
-   //truck movement
-   if (key == KB_UP){
-
-		//move the truck forward
-		addTruckMovement(0.01,0,0);
-
-	} else if (key == KB_DOWN){
-
-		//move the truck backwards
-		addTruckMovement(-0.01,0,0);
-
-	} else if (key == KB_LEFT){
-
-		if (wheelState != WS_LEFT){
-
-			wheelState -= 1;
-
-			rotateWheels(90);
-
-		}
-
-	} else if (key == KB_RIGHT){
-
-		if (wheelState != WS_RIGHT){
-
-			wheelState += 1;
-
-			rotateWheels(0);
-		}
 
 	}
 

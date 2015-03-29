@@ -15,12 +15,6 @@ class GameManager;
 class RenderListener;
 class GUIManager;
 
-//enumeration for the wheel's state
-enum WheelState { WS_LEFT = 0, WS_FORWARD = 1, WS_RIGHT = 2 };
-
-//enumeration for the truck's state
-enum TruckState { TS_STILL, TS_FORWARD, TS_BACKWARD };
-
 class RenderManager : public InputListener {
 
 private:
@@ -45,11 +39,7 @@ private:
     vector<Ogre::AnimationState*> animationStates;
 
     //variables for keeping track of movement
-    int wheelState;
-    TruckState truckState;
     float wheelRotateAmount;
-
-    bool cameraLocked;
 
     Ogre::Vector3 cameraMovement;
     Ogre::Vector3 truckMovement;
@@ -81,6 +71,11 @@ public:
 	void addTruckMovement(const float x, const float y, const float z);
 	void setWheelRotation(const float degree);
 	void rotateWheels(const float degree);
+	void rotateCamera(const float x, const float y, const float z);
+	void orientCamera(const float x, const float y, const float z);
+	void cameraRoll(const float x);
+	void cameraYaw(const float y);
+	void cameraPitch(const float z);
 
 	//methods for adding resources to Ogre's resource manager
 	void addPathResource(const string &path, const string &pathType, const string &group);
