@@ -2,34 +2,22 @@
 Dr. Boshart,
 
 My game is in the same place: https://github.com/pwestrich/game_engine.
-This time, use version 0.2. It should compile just the same as the last did.
+This time, use version 0.3. It should compile just the same as the last did.
 
-I don't own a joystick like yours, not could I find someone who owned one, so
-I wasn't able to include any joystick inputs.
+Like I said the other day, the controls are now in the GUI, and should be easy enough
+to figure out. 
+In the left GUI, the wheels are turned by the bottom left to right scroll bar, and the 
+truck is moved by the left bar. Down is forward, up is backwards. Don't ask me why.
+The three other buttons will stop the truck, straighten the wheels, and sound the horn.
 
-Instead, you get mouse and keyboard. Her's the controls:
+The right GUI controls the camera. It doesn't work how I want it to, but it's close enough.
+The X scroll bar rotates the camera up and down. The Y bar does left to right. There is a 
+button to reset the cameara's position and direction too. The camera can be moved in the world 
+by using WASD, LSHIFT and SPACE like in the last assignment too.
 
-Mouse movement rotates the camera.
-Left click locks the camera in place. A second click will unlock it.
-Right click resets the camera position.
+There is one special sound effect for you to find. I made it myself, just for you. 
+Here's a hint: it's a keyboard button that's also the average grade you give on exams.
 
-W-S moves the camera along the Z-axis.
-A-D moves the camera along the X-axis.
-LSHIFT-SPACE moves the camera along the Y-axis.
-TAB stops camera movement.
-
-When moving the camera, hitting the key will accellerate the camera's movement in that direction,
-i.e., if you tap W, the camera will start moving in the megative Z direction. Tapping S will stop it,
-because it adds accelleration in the positive Z direction.
-
-UPARROW-DOWNARROW moves the truck forwards and backwards, using the same scheme as moving the camera.
-The camera will also follow the truck wherever it goes.
-LEFTARROW-RIGHTARROW will turn the wheels 45 degrees left or right. The truck will start turning if it is moving.
-
-Hopefully the controls aren't too confusing; I had a good idea for joystick input, but I found that the one 
-I own won't work very well.
-
-I fixed the camera rotation problem a little bit. It's not perfect, but it is much better than it used to be.
-If you get the camera lost, you can always reset its position.
+If you have any trouble building or running it, let me know. I'll lend you my flash drive.
 
 -Philip Westrich
