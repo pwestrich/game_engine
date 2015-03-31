@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include "GameManager.h"
 #include "AudioManager.h"
 #include "AudioPlayer.h"
@@ -150,12 +152,14 @@ void AudioManager::updateAudio(){
 		AudioResourceInfo *info = player->getResourceInfo();
 
 		//only check stopped sounds
-		if (BASS_ChannelIsActive(info->channelData) == BASS_ACTIVE_STOPPED){
+		if (BASS_ChannelIsActive(info->data) != BASS_ACTIVE_PLAYING){
 
 			//if we've played it enough, stop playing and remove its player
 			if (player->getRepeatCount() >= player->getNumRepeats()){
 
 				player->onComplete();
+				delete player;
+				player = NULL;
 				players.erase(players.begin() + i);
 				--i;
 
@@ -167,6 +171,10 @@ void AudioManager::updateAudio(){
 
 			}
 
+		} else {
+
+			BASS_ChannelPlay(info->data, false);
+
 		}
 
 	}
@@ -177,7 +185,6 @@ void AudioManager::playAudio(AudioResourceInfo *info, const int numRepeats){
 
 	assert(info != NULL);
 	assert(numRepeats > 0);
-
 	//make a new player and store it
 	players.push_back(new AudioPlayer(info, numRepeats));
 

@@ -55,6 +55,14 @@
 					<size>80,40</size>
 					<font>200</font>
 				</button>
+				<button>
+					<name>Horn</name>
+					<caption>HORN</caption>
+					<skin>Button</skin>
+					<position>160,10</position>
+					<size>160,100</size>
+					<font>200</font>
+				</button>
 			</buttons>
 		</window>
 		<window>

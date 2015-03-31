@@ -29,8 +29,7 @@ GameManager::GameManager(){
 	buildSceneFromXML("./assets/xml/scene.xml", "0");
 	
 	//play the background muxic
-	AudioResource *music = static_cast<AudioResource*>(getResourceByID(8));
-	playAudio(music->getInfo(), 8);
+	playAudioByID(8, 8);
 	startAudio();
 	setVolume(0.40);
 	
@@ -231,6 +230,18 @@ GameResource *GameManager::getResourceByID(uint32_t id){
 }
 
 //methods to tell the AudioManager to do things
+void GameManager::playAudioByID(const uint32_t id, const int numRepeats){
+
+	AudioResource *music = static_cast<AudioResource*>(getResourceByID(id));
+
+	if (music && music->getInfo()){
+
+		playAudio(music->getInfo(), numRepeats);
+
+	} 
+
+}
+
 void GameManager::playAudio(AudioResourceInfo *info, const int numRepeats){
 
 	audioManager->playAudio(info, numRepeats);

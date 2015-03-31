@@ -311,6 +311,12 @@ void RenderManager::updateAudio(const float timeStep){
 
 }
 
+void RenderManager::playAudioByID(const uint32_t id, const int numRepeats){
+
+	gameManager->playAudioByID(id, numRepeats);
+
+}
+
 void RenderManager::logInfo(const string &message){
 
 	gameManager->logInfo(message);

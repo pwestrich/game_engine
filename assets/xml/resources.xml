@@ -44,6 +44,11 @@
 				<type>stream</type>
 				<id>8</id>
 			</audio>
+			<audio>
+				<file>./assets/audio/horn.mp3</file>
+				<type>sample</type>
+				<id>9</id>
+			</audio>
 		</audios>
 	</group>
 </groups>

@@ -43,7 +43,6 @@ void AudioPlayer::incrementPlayCount(){
 void AudioPlayer::onComplete(){
 
 	//do nothing for now
-	delete this;
 
 }
 

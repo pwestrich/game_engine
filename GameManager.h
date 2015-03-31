@@ -86,6 +86,7 @@ public:
 	GameResource *getResourceByID(uint32_t id);
 
 	//methods to tell the AudioManager to do things
+	void playAudioByID(const uint32_t id, const int numRepeats);
 	void playAudio(AudioResourceInfo *info, const int numRepeats);
 	void updateAudio(const float timeStep);
 

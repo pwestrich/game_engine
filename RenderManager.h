@@ -91,6 +91,8 @@ public:
     void updateMovement(const float timeStep);
     void updateAudio(const float timeStep);
 
+    void playAudioByID(const uint32_t id, const int numRepeats);
+
 	//methods to log things (pass to GameManager)
 	void logInfo(const string &message);
 	void logWarn(const string &message);

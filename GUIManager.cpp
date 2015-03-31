@@ -28,9 +28,6 @@ void GUIManager::loadResourceGroup(const string &filename, const string &groupNa
 		gui = new MyGUI::Gui();
 		gui->initialise();
 
-		MyGUI::ResourceManager& myGUIResourceManager = MyGUI::Singleton<MyGUI::ResourceManager>::getInstance();
-		//myGUIResourceManager.load("MyGUI_Core.xml");
-
 		buildGUIFromXML(filename);
 
 	} catch (MyGUI::Exception &it){
@@ -87,7 +84,11 @@ void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::
 
 	} else if (button->getName() == "CameraStop"){
 
+		renderManager->setCameraMovement(0,0,0);
 
+	} else if (button->getName() == "Horn"){
+
+		renderManager->playAudioByID(9, 1);
 
 	}
 
