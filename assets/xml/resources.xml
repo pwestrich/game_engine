@@ -49,6 +49,11 @@
 				<type>sample</type>
 				<id>9</id>
 			</audio>
+			<audio>
+				<file>./assets/audio/F.mp3</file>
+				<type>sample</type>
+				<id>10</id>
+			</audio>
 		</audios>
 	</group>
 </groups>

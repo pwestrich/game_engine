@@ -69,6 +69,10 @@ void GameManager::keyPressed(const KeyboardKey key){
 		logManager->logInfo("Exiting program...");
 		exit(EXIT_SUCCESS);
 
+	} else if (key == KB_F){
+
+		playAudioByID(10, 1);
+
 	}
 
 }

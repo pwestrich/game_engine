@@ -293,6 +293,10 @@ KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
 
 		key = KB_TAB;
 
+	} else if (kc == OIS::KC_F){
+
+		key = KB_F;
+
 	}
 
 	return key;
