@@ -22,6 +22,8 @@ end
 
 function test4(m, n)
 
+	print(m)
+	print(n)
 	return m, n
 
 end

@@ -33,7 +33,7 @@ public:
 	or NULL if there are none. It is up to the calling function to get the values out of it, 
 	and to free the memory it uses.
 	*/
-	void **execute(const char *filename, const char *function, const char *opt, ...);
+	char **execute(const char *filename, const char *function, const char *opt, ...);
 
 };
 

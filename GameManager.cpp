@@ -34,6 +34,21 @@ GameManager::GameManager(){
 	startAudio();
 	setVolume(0.40);
 	
+	ScriptManager *scriptManager = new ScriptManager(this);
+	char ** values = scriptManager->execute("./assets/lua/test.lua", "test4", "ii:ii.", 5, 10);
+
+	cerr << "values1: " << values[1] << endl;
+	cerr << "values0: " << values[0] << endl;
+
+
+	delete [] values[0];
+	delete [] values[1];
+	delete [] values;
+	delete scriptManager;
+
+	scriptManager = NULL;
+	values = NULL;
+	
 	//start drawing
 	startRendering();
 

@@ -54,3 +54,27 @@ void parseInts(std::string str, int *values){
    }
 
 }
+
+char *itoa(int value){
+
+   stringstream ss;
+   ss << value;
+   return const_cast<char*>(ss.str().c_str());
+
+}
+
+char *ftoi(float value){
+
+   stringstream ss;
+   ss << value;
+   return const_cast<char*>(ss.str().c_str());
+
+}
+
+char *dtoa(double value){
+
+   stringstream ss;
+   ss << value;
+   return const_cast<char*>(ss.str().c_str());
+
+}

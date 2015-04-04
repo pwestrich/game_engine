@@ -6,6 +6,7 @@
 
 #include "ScriptManager.h"
 #include "GameManager.h"
+#include "utilities.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ ScriptManager::~ScriptManager(){
 
 }
 
-void **ScriptManager::execute(const char *filename, const char *function, const char *opt, ...){
+char **ScriptManager::execute(const char *filename, const char *function, const char *opt, ...){
 
 	//check arguments
 	assert(filename != NULL);
@@ -92,7 +93,7 @@ void **ScriptManager::execute(const char *filename, const char *function, const 
 	}
 
 end:
-
+	
 	retc = strlen(opt); //count return values
 
 	//call the function
@@ -110,12 +111,10 @@ end:
 	}
 
 	//now get return values
-	void **retv = new void*[retc];
+	char **retv = new char*[retc - 1];
 	retc = -retc;
 
 	while (true){
-
-		cerr << opt << endl;
 
 		switch (*opt++){
 
@@ -128,8 +127,8 @@ end:
 				}
 
 				const char *value = lua_tostring(L, retc);
-				retv[-retc] = new char[strlen(value)];
-				memcpy(retv[-retc], value, strlen(value));
+				retv[-retc - 2] = new char[strlen(value)];
+				strcpy(retv[-retc - 2], value);
 				break;
 
 			}
@@ -142,8 +141,9 @@ end:
 
 				}
 
-				retv[-retc] = new int;
-				*static_cast<int*>(retv[-retc]) = static_cast<int>(lua_tonumber(L, retc));
+				char *value = itoa(lua_tonumber(L, retc));
+				retv[-retc - 2] = new char[strlen(value)];
+				strcpy(retv[-retc - 2], value);
 				break;
 
 			}
@@ -156,9 +156,11 @@ end:
 
 				}
 
-				retv[-retc] = new double;
-				*static_cast<double*>(retv[-retc]) = static_cast<double>(lua_tonumber(L, retc));
+				char *value = dtoa(lua_tonumber(L, retc));
+				retv[-retc - 2] = new char[strlen(value)];
+				strcpy(retv[-retc - 2], value);
 				break;
+
 
 			}
 
