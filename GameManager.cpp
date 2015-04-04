@@ -7,6 +7,7 @@
 #include "AudioManager.h"
 #include "GameResource.h"
 #include "AudioResource.h"
+#include "ScriptManager.h"
 
 using namespace std;
 

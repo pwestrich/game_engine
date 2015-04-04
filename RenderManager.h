@@ -40,7 +40,6 @@ private:
 
     //variables for keeping track of movement
     float wheelRotateAmount;
-
     Ogre::Vector3 cameraMovement;
     Ogre::Vector3 truckMovement;
 

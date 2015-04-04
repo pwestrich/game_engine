@@ -9,14 +9,9 @@ using namespace Ogre;
 //public methods start here ----------------------------------------------------------------------------------------------------------------------
 RenderManager::RenderManager(GameManager *gman){
 
-	if (gman == NULL){
-
-		exit(EXIT_FAILURE);
-
-	}
+	assert(gman != NULL);
 
 	gameManager = gman;
-
 	gameManager->logInfo("Creating RenderManager...");
 
 	//start creating ogre stuff
