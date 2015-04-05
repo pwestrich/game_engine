@@ -666,6 +666,12 @@ public:
         
         return writeFunction<DetectedFunctionType>(std::forward<TData>(data)...);
     }
+
+    lua_State *getState(){
+
+        return mState;
+
+    }
     
 
 private:

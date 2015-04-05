@@ -2,23 +2,19 @@
 #ifndef SCRIPT_MAMAGER
 #define SCRIPT_MAMAGER
 
-#include <cstdarg>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-
-#include "luainc.h"
+#include <string>
 
 using namespace std;
 
 class GameManager;
+class LuaContext;
 
 class ScriptManager {
 
 private:
 
 	GameManager *gameManager;
-	lua_State *L;
+	LuaContext *lua;
 
 public:
 
@@ -27,6 +23,8 @@ public:
 
 	void registerFunction();
 	int ctest(int n);
+
+	void execute(const string &filename);
 
 	/*
 	This one will require some explaning...
@@ -39,7 +37,7 @@ public:
 	or NULL if there are none. It is up to the calling function to get the values out of it, 
 	and to free the memory it uses.
 	*/
-	char **execute(const char *filename, const char *function, const char *opt, ...);
+	//char **execute(const char *filename, const char *function, const char *opt, ...);
 
 };
 

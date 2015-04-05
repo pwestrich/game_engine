@@ -1,7 +1,14 @@
 
+#include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <string>
+
 #include "ScriptManager.h"
 #include "GameManager.h"
 #include "utilities.h"
+
+#include "luainc.h"
 #include "LuaContext.hpp"
 
 using namespace std;
@@ -18,24 +25,21 @@ ScriptManager::ScriptManager(GameManager *gm){
 	gameManager = gm;
 
 	//set up the lua interpreter
-	L = luaL_newstate();
-	luaL_openlibs(L);
+	lua = new LuaContext();
 
 }
 
 ScriptManager::~ScriptManager(){
 
-	//close the interpreter
-	lua_close(L);
+	delete lua;
 
 }
 
 void ScriptManager::registerFunction(){
 
-	LuaContext lua;
-	lua.registerFunction("ctest", &ScriptManager::ctest);
-	lua.writeVariable("test", this);
-	lua.executeCode("test:ctest(5)");
+	lua->registerFunction("ctest", &ScriptManager::ctest);
+	lua->writeVariable("test", this);
+	lua->executeCode("test:ctest(5)");
 
 }
 
@@ -46,12 +50,32 @@ int ScriptManager::ctest(int n){
 
 }
 
+void ScriptManager::execute(const string &filename){
+
+	ifstream inFile(filename);
+
+	if (!inFile){
+
+		gameManager->logWarn("Script could not be run.");
+		gameManager->logWarn(filename);
+		return;
+
+	}
+
+	lua->executeCode(inFile);
+	inFile.close();
+
+}
+
+/*
 char **ScriptManager::execute(const char *filename, const char *function, const char *opt, ...){
 
 	//check arguments
 	assert(filename != NULL);
 	assert(function != NULL);
 	assert(opt != NULL);
+
+
 
 	//set up the variable args stuff
 	va_list argList;
@@ -205,4 +229,4 @@ done:
 	va_end(argList);
 	return retv;
 
-}
+}*/
