@@ -1,7 +1,7 @@
 
 function test(n)
 
-	print(n)
+	return n
 
 end
 

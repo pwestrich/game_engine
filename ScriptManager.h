@@ -8,7 +8,6 @@
 #include <iostream>
 
 #include "luainc.h"
-#include "luabind/luabind.hpp"
 
 using namespace std;
 
@@ -25,6 +24,9 @@ public:
 
 	ScriptManager(GameManager *gm);
 	~ScriptManager();
+
+	void registerFunction();
+	int ctest(int n);
 
 	/*
 	This one will require some explaning...

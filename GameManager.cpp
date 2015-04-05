@@ -34,7 +34,9 @@ GameManager::GameManager(){
 	playAudioByID(8, 8);
 	startAudio();
 	setVolume(0.40);
-	
+
+	scriptManager->registerFunction();
+
 	//start drawing
 	startRendering();
 

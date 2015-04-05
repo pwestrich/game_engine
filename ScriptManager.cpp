@@ -2,8 +2,15 @@
 #include "ScriptManager.h"
 #include "GameManager.h"
 #include "utilities.h"
+#include "LuaContext.hpp"
 
 using namespace std;
+
+void stuff(){
+
+	cerr << "worked" << endl;
+
+}
 
 ScriptManager::ScriptManager(GameManager *gm){
 
@@ -20,6 +27,22 @@ ScriptManager::~ScriptManager(){
 
 	//close the interpreter
 	lua_close(L);
+
+}
+
+void ScriptManager::registerFunction(){
+
+	LuaContext lua;
+	lua.registerFunction("ctest", &ScriptManager::ctest);
+	lua.writeVariable("test", this);
+	lua.executeCode("test:ctest(5)");
+
+}
+
+int ScriptManager::ctest(int n){
+
+	cerr << "test worked" << endl;
+	return n;
 
 }
 
