@@ -3,8 +3,12 @@
 #define SCRIPT_MAMAGER
 
 #include <cstdarg>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
 
 #include "luainc.h"
+#include "luabind/luabind.hpp"
 
 using namespace std;
 

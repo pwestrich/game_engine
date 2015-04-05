@@ -16,6 +16,7 @@ class ResourceManager;
 class InputManager;
 class AudioManager;
 class GameResource;
+class ScriptManager;
 
 struct AudioResourceInfo;
 
@@ -24,18 +25,19 @@ class GameManager : public InputListener {
 private:
 
 	//keep a copy of every manager
-	RenderManager *renderManager;
-	LogManager *logManager;
+	RenderManager 	*renderManager;
+	LogManager 		*logManager;
 	ResourceManager *resourceManager;
-	InputManager *inputManager;
-	AudioManager *audioManager;
+	InputManager 	*inputManager;
+	AudioManager 	*audioManager;
+	ScriptManager 	*scriptManager;
 
 	//only one copy at a time is allowed
 	GameManager();
 
 public:
 
-	virtual ~GameManager();
+	~GameManager();
 
 	//return a pointer to the game manager
 	static GameManager *getGameManager();

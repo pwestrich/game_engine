@@ -1,9 +1,4 @@
 
-#include <cstdarg>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-
 #include "ScriptManager.h"
 #include "GameManager.h"
 #include "utilities.h"

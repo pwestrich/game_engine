@@ -14,11 +14,12 @@ using namespace std;
 GameManager::GameManager(){
 
 	//create all the managers
-	logManager = new LogManager(this);
-	renderManager = new RenderManager(this);
-	resourceManager = new ResourceManager(this);
-	inputManager = new InputManager(this);
-	audioManager = new AudioManager(this);
+	logManager 		=	new LogManager(this);
+	renderManager 	= 	new RenderManager(this);
+	resourceManager = 	new ResourceManager(this);
+	inputManager 	= 	new InputManager(this);
+	audioManager 	= 	new AudioManager(this);
+	scriptManager 	= 	new ScriptManager(this);
 
 	//set input listeners
 	inputManager->addListener(this);
@@ -34,21 +35,6 @@ GameManager::GameManager(){
 	startAudio();
 	setVolume(0.40);
 	
-	ScriptManager *scriptManager = new ScriptManager(this);
-	char ** values = scriptManager->execute("./assets/lua/test.lua", "test4", "ii:ii.", 5, 10);
-
-	cerr << "values1: " << values[1] << endl;
-	cerr << "values0: " << values[0] << endl;
-
-
-	delete [] values[0];
-	delete [] values[1];
-	delete [] values;
-	delete scriptManager;
-
-	scriptManager = NULL;
-	values = NULL;
-	
 	//start drawing
 	startRendering();
 
@@ -57,6 +43,7 @@ GameManager::GameManager(){
 GameManager::~GameManager(){
 
 	//delete everything
+	delete scriptManager;
 	delete inputManager;
 	delete resourceManager;
 	delete renderManager;
