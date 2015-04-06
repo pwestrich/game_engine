@@ -190,92 +190,6 @@ void RenderManager::scaleNode(const string &nodeName, const float x, const float
 
 }
 
-/*
-void RenderManager::setCameraMovement(const float x, const float y, const float z){
-
-	cameraMovement = Vector3(x, y, z);
-
-}
-
-void RenderManager::addCameraMovement(const float x, const float y, const float z){
-
-	cameraMovement += Vector3(x, y, z);
-
-}
-
-void RenderManager::setTruckMovement(const float x, const float y, const float z){
-
-	truckMovement = Vector3(x, y, z);
-
-}
-
-void RenderManager::addTruckMovement(const float x, const float y, const float z){
-
-	truckMovement += Vector3(x, y, z);
-
-}
-
-void RenderManager::setWheelRotation(const float degree){
-
-	wheelRotateAmount = degree / 1000.0;
-
-}
-
-void RenderManager::rotateWheels(const float degree){
-
-	SceneNode *leftWheel = sceneManager->getSceneNode("front_drive_wheel");
-	SceneNode *rightWheel = sceneManager->getSceneNode("front_pass_wheel");
-
-	Quaternion q(Degree((degree - 45) * -1.0), Vector3::UNIT_Y);
-	leftWheel->setOrientation(q * Quaternion(Degree(90), Vector3::UNIT_Y) * Quaternion(Degree(90), Vector3::UNIT_Z));
-	rightWheel->setOrientation(q * Quaternion(Degree(90), Vector3::UNIT_Y) * Quaternion(Degree(90), Vector3::UNIT_Z));
-
-	setWheelRotation((degree - 45) * -1.0);
-
-}
-
-void RenderManager::rotateCamera(const float x, const float y, const float z){
-
-	//the mouse will rotate the camera so it looks elsewhere
-	Quaternion xq(Degree((x * -1.0)), camera->getRealUp());
-	Quaternion yq(Degree((y * -1.0)), camera->getRealRight());
-	Quaternion zq(Degree((z * -1.0)), camera->getRealDirection());
-
-	//rotate the camera 
-	camera->rotate(xq * yq * zq); 
-
-}
-
-void RenderManager::orientCamera(const float x, const float y, const float z){
-
-	//the mouse will rotate the camera so it looks elsewhere
-	Quaternion xq(Degree((x * -1.0)), camera->getRealUp());
-	Quaternion yq(Degree((y * -1.0)), camera->getRealRight());
-	Quaternion zq(Degree((z * -1.0)), camera->getRealDirection());
-
-	//rotate the camera 
-	camera->setOrientation(xq * yq * zq); 
-
-}
-
-void RenderManager::cameraRoll(const float x){
-
-	camera->roll(Degree(-1.0 * x));
-
-}
-
-void RenderManager::cameraYaw(const float y){
-
-	camera->yaw(Degree(-1.0 * y));
-
-}
-
-void RenderManager::cameraPitch(const float z){
-
-	camera->pitch(Degree(-1.0 * z));
-
-}*/
-
 void RenderManager::addPathResource(const string &path, const string &pathType, const string &group){
 
 	Ogre::ResourceGroupManager &rgm = Ogre::ResourceGroupManager::getSingleton();
@@ -444,43 +358,8 @@ void RenderManager::mouseReleased(const uint32_t x, const uint32_t y, const Mous
 
 }
 
-//this method will change the scene based on the key pressed
-void RenderManager::keyPressed(const KeyboardKey key){
-
-	//camera movement
-   	/*if (key == KB_D){
-
-	    addCameraMovement(0,0,0.001);
-
-	} else if (key == KB_A){
-
-   		addCameraMovement(0,0,-0.001);
-
-   	} else if (key == KB_S){
-
-   		addCameraMovement(-0.001,0,0);
-
-   	} else if (key == KB_W){
-
-   		addCameraMovement(0.001,0,0);
-
-   	} else if (key == KB_LSHIFT){
-
-		addCameraMovement(0,-0.001,0);
-
-   	} else if (key == KB_SPACE){
-
-	    addCameraMovement(0,0.001,0);
-
-	} else if (key == KB_TAB){
-
-	  	setCameraMovement(0,0,0);
-
-	}*/
-
-}
-
 //not used
+void RenderManager::keyPressed(const KeyboardKey key){}
 void RenderManager::keyReleased(const KeyboardKey key){}
 void RenderManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount) {}
 void RenderManager::joystickButtonPressed(const JoystickButton button){}

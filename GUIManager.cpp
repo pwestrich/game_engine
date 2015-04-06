@@ -83,29 +83,6 @@ void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::
 
 	}
 
-	/*
-	if (button->getName() == "Stop"){
-
-		renderManager->setTruckMovement(0,0,0);
-
-	} else if (button->getName() == "Straight"){
-
-		renderManager->rotateWheels(45.0);
-
-	} else if (button->getName() == "CameraReset"){
-
-		renderManager->orientCamera(0,0,0);
-
-	} else if (button->getName() == "CameraStop"){
-
-		renderManager->setCameraMovement(0,0,0);
-
-	} else if (button->getName() == "Horn"){
-
-		renderManager->playAudioByID(9, 1);
-
-	}*/
-
 }
 
 void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI::MouseButton id){
@@ -124,29 +101,7 @@ void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI:
 
 		renderManager->logInfo("No script for this scroll bar.");
 
-	}	
-
-	/*if (bar->getName() == "SpeedBar"){
-
-		renderManager->setTruckMovement(((static_cast<float>(bar->getScrollPosition()) - 45.0) / 500.0), 0, 0);
-
-	} else if (bar->getName() == "WheelBar"){
-
-		renderManager->rotateWheels(static_cast<float>(bar->getScrollPosition()));
-
-	} else if (bar->getName() == "CameraXBar"){
-
-		renderManager->cameraYaw(bar->getScrollPosition() - 180.0);
-
-	} else if (bar->getName() == "CameraYBar"){
-
-		renderManager->cameraPitch(bar->getScrollPosition() - 180.0);
-
-	} else {
-
-		renderManager->logWarn("Someone is using the wrong method...");
-
-	}*/
+	}
 
 }
 
@@ -246,9 +201,6 @@ void GUIManager::buildGUIFromXML(const string &filename){
 
 							windowElement = static_cast<TiXmlElement*>(button->FirstChild("font"));
 							string font = windowElement->GetText();
-
-							windowElement = static_cast<TiXmlElement*>(button->FirstChild("script"));
-							string script = windowElement->GetText();
 							
 							parseInts(position, values);
 							parseInts(size, values + 2);
@@ -258,8 +210,6 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							b->setCaption(caption);
 							b->setFontHeight(values[4]);
 							b->setTextColour(MyGUI::Colour(0,0,0));
-
-							scriptMap[b] = script;
 
 							TiXmlNode *scrollBar = button->FirstChild("scrollBar");
 
@@ -280,6 +230,8 @@ void GUIManager::buildGUIFromXML(const string &filename){
 								windowElement = static_cast<TiXmlElement*>(scrollBar->FirstChild("track"));
 								string track = windowElement->GetText();
 
+								windowElement = static_cast<TiXmlElement*>(scrollBar->FirstChild("script"));
+
 								MyGUI::ScrollBar *s = win->createWidget<MyGUI::ScrollBar>(skin, values[0], values[1], values[2], values[3], MyGUI::Align::Default, name);
 
 								s->setScrollRange(atoi(size.c_str()));
@@ -287,7 +239,25 @@ void GUIManager::buildGUIFromXML(const string &filename){
 								s->setScrollPosition(atoi(position.c_str()));
 								s->eventMouseButtonPressed += newDelegate(this, &GUIManager::scrollBarMoved);
 
+								if (windowElement){
+
+									renderManager->logInfo("Adding script for GUI scroll bar...");
+									string script = windowElement->GetText();
+									scriptMap[s] = script;
+
+								}
+
 							} else {
+
+								windowElement = static_cast<TiXmlElement*>(button->FirstChild("script"));
+
+								if (windowElement){
+
+									renderManager->logInfo("Adding script for GUI button...");
+									string script = windowElement->GetText();
+									scriptMap[b] = script;
+
+								}
 
 								b->eventMouseButtonPressed += newDelegate(this, &GUIManager::buttonPressed);
 

@@ -69,19 +69,6 @@ public:
 	void translateNode(const string &nodeName, const float x, const float y, const float z);
 	void scaleNode(const string &nodeName, const float x, const float y, const float z);
 
-	/*
-	void setCameraMovement(const float x, const float y, const float z);
-	void addCameraMovement(const float x, const float y, const float z);
-	void setTruckMovement(const float x, const float y, const float z);
-	void addTruckMovement(const float x, const float y, const float z);
-	void setWheelRotation(const float degree);
-	void rotateWheels(const float degree);
-	void rotateCamera(const float x, const float y, const float z);
-	void orientCamera(const float x, const float y, const float z);
-	void cameraRoll(const float x);
-	void cameraYaw(const float y);
-	void cameraPitch(const float z);*/
-
 	//methods for adding resources to Ogre's resource manager
 	void addPathResource(const string &path, const string &pathType, const string &group);
 	void addMeshResource(const string &mesh, const string &type, const string &group);
