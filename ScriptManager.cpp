@@ -35,18 +35,9 @@ ScriptManager::~ScriptManager(){
 
 }
 
-void ScriptManager::registerFunction(){
+LuaContext *ScriptManager::getLuaContext(){
 
-	lua->registerFunction("ctest", &ScriptManager::ctest);
-	lua->writeVariable("test", this);
-	lua->executeCode("test:ctest(5)");
-
-}
-
-int ScriptManager::ctest(int n){
-
-	cerr << "test worked" << endl;
-	return n;
+	return lua;
 
 }
 

@@ -21,8 +21,7 @@ public:
 	ScriptManager(GameManager *gm);
 	~ScriptManager();
 
-	void registerFunction();
-	int ctest(int n);
+	LuaContext *getLuaContext();
 
 	void execute(const string &filename);
 

@@ -9,6 +9,10 @@
 #include "AudioResource.h"
 #include "ScriptManager.h"
 
+//I'm not happy with this, but it's what I ahve to do
+#include "luainc.h"
+#include "LuaContext.hpp"
+
 using namespace std;
 
 GameManager::GameManager(){
@@ -35,7 +39,13 @@ GameManager::GameManager(){
 	startAudio();
 	setVolume(0.40);
 
-	scriptManager->registerFunction();
+	//register various functions with the ScriptManager so that lua scripts can use them
+	//I'm not happy witht he class cohesino going on here, but it won't work otherwise
+	LuaContext *lua = scriptManager->getLuaContext();
+
+	lua->registerFunction("playAudioByID", &GameManager::playAudioByID);
+	lua->writeVariable("GameManager", this);
+	lua->executeCode("GameManager:playAudioByID(9, 4)");
 
 	//start drawing
 	startRendering();

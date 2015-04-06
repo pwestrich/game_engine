@@ -80,7 +80,7 @@ AudioPlayer.o: AudioPlayer.cpp $(GAME_HEADER)
 
 	$(COMPILE) AudioPlayer.cpp
 
-ScriptManager.o: ScriptManager.cpp $(GAME_HEADER)
+ScriptManager.o: ScriptManager.cpp LuaContext.hpp $(GAME_HEADER)
 
 	$(COMPILE) ScriptManager.cpp
 
