@@ -64,6 +64,12 @@ public:
 	//the setter methods
 	void setTimeSinceLastFrame(Ogre::Real timeElapsed);
 
+	//methods to alter the scene
+	void rotateNode(const string &nodeName, const float w, const float x, const float y, const float z);
+	void translateNode(const string &nodeName, const float x, const float y, const float z);
+	void scaleNode(const string &nodeName, const float x, const float y, const float z);
+
+	/*
 	void setCameraMovement(const float x, const float y, const float z);
 	void addCameraMovement(const float x, const float y, const float z);
 	void setTruckMovement(const float x, const float y, const float z);
@@ -74,7 +80,7 @@ public:
 	void orientCamera(const float x, const float y, const float z);
 	void cameraRoll(const float x);
 	void cameraYaw(const float y);
-	void cameraPitch(const float z);
+	void cameraPitch(const float z);*/
 
 	//methods for adding resources to Ogre's resource manager
 	void addPathResource(const string &path, const string &pathType, const string &group);
@@ -97,6 +103,12 @@ public:
 	void logWarn(const string &message);
 	void logDebug(const string &message);
 	void logFatal(const string &message, const int line, const char *file);
+
+	//methods to to script stuff (also goes to GameManager)
+	void execute(const string &filename);
+	void writeInt(const string &name, const int value);
+	void writeFloat(const string &name, const float value);
+	void writeString(const string &name, const string &value);
 
 	void startRendering();
 	void stopRendering();

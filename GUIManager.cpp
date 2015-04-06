@@ -70,6 +70,20 @@ void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::
 
 	MyGUI::Button *button = static_cast<MyGUI::Button*>(sender);
 
+	try {
+
+		string script = scriptMap.at(button);
+
+		renderManager->writeString("buttonName", button->getName());
+		renderManager->execute(script);
+
+	} catch (out_of_range &it){
+
+		renderManager->logInfo("No script for this button.");
+
+	}
+
+	/*
 	if (button->getName() == "Stop"){
 
 		renderManager->setTruckMovement(0,0,0);
@@ -90,7 +104,7 @@ void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::
 
 		renderManager->playAudioByID(9, 1);
 
-	}
+	}*/
 
 }
 
@@ -98,7 +112,21 @@ void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI:
 
 	MyGUI::ScrollBar *bar = static_cast<MyGUI::ScrollBar*>(sender);
 
-	if (bar->getName() == "SpeedBar"){
+	try {
+
+		string script = scriptMap.at(bar);
+
+		renderManager->writeString("scrollBarName", bar->getName());
+		renderManager->writeInt("position", bar->getScrollPosition());
+		renderManager->execute(script);
+
+	} catch (out_of_range &it){
+
+		renderManager->logInfo("No script for this scroll bar.");
+
+	}	
+
+	/*if (bar->getName() == "SpeedBar"){
 
 		renderManager->setTruckMovement(((static_cast<float>(bar->getScrollPosition()) - 45.0) / 500.0), 0, 0);
 
@@ -118,7 +146,7 @@ void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI:
 
 		renderManager->logWarn("Someone is using the wrong method...");
 
-	}
+	}*/
 
 }
 
@@ -218,6 +246,9 @@ void GUIManager::buildGUIFromXML(const string &filename){
 
 							windowElement = static_cast<TiXmlElement*>(button->FirstChild("font"));
 							string font = windowElement->GetText();
+
+							windowElement = static_cast<TiXmlElement*>(button->FirstChild("script"));
+							string script = windowElement->GetText();
 							
 							parseInts(position, values);
 							parseInts(size, values + 2);
@@ -227,6 +258,8 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							b->setCaption(caption);
 							b->setFontHeight(values[4]);
 							b->setTextColour(MyGUI::Colour(0,0,0));
+
+							scriptMap[b] = script;
 
 							TiXmlNode *scrollBar = button->FirstChild("scrollBar");
 

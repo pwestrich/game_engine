@@ -16,6 +16,7 @@
 					<position>5,10</position>
 					<size>40,150</size>
 					<font>100</font>
+					<script>./assets/lua/buttonSpeed.lua</script>
 					<scrollBar>
 						<name>SpeedBar</name>
 						<skin>SliderV</skin>
@@ -31,6 +32,7 @@
 					<position>75,120</position>
 					<size>300,40</size>
 					<font>200</font>
+					<script>./assets/lua/buttonWheel.lua</script>
 					<scrollBar>
 						<name>WheelBar</name>
 						<skin>SliderH</skin>
@@ -46,6 +48,7 @@
 					<position>60,10</position>
 					<size>80,40</size>
 					<font>200</font>
+					<script>./assets/lua/buttonStop.lua</script>
 				</button>
 				<button>
 					<name>Straight</name>
@@ -54,6 +57,7 @@
 					<position>60,60</position>
 					<size>80,40</size>
 					<font>200</font>
+					<script>./assets/lua/buttonStraight.lua</script>
 				</button>
 				<button>
 					<name>Horn</name>
@@ -62,6 +66,7 @@
 					<position>160,10</position>
 					<size>160,100</size>
 					<font>200</font>
+					<script>./assets/lua/buttonHorn.lua</script>
 				</button>
 			</buttons>
 		</window>
@@ -80,6 +85,7 @@
 					<position>5,10</position>
 					<size>40,150</size>
 					<font>200</font>
+					<script>./assets/lua/buttoncameraY.lua</script>
 					<scrollBar>
 						<name>CameraYBar</name>
 						<skin>SliderV</skin>
@@ -95,6 +101,7 @@
 					<position>75,120</position>
 					<size>300,40</size>
 					<font>200</font>
+					<script>./assets/lua/buttoncameraX.lua</script>
 					<scrollBar>
 						<name>CameraXBar</name>
 						<skin>SliderH</skin>
@@ -110,6 +117,7 @@
 					<position>60,10</position>
 					<size>80,40</size>
 					<font>200</font>
+					<script>./assets/lua/buttonCameraReset.lua</script>
 				</button>
 				<button>
 					<name>CameraStop</name>
@@ -118,6 +126,7 @@
 					<position>60,60</position>
 					<size>80,40</size>
 					<font>200</font>
+					<script>./assets/lua/buttonCameraStop.lua</script>
 				</button>
 			</buttons>
 		</window>

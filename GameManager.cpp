@@ -43,9 +43,18 @@ GameManager::GameManager(){
 	//I'm not happy witht he class cohesino going on here, but it won't work otherwise
 	LuaContext *lua = scriptManager->getLuaContext();
 
+	//GameManager stuff
 	lua->registerFunction("playAudioByID", &GameManager::playAudioByID);
-	lua->writeVariable("GameManager", this);
-	lua->executeCode("GameManager:playAudioByID(9, 4)");
+	lua->registerFunction("logInfo", &GameManager::logInfo);
+	lua->registerFunction("logWarn", &GameManager::logWarn);
+	lua->registerFunction("logDebug", &GameManager::logDebug);
+	lua->writeVariable("Game", this);
+
+	//RenderManager stuff
+	lua->registerFunction("rotateNode", &RenderManager::rotateNode);
+	lua->registerFunction("translateNode", &RenderManager::translateNode);
+	lua->registerFunction("scaleNode", &RenderManager::scaleNode);
+	lua->writeVariable("Scene", renderManager);
 
 	//start drawing
 	startRendering();
@@ -84,9 +93,10 @@ void GameManager::keyPressed(const KeyboardKey key){
 		logManager->logInfo("Exiting program...");
 		exit(EXIT_SUCCESS);
 
-	} else if (key == KB_F){
+	} else {
 
-		playAudioByID(10, 1);
+		scriptManager->writeInt("keyPressed", static_cast<int>(key));
+		scriptManager->execute("./assets/lua/input.lua");
 
 	}
 
@@ -257,7 +267,11 @@ void GameManager::playAudioByID(const uint32_t id, const int numRepeats){
 
 		playAudio(music->getInfo(), numRepeats);
 
-	} 
+	} else {
+
+		logWarn("Attempt to play not-audio caught");
+
+	}
 
 }
 
@@ -312,5 +326,30 @@ void GameManager::unloadAudio(AudioResourceInfo *info){
 AudioResourceInfo *GameManager::createAudioInfo(){
 
 	return audioManager->createAudioInfo();
+
+}
+
+//methods to make the ScriptManager do things -----------------------------------------------------
+void GameManager::execute(const string &filename){
+
+	scriptManager->execute(filename);
+
+}
+
+void GameManager::writeInt(const string &name, const int value){
+
+	scriptManager->writeInt(name, value);
+
+}
+
+void GameManager::writeFloat(const string &name, const float value){
+
+	scriptManager->writeFloat(name, value);
+
+}
+
+void GameManager::writeString(const string &name, const string &value){
+
+	scriptManager->writeString(name, value);
 
 }

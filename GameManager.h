@@ -103,6 +103,12 @@ public:
 
 	AudioResourceInfo *createAudioInfo();
 
+	//methods to make the ScriptMAnager do things
+	void execute(const string &filename);
+	void writeInt(const string &name, const int value);
+	void writeFloat(const string &name, const float value);
+	void writeString(const string &name, const string &value);
+
 };
 
 #endif

@@ -141,6 +141,56 @@ void RenderManager::setTimeSinceLastFrame(Ogre::Real timeElapsed){
 
 }
 
+//methods to alter the scene
+void RenderManager::rotateNode(const string &nodeName, const float w, const float x, const float y, const float z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		node->rotate(Quaternion(Degree(w), Vector3(x, y, x)));
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn("Attempt to rotate nonexistent node");
+		gameManager->logWarn(nodeName);
+
+	}
+
+}
+
+void RenderManager::translateNode(const string &nodeName, const float x, const float y, const float z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		node->translate(Vector3(x, y, x));
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn("Attempt to translate nonexistent node");
+		gameManager->logWarn(nodeName);
+
+	}
+
+}
+
+void RenderManager::scaleNode(const string &nodeName, const float x, const float y, const float z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		node->scale(Vector3(x, y, x));
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn("Attempt to rotate nonexistent node");
+		gameManager->logWarn(nodeName);
+
+	}
+
+}
+
+/*
 void RenderManager::setCameraMovement(const float x, const float y, const float z){
 
 	cameraMovement = Vector3(x, y, z);
@@ -224,7 +274,7 @@ void RenderManager::cameraPitch(const float z){
 
 	camera->pitch(Degree(-1.0 * z));
 
-}
+}*/
 
 void RenderManager::addPathResource(const string &path, const string &pathType, const string &group){
 
@@ -334,6 +384,31 @@ void RenderManager::logFatal(const string &message, const int line, const char *
 
 }
 
+//methods to to script stuff (also goes to GameMAnager)
+void RenderManager::execute(const string &filename){
+
+	gameManager->execute(filename);
+
+}
+
+void RenderManager::writeInt(const string &name, const int value){
+
+	gameManager->writeInt(name, value);
+
+}
+
+void RenderManager::writeFloat(const string &name, const float value){
+
+	gameManager->writeFloat(name, value);
+
+}
+
+void RenderManager::writeString(const string &name, const string &value){
+
+	gameManager->writeString(name, value);
+
+}
+
 void RenderManager::startRendering(){
 
 	gameManager->logInfo("Starting renderer...");
@@ -373,7 +448,7 @@ void RenderManager::mouseReleased(const uint32_t x, const uint32_t y, const Mous
 void RenderManager::keyPressed(const KeyboardKey key){
 
 	//camera movement
-   	if (key == KB_D){
+   	/*if (key == KB_D){
 
 	    addCameraMovement(0,0,0.001);
 
@@ -401,17 +476,12 @@ void RenderManager::keyPressed(const KeyboardKey key){
 
 	  	setCameraMovement(0,0,0);
 
-	}
-
-}
-
-void RenderManager::keyReleased(const KeyboardKey key){
-
-
+	}*/
 
 }
 
 //not used
+void RenderManager::keyReleased(const KeyboardKey key){}
 void RenderManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount) {}
 void RenderManager::joystickButtonPressed(const JoystickButton button){}
 

@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cstdlib>
 #include <string>
+#include <map>
 
 #include "MyGUI.h"
 #include "MyGUI_OgrePlatform.h"
@@ -25,6 +26,10 @@ private:
 	MyGUI::Gui *gui;
 	MyGUI::OgrePlatform *ogrePlatform;
 
+	//mapping of widgets to scripts
+	map<MyGUI::Widget*, string> scriptMap;
+
+	//function to buld the GUI from an XML file
 	void buildGUIFromXML(const string &filename);
 
 public:
