@@ -2,6 +2,7 @@
 #ifndef RENDER_MANAGER_H
 #define RENDER_MANAGER_H
 
+//#include <map>
 #include <string>
 #include <vector>
 
@@ -14,15 +15,19 @@
 class GameManager;
 class RenderListener;
 class GUIManager;
+class PhysicsManager;
+
+using namespace std;
 
 class RenderManager : public InputListener {
 
 private:
 
 	//keep a copy of the game manager
-	GameManager *gameManager;
-    RenderListener *renderListener;
-    GUIManager *guiManager;
+	GameManager 	*gameManager;
+    RenderListener 	*renderListener;
+    GUIManager 		*guiManager;
+    PhysicsManager 	*physicsManager;
 
    //Ogre scene stuff
 	Ogre::Root *root;
@@ -42,6 +47,9 @@ private:
     float wheelRotateAmount;
     Ogre::Vector3 cameraMovement;
     Ogre::Vector3 truckMovement;
+
+    //come back here after physics
+    //map<string, Vector3> velocityMap;
 
     //functions to recursivley generate the scene graph from XML
     void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);

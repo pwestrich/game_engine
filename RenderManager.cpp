@@ -3,6 +3,7 @@
 #include "RenderManager.h"
 #include "RenderListener.h"
 #include "GUIManager.h"
+#include "PhysicsManager.h"
 
 using namespace Ogre;
 
@@ -53,6 +54,7 @@ RenderManager::RenderManager(GameManager *gman){
       	root->addFrameListener(renderListener);
 
       	guiManager = new GUIManager(this);
+      	physicsManager = new PhysicsManager(this);
 
 	} catch (Ogre::Exception &it){
 
