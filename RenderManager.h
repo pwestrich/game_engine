@@ -77,6 +77,14 @@ public:
 	void translateNode(const string &nodeName, const float x, const float y, const float z);
 	void scaleNode(const string &nodeName, const float x, const float y, const float z);
 
+	void setRotation(const string &nodeName, const float w, const float x, const float y, const float z);
+	void setTranslation(const string &nodeName, const float x, const float y, const float z);
+	void setScale(const string &nodeName, const float x, const float y, const float z);
+
+	bool getRotation(const string &nodeName, float &w, float &x, float &y, float &z);
+	bool getTranslation(const string &nodeName, float &x, float &y, float &z);
+	bool getScale(const string &nodeName, float &x, float &y, float &z);
+
 	//methods for adding resources to Ogre's resource manager
 	void addPathResource(const string &path, const string &pathType, const string &group);
 	void addMeshResource(const string &mesh, const string &type, const string &group);
@@ -89,6 +97,7 @@ public:
     void processAnimations(const float timeStep);
     void checkForInput(const float timeStep);
     void updateMovement(const float timeStep);
+    void updatePhysics(const float timeStep);
     void updateAudio(const float timeStep);
 
     void playAudioByID(const uint32_t id, const int numRepeats);

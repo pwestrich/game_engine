@@ -5,14 +5,14 @@ GAME_PATH=/$(GAME_DRIVE_LETTER)/game_project
 
 INC_DIRS=-I./ -I$(GAME_DRIVE_LETTER)/Ogre/include/ -I$(GAME_DRIVE_LETTER)/boost/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/OIS -I$(GAME_PATH)
 LIB_DIRS=-L./ -L$(GAME_DRIVE_LETTER)/Ogre/lib/ -L$(GAME_DRIVE_LETTER)/boost/lib/ -L$(GAME_DRIVE_LETTER)/Ogre/ogredeps/lib/
-LIBS=-lboost_system-mgw48-mt-1_57 -ltinyxml -lOIS -lbass -llua -lMyGUI.OgrePlatform -lMyGUIEngine -lOgreMain -lfreetype
+LIBS=-lboost_system-mgw48-mt-1_57 -ltinyxml -lOIS -lbass -llua -lMyGUI.OgrePlatform -lMyGUIEngine -lOgreMain -lBulletDynamics -lBulletCollision -lLinearMath -lfreetype
 
 COMPILE = $(CC) $(INC_DIRS) -g -O0 -c 
 LINK = $(CC) $(LIB_DIRS) -g -O0 -o
 
-GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h GameResource.h PathResource.h MeshResource.h AudioResource.h GUIManager.h ScriptManager.h PhysicsManager.h
-GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp AudioPlayer.cpp GameResource.cpp PathResource.cpp MeshResource.cpp AudioResource.cpp GUIManager.cpp ScriptManager.cpp PhysicsManager.cpp
-GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o AudioPlayer.o GameResource.o PathResource.o MeshResource.o AudioResource.o GUIManager.o ScriptManager.o PhysicsManager.o
+GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h GameResource.h PathResource.h MeshResource.h AudioResource.h GUIManager.h ScriptManager.h PhysicsManager.h BulletMotionState.h
+GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp AudioPlayer.cpp GameResource.cpp PathResource.cpp MeshResource.cpp AudioResource.cpp GUIManager.cpp ScriptManager.cpp PhysicsManager.cpp BulletMotionState.cpp
+GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o AudioPlayer.o GameResource.o PathResource.o MeshResource.o AudioResource.o GUIManager.o ScriptManager.o PhysicsManager.o BulletMotionState.o
 
 .PHONY: run_quat run_game
 
@@ -87,6 +87,10 @@ ScriptManager.o: ScriptManager.cpp LuaContext.hpp $(GAME_HEADER)
 PhysicsManager.o: PhysicsManager.cpp $(GAME_HEADER)
 
 	$(COMPILE) PhysicsManager.cpp
+
+BulletMotionState.o: BulletMotionState.cpp $(GAME_HEADER)
+
+	$(COMPILE) BulletMotionState.cpp
 
 utilities.o: utilities.cpp utilities.h
 

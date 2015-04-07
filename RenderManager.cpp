@@ -78,28 +78,20 @@ RenderManager::~RenderManager(){
 
 	guiManager->unloadResourceGroup();
 	delete guiManager;
+	delete physicsManager;
 
-	//clear the scene
-	if (sceneManager){
-
-		sceneManager->destroyAllCameras();
-		sceneManager->clearScene();
-	}
+	sceneManager->destroyAllCameras();
+	sceneManager->clearScene();
 
 	gameManager->unloadResources();
-
-	if (window){
-
-		window->removeAllViewports();
-		window->destroy();
-
-	}
+	
+	window->removeAllViewports();
+	window->destroy();
 
 	//this also sometimes crashes the game on quit
 	/*if (root){
 
 		delete root;
-		root = NULL;
 
 	}*/
 
@@ -153,8 +145,7 @@ void RenderManager::rotateNode(const string &nodeName, const float w, const floa
 
 	} catch (Ogre::Exception &it){
 
-		gameManager->logWarn("Attempt to rotate nonexistent node");
-		gameManager->logWarn(nodeName);
+		gameManager->logWarn(it.what());
 
 	}
 
@@ -169,8 +160,7 @@ void RenderManager::translateNode(const string &nodeName, const float x, const f
 
 	} catch (Ogre::Exception &it){
 
-		gameManager->logWarn("Attempt to translate nonexistent node");
-		gameManager->logWarn(nodeName);
+		gameManager->logWarn(it.what());
 
 	}
 
@@ -185,8 +175,116 @@ void RenderManager::scaleNode(const string &nodeName, const float x, const float
 
 	} catch (Ogre::Exception &it){
 
-		gameManager->logWarn("Attempt to rotate nonexistent node");
-		gameManager->logWarn(nodeName);
+		gameManager->logWarn(it.what());
+
+	}
+
+}
+
+void RenderManager::setRotation(const string &nodeName, const float w, const float x, const float y, const float z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		node->setOrientation(Quaternion(Degree(w), Vector3(x, y, x)));
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn(it.what());
+
+	}
+
+}
+
+void RenderManager::setTranslation(const string &nodeName, const float x, const float y, const float z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		node->setPosition(Vector3(x, y, x));
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn(it.what());
+
+	}
+
+}
+
+void RenderManager::setScale(const string &nodeName, const float x, const float y, const float z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		node->setScale(Vector3(x, y, x));
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn(it.what());
+
+	}
+
+}
+
+bool RenderManager::getRotation(const string &nodeName, float &w, float &x, float &y, float &z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		Quaternion q = node->getOrientation();
+
+		w = q.w;
+		x = q.x;
+		y = q.y;
+		z = q.z;
+		return true;
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn(it.what());
+		return false;
+
+	}
+
+}
+
+bool RenderManager::getTranslation(const string &nodeName, float &x, float &y, float &z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		Vector3 p = node->getPosition();
+
+		x = p.x;
+		y = p.y;
+		z = p.z;
+		return true;
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn(it.what());
+		return false;
+
+	}
+
+}
+
+bool RenderManager::getScale(const string &nodeName, float &x, float &y, float &z){
+
+	try {
+
+		SceneNode *node = sceneManager->getSceneNode(nodeName);
+		Vector3 p = node->getScale();
+
+		x = p.x;
+		y = p.y;
+		z = p.z;
+		return true;
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn(it.what());
+		return false;
 
 	}
 
@@ -263,6 +361,12 @@ void RenderManager::updateMovement(const float timeStep){
 		truck->rotate(Quaternion(Degree(wheelRotateAmount), Vector3::UNIT_Y));
 
 	}
+
+}
+
+void RenderManager::updatePhysics(const float timeStep){
+
+	physicsManager->updatePhysics(timeStep);
 
 }
 
