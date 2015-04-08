@@ -3,6 +3,7 @@
 	<scene>
 		<name>0</name>
 		<gui>./assets/xml/gui.xml</gui>
+		<gravity>0,-1,0</gravity>
 		<cameras>
 			<camera>
 				<name>Camera1</name>
@@ -31,12 +32,24 @@
 					<mesh>ground.mesh</mesh>
 					<material>ground</material>
 				</entity>
+				<physics>
+					<name>ground_entity</name>
+					<mass>0.0</mass>
+					<shape>box</shape>
+					<parameters>500,10,500</parameters>
+				</physics>
 			</node>
 			<node>
 				<name>entire_truck_node</name>
 				<type>scene</type>
 				<camera>Camera1</camera>
-				<translate>0,1,0</translate>
+				<translate>0,10,0</translate>
+				<physics>
+					<name>entire_truck_node</name>
+					<mass>1</mass>
+					<shape>box</shape>
+					<parameters>10,10,10</parameters>
+				</physics>
 				<children>
 					<node>
 						<name>truck_node</name>

@@ -860,6 +860,23 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							gameManager->logWarn("WARNING: It's very dark in here. Think you should turn on a light?");
 
 						}
+
+						TiXmlNode *gravityNode = scenes->FirstChild("gravity");
+
+						if (gravityNode){
+
+							TiXmlElement *gravityElement = static_cast<TiXmlElement*>(gravityNode);
+							string gravityString = gravityElement->GetText();
+
+							float values[] = {0.0,0.0,0.0};
+							parseFloats(gravityString, values);
+							physicsManager->setGravity(values[0], values[1], values[2]);
+
+						} else {
+
+							gameManager->logWarn("Should this scene have gravity?");
+
+						}
                   
 						//nodes in the tree
 						TiXmlNode *nodeTree = scenes->FirstChild("nodes");
@@ -1040,6 +1057,46 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 				float values[4];
 				parseFloats(rotateString, values);
 				sceneNode->rotate(Quaternion(Degree(values[3]), Vector3(values[0], values[1], values[2])));
+
+			}
+
+			TiXmlNode *physicsTree = nodeNode->FirstChild("physics");
+
+			if (physicsTree){
+
+				float values[] = {0.0, 0.0, 0.0, 0.0, 0.0};
+
+				nodeElement = static_cast<TiXmlElement*>(physicsTree->FirstChild("mass"));
+				string massString = nodeElement->GetText();
+				parseFloats(massString, values);
+
+				nodeElement = static_cast<TiXmlElement*>(physicsTree->FirstChild("name"));
+				string physicsName = nodeElement->GetText();
+
+				nodeElement = static_cast<TiXmlElement*>(physicsTree->FirstChild("shape"));
+				string shape = nodeElement->GetText();
+
+				nodeElement = static_cast<TiXmlElement*>(physicsTree->FirstChild("parameters"));
+				string parameterString = nodeElement->GetText();
+				parseFloats(parameterString, values + 1);
+
+				if (shape == "box"){
+
+					physicsManager->createRigidBox(physicsName, values[0], values[1], values[2], values[3]);
+
+				} else if (shape == "sphere"){
+
+					physicsManager->createRigidSphere(physicsName, values[0], values[1]);
+
+				} else if (shape == "cylinderx"){
+
+					physicsManager->createRigidCylinderX(physicsName, values[0], values[1], values[2], values[3]);
+
+				} else {
+
+					gameManager->logWarn("Invalid physics shape: " + shape);
+
+				}
 
 			}
 
