@@ -290,6 +290,18 @@ bool RenderManager::getScale(const string &nodeName, float &x, float &y, float &
 
 }
 
+void RenderManager::applyTorque(const string &name, const float x, const float y, const float z){
+
+	physicsManager->applyTorque(name, x, y, z);
+
+}
+
+void RenderManager::applyForce(const string &name, const float x, const float y, const float z){
+
+	physicsManager->applyForce(name, x, y, z);
+
+}
+
 //methods to make a manual object -----------------------------------------------------------------
 void RenderManager::createManualObject(const string &name, const string &materialName){
 

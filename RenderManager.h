@@ -85,6 +85,9 @@ public:
 	bool getTranslation(const string &nodeName, float &x, float &y, float &z);
 	bool getScale(const string &nodeName, float &x, float &y, float &z);
 
+	void applyTorque(const string &name, const float x, const float y, const float z);
+	void applyForce(const string &name, const float x, const float y, const float z);
+
 	//methods to make a manual object
 	void createManualObject(const string &name, const string &materialName);
 	void clearManualObject(const string &name);

@@ -43,7 +43,8 @@ public:
 	void setGravity(const float &x, const float &y, const float &z);
 
 	//methods to move an object
-	void applyTorque(const string &nodeName, const float &x, const float &y, const float &z);
+	void applyTorque(const string &nodeName, const float x, const float y, const float z);
+	void applyForce(const string &nodeName, const float x, const float y, const float z);
 
 	//methods to create an object
 	void createRigidSphere(const string &nodeName, const float &mass, const float &r);

@@ -43,12 +43,28 @@ void PhysicsManager::setGravity(const float &x, const float &y, const float &z){
 
 }
 
-void PhysicsManager::applyTorque(const string &nodeName, const float &x, const float &y, const float &z){
+void PhysicsManager::applyTorque(const string &nodeName, const float x, const float y, const float z){
 
 	try {
 
 		btRigidBody *body = rigidBodies.at(nodeName);
 		body->applyTorque(btVector3(x, y, z));
+
+	} catch (out_of_range &it){
+
+		renderManager->logWarn("Attempt to apply force to nonexistant node: " + nodeName);
+
+	}
+
+}
+
+void PhysicsManager::applyForce(const string &nodeName, const float x, const float y, const float z){
+
+	try {
+
+		cerr << "applying force: " << x << " " << y << " " << z << endl;
+		btRigidBody *body = rigidBodies.at(nodeName);
+		body->applyCentralImpulse(btVector3(x, y, z));
 
 	} catch (out_of_range &it){
 
