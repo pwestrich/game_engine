@@ -10,9 +10,9 @@ LIBS=-lboost_system-mgw48-mt-1_57 -ltinyxml -lOIS -lbass -llua -lMyGUI.OgrePlatf
 COMPILE = $(CC) $(INC_DIRS) -g -O0 -c 
 LINK = $(CC) $(LIB_DIRS) -g -O0 -o
 
-GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h GameResource.h PathResource.h MeshResource.h AudioResource.h GUIManager.h ScriptManager.h PhysicsManager.h BulletMotionState.h
-GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp AudioPlayer.cpp GameResource.cpp PathResource.cpp MeshResource.cpp AudioResource.cpp GUIManager.cpp ScriptManager.cpp PhysicsManager.cpp BulletMotionState.cpp
-GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o AudioPlayer.o GameResource.o PathResource.o MeshResource.o AudioResource.o GUIManager.o ScriptManager.o PhysicsManager.o BulletMotionState.o
+GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h GameResource.h PathResource.h MeshResource.h AudioResource.h GUIManager.h ScriptManager.h PhysicsManager.h BulletMotionState.h BulletDebugDrawer.h
+GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp AudioPlayer.cpp GameResource.cpp PathResource.cpp MeshResource.cpp AudioResource.cpp GUIManager.cpp ScriptManager.cpp PhysicsManager.cpp BulletMotionState.cpp BulletDebugDrawer.cpp
+GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o AudioPlayer.o GameResource.o PathResource.o MeshResource.o AudioResource.o GUIManager.o ScriptManager.o PhysicsManager.o BulletMotionState.o BulletDebugDrawer.o
 
 .PHONY: run_quat run_game
 
@@ -91,6 +91,10 @@ PhysicsManager.o: PhysicsManager.cpp $(GAME_HEADER)
 BulletMotionState.o: BulletMotionState.cpp $(GAME_HEADER)
 
 	$(COMPILE) BulletMotionState.cpp
+
+BulletDebugDrawer.o: BulletDebugDrawer.cpp $(GAME_HEADER)
+
+	$(COMPILE) BulletDebugDrawer.cpp
 
 utilities.o: utilities.cpp utilities.h
 

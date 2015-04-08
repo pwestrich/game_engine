@@ -85,6 +85,12 @@ public:
 	bool getTranslation(const string &nodeName, float &x, float &y, float &z);
 	bool getScale(const string &nodeName, float &x, float &y, float &z);
 
+	//methods to make a manual object
+	void createManualObject(const string &name, const string &materialName);
+	void clearManualObject(const string &name);
+	void drawLine(const string &name, const string &material, const float x, const float y, const float z, 
+					const float dx, const float dy, const float dz, const float r, const float g, const float b);
+
 	//methods for adding resources to Ogre's resource manager
 	void addPathResource(const string &path, const string &pathType, const string &group);
 	void addMeshResource(const string &mesh, const string &type, const string &group);

@@ -5,13 +5,13 @@
 #include <string>
 
 #include "btBulletDynamicsCommon.h"
-#include "LinearMath/btDebugDraw.h"
+#include "LinearMath/btIDebugDraw.h"
 
 using namespace std;
 
 class RenderManager;
 
-class BulletDebugDrawer : public btDebugDraw {
+class BulletDebugDrawer : public btIDebugDraw {
 
 private:
 

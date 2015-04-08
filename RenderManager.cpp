@@ -290,6 +290,65 @@ bool RenderManager::getScale(const string &nodeName, float &x, float &y, float &
 
 }
 
+//methods to make a manual object -----------------------------------------------------------------
+void RenderManager::createManualObject(const string &name, const string &materialName){
+
+	Ogre::ManualObject *manualObject = sceneManager->createManualObject(name);
+	manualObject->setDynamic(true);
+
+	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getDefaultSettings()->clone(materialName);
+	material->setReceiveShadows(false);
+	material->getTechnique(0)->setLightingEnabled(false);
+
+	SceneNode *node = sceneManager->getRootSceneNode()->createChildSceneNode(name);
+	node->attachObject(manualObject);
+
+}
+
+void RenderManager::clearManualObject(const string &name){
+
+	SceneNode *objectNode = sceneManager->getSceneNode(name);
+	ManualObject *object = static_cast<ManualObject*>(objectNode->getAttachedObject(name));
+
+	if (object){
+
+		object->clear();
+
+	} else {
+
+		gameManager->logWarn("No manual object named " + name);
+
+	}
+
+}
+
+void RenderManager::drawLine(const string &name, const string &material, const float x, const float y, const float z, 
+	const float dx, const float dy, const float dz, const float r, const float g, const float b){
+
+	ColourValue color(r, g, b);
+	Vector3 start(x, y, z);
+	Vector3 end(dx, dy, dz);
+
+	SceneNode *objectNode = sceneManager->getSceneNode(name);
+	ManualObject *object = static_cast<ManualObject*>(objectNode->getAttachedObject(name));
+
+	if (object){
+
+		object->begin(material, Ogre::RenderOperation::OT_LINE_LIST);
+		object->position(end);
+		object->colour(color);
+		object->position(start);
+		object->colour(color);
+		object->end();
+
+	} else {
+
+		gameManager->logWarn("No manual object named " + name);
+
+	}
+
+}
+
 void RenderManager::addPathResource(const string &path, const string &pathType, const string &group){
 
 	Ogre::ResourceGroupManager &rgm = Ogre::ResourceGroupManager::getSingleton();

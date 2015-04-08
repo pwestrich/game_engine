@@ -2,6 +2,7 @@
 #include "RenderManager.h"
 #include "PhysicsManager.h"
 #include "BulletMotionState.h"
+#include "BulletDebugDrawer.h"
 
 using namespace std;
 
@@ -17,6 +18,11 @@ PhysicsManager::PhysicsManager(RenderManager *rm){
 	collisionDispatcher		= new btCollisionDispatcher(collisionConfiguration);
 	constraintSolver		= new btSequentialImpulseConstraintSolver();
 	world					= new btDiscreteDynamicsWorld(collisionDispatcher, broadphaseInterface, constraintSolver, collisionConfiguration);
+
+	//create debug grawer
+	BulletDebugDrawer *debug = new BulletDebugDrawer(renderManager);
+	debug->setDebugMode(1); 	//1 is on, 0 is off
+	world->setDebugDrawer(debug);
 
 }
 
