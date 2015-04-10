@@ -45,7 +45,7 @@
 				<translate>0,1000,0</translate>
 				<physics>
 					<name>entire_truck_node</name>
-					<mass>1.0</mass>
+					<mass>1</mass>
 					<shape>box</shape>
 					<parameters>6,2,2</parameters>
 				</physics>
@@ -59,7 +59,7 @@
 						<name>truck_node</name>
 						<type>scene</type>
 						<scale>3,1,2</scale>
-						<translate>2,1,0</translate>
+						<translate>-2,1,0</translate>
 						<entity>
 							<name>truck</name>
 							<mesh>truck.mesh</mesh>
@@ -69,7 +69,7 @@
 					<node>
 						<name>rear_pass_wheel</name>
 						<type>scene</type>
-						<translate>0.5,0,2</translate>
+						<translate>-3.5,0,2</translate>
 						<rotate>1,0,0,90</rotate>
 						<scale>0.12,0.12,0.12</scale>
 						<children>
@@ -99,7 +99,7 @@
 					<node>
 						<name>front_pass_wheel</name>
 						<type>scene</type>
-						<translate>8.9,0,2</translate>
+						<translate>4.9,0,2</translate>
 						<rotate>1,0,0,90</rotate>
 						<scale>0.12,0.12,0.12</scale>
 						<children>
@@ -129,7 +129,7 @@
 					<node>
 						<name>rear_drive_wheel</name>
 						<type>scene</type>
-						<translate>0.5,0,-1.80</translate>
+						<translate>-3.5,0,-1.80</translate>
 						<rotate>1,0,0,90</rotate>
 						<scale>0.12,0.12,0.12</scale>
 						<children>
@@ -159,7 +159,7 @@
 					<node>
 						<name>front_drive_wheel</name>
 						<type>scene</type>
-						<translate>8.9,0,-1.80</translate>
+						<translate>4.9,0,-1.80</translate>
 						<rotate>1,0,0,90</rotate>
 						<scale>0.12,0.12,0.12</scale>
 							<children>
