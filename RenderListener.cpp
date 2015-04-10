@@ -46,9 +46,6 @@ bool RenderListener::frameStarted(const Ogre::FrameEvent &event){
 	//slow down the framerate
 	Sleep(10);
 
-	/*cout << "press key to step" << endl;
-	cin.get();*/
-
 	//return this so we keep rendering
 	return render;
 

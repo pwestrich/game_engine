@@ -77,8 +77,8 @@ void PhysicsManager::applyForce(const string &nodeName, const float x, const flo
 void PhysicsManager::updatePhysics(const float timeStep){
 
 	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
-	updateRigidBodies();
 	world->debugDrawWorld();
+	updateRigidBodies();
 
 }
 
