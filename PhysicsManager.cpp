@@ -62,7 +62,7 @@ void PhysicsManager::applyForce(const string &nodeName, const float x, const flo
 
 	try {
 
-		cerr << "applying force: " << x << " " << y << " " << z << endl;
+		renderManager->logInfo("Applying force to: " + nodeName);
 		btRigidBody *body = rigidBodies.at(nodeName);
 		body->applyCentralImpulse(btVector3(x, y, z));
 
@@ -77,6 +77,8 @@ void PhysicsManager::applyForce(const string &nodeName, const float x, const flo
 void PhysicsManager::updatePhysics(const float timeStep){
 
 	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
+	updateRigidBodies();
+	world->debugDrawWorld();
 
 }
 
@@ -121,6 +123,8 @@ void PhysicsManager::createRigidCylinderX(const string &nodeName, const float &m
 
 //private methods below here ----------------------------------------------------------------------
 void PhysicsManager::createRigidBody(const string &nodeName, btCollisionShape *shape, const float &mass){
+
+	renderManager->logInfo("Creating rigid body: " + nodeName);
 
 	//create the motion state
 	BulletMotionState *motionState = new BulletMotionState(renderManager, nodeName);

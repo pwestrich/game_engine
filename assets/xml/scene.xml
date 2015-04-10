@@ -7,9 +7,9 @@
 		<cameras>
 			<camera>
 				<name>Camera1</name>
-				<location>-7,7,0</location>
-				<lookAt>15,0,0</lookAt>
-				<clip>1,500</clip>
+				<location>-7,15,0</location>
+				<lookAt>0,0,0</lookAt>
+				<clip>1,1200</clip>
 				<viewport>0,0,0,1,1</viewport>
 			</camera>
 		</cameras>
@@ -36,21 +36,25 @@
 					<name>ground_entity</name>
 					<mass>0.0</mass>
 					<shape>box</shape>
-					<parameters>500,10,500</parameters>
+					<parameters>500,20,500</parameters>
 				</physics>
 			</node>
 			<node>
 				<name>entire_truck_node</name>
 				<type>scene</type>
-				<camera>Camera1</camera>
-				<translate>0,10,0</translate>
+				<translate>0,1000,0</translate>
 				<physics>
 					<name>entire_truck_node</name>
-					<mass>1</mass>
+					<mass>1.0</mass>
 					<shape>box</shape>
-					<parameters>10,10,10</parameters>
+					<parameters>6,2,2</parameters>
 				</physics>
 				<children>
+					<node>
+						<name>camera_node</name>
+						<type>scene</type>
+						<camera>Camera1</camera>
+					</node>
 					<node>
 						<name>truck_node</name>
 						<type>scene</type>
