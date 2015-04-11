@@ -44,7 +44,11 @@ bool RenderListener::frameStarted(const Ogre::FrameEvent &event){
 	renderManager->updateAudio(timeStep);
 
 	//slow down the framerate
-	Sleep(10);
+	if (timeStep < (1.0 / 60.0)){
+
+		boost::this_thread::sleep_for(boost::chrono::nanoseconds(static_cast<long long int>(((1.0 / 60.0) - timeStep) * 1000000000.0)));
+
+	}
 
 	//return this so we keep rendering
 	return render;

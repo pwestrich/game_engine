@@ -2,6 +2,8 @@
 #include "BulletDebugDrawer.h"
 #include "RenderManager.h"
 
+#define NUM_LINE_SEGMENTS_DRAWN 1000
+
 BulletDebugDrawer::BulletDebugDrawer(RenderManager *rm){
 
 	assert (rm != NULL);

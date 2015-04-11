@@ -5,13 +5,21 @@
 #include <map>
 #include <string>
 
-#include "btBulletDynamicsCommon.h"
-#include "BulletMultiThreaded/btParallelConstraintSolver.h"
-
 using namespace std;
 
 class RenderManager;
 class BulletConvexHullCreator;
+class btBroadphaseInterface;
+class btDefaultCollisionConfiguration;
+class btCollisionDispatcher;
+class btSequentialImpulseConstraintSolver;
+class btDiscreteDynamicsWorld;
+class btThreadSupportInterface;
+class btConstraintSolver;
+class btOverlappingPairCache;
+class btCollisionShape;
+class btRigidBody;
+struct btCollisionAlgorithmCreateFunc;
 
 class PhysicsManager {
 
@@ -26,6 +34,11 @@ private:
 	btCollisionDispatcher 				*collisionDispatcher;
 	btSequentialImpulseConstraintSolver *constraintSolver; //btParallelConstraintSolver btSequentialImpulseConstraintSolver
 	btDiscreteDynamicsWorld 			*world;
+
+	//stuff for the multithreadedness
+	btThreadSupportInterface *collisionThreadSupport;
+	btThreadSupportInterface *solverThreadSupport;
+	btCollisionAlgorithmCreateFunc *collisionFunc;
 
 	//map to pair rigid bodies and their IDs
 	map<string, btRigidBody*> rigidBodies;

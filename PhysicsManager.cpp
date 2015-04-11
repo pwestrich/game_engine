@@ -5,7 +5,29 @@
 #include "BulletDebugDrawer.h"
 #include "BulletConvexHullCreator.h"
 
+#include "btBulletDynamicsCommon.h"
+#include "BulletMultiThreaded/btParallelConstraintSolver.h"
+#include "BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.h"
+#include "BulletCollision/CollisionDispatch/btSphereTriangleCollisionAlgorithm.h"
+#include "BulletCollision/CollisionDispatch/btSimulationIslandManager.h"
+#include "BulletMultiThreaded/SpuGatheringCollisionDispatcher.h"
+#include "BulletMultiThreaded/PlatformDefinitions.h"
+#include "BulletMultiThreaded/Win32ThreadSupport.h"
+#include "BulletMultiThreaded/SpuNarrowPhaseCollisionTask/SpuGatheringCollisionTask.h"
+
+#define MAX_OUTSTANDING_TASKS	2
+
 using namespace std;
+
+//helper function to create the solver
+inline btThreadSupportInterface* createSolverThreadSupport(int maxNumThreads){
+
+	Win32ThreadSupport::Win32ThreadConstructionInfo threadConstructionInfo("solver",SolverThreadFunc,SolverlsMemoryFunc,maxNumThreads);
+	Win32ThreadSupport* threadSupport = new Win32ThreadSupport(threadConstructionInfo);
+	threadSupport->startSPU();
+
+	return threadSupport;
+}
 
 PhysicsManager::PhysicsManager(RenderManager *rm){
 
@@ -15,18 +37,31 @@ PhysicsManager::PhysicsManager(RenderManager *rm){
 
 	//create phyiscs stuff
 	broadphaseInterface 	= new btDbvtBroadphase();
-	collisionConfiguration	= new btDefaultCollisionConfiguration();
-	collisionDispatcher		= new btCollisionDispatcher(collisionConfiguration);
 
 	//set up the multithreaded thing
+	collisionThreadSupport 	= new Win32ThreadSupport(Win32ThreadSupport::Win32ThreadConstructionInfo(
+									"collision",
+									processCollisionTask,
+									createCollisionLocalStoreMemory,
+									MAX_OUTSTANDING_TASKS));
+	solverThreadSupport 	= createSolverThreadSupport(MAX_OUTSTANDING_TASKS);
 
+	btDefaultCollisionConstructionInfo cci;
+	cci.m_defaultMaxPersistentManifoldPoolSize = 32768;
+	collisionConfiguration	= new btDefaultCollisionConfiguration(cci);
+	collisionDispatcher		= new SpuGatheringCollisionDispatcher(collisionThreadSupport, MAX_OUTSTANDING_TASKS ,collisionConfiguration);//btCollisionDispatcher(collisionConfiguration);
 
-	constraintSolver		= new /*btParallelConstraintSolver();*/ btSequentialImpulseConstraintSolver();
-	world					= new btDiscreteDynamicsWorld(collisionDispatcher, broadphaseInterface, constraintSolver, collisionConfiguration);
+	constraintSolver = new btParallelConstraintSolver(solverThreadSupport); //btSequentialImpulseConstraintSolver();
+	
+	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadphaseInterface, constraintSolver, collisionConfiguration);
+	world->getSimulationIslandManager()->setSplitIslands(false);
+	world->getSolverInfo().m_numIterations = 4;
+	world->getSolverInfo().m_solverMode = SOLVER_SIMD+SOLVER_USE_WARMSTARTING;//+SOLVER_RANDMIZE_ORDER;
+	world->getDispatchInfo().m_enableSPU = true;
 
 	//create debug grawer
 	BulletDebugDrawer *debug = new BulletDebugDrawer(renderManager);
-	debug->setDebugMode(1); 	//1 is on, 0 is off
+	debug->setDebugMode(0); 	//1 is on, 0 is off
 	world->setDebugDrawer(debug);
 
 }
@@ -38,6 +73,8 @@ PhysicsManager::~PhysicsManager(){
 	delete constraintSolver;
 	delete collisionDispatcher;
 	delete collisionConfiguration;
+	delete solverThreadSupport;
+	delete collisionThreadSupport;
 	delete broadphaseInterface;
 
 }
@@ -81,7 +118,7 @@ void PhysicsManager::applyForce(const string &nodeName, const float x, const flo
 
 void PhysicsManager::updatePhysics(const float timeStep){
 
-	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
+	world->stepSimulation(btScalar(timeStep), btScalar(5.0));
 	world->debugDrawWorld();
 	updateRigidBodies();
 
@@ -91,7 +128,7 @@ void PhysicsManager::updateRigidBodies(){
 
 	btAlignedObjectArray<btCollisionObject*> bodies = world->getCollisionObjectArray();
 
-	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){
+	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){	
 
 		btRigidBody *body = btRigidBody::upcast(bodies[i]);
 		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
