@@ -4,12 +4,12 @@
 
 #include <string>
 
-#include "btBulletDynamicsCommon.h"
 #include "LinearMath/btIDebugDraw.h"
 
 using namespace std;
 
 class RenderManager;
+class btVector3;
 
 class BulletDebugDrawer : public btIDebugDraw {
 
