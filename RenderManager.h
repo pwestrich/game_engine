@@ -51,6 +51,12 @@ private:
     //come back here after physics
     //map<string, Vector3> velocityMap;
 
+	void getMeshInformation(const Ogre::MeshPtr& mesh, size_t &vertex_count,
+                        Ogre::Vector3* &vertices,  size_t &index_count, unsigned long* &indices,
+                        const Ogre::Vector3 &position = Ogre::Vector3::ZERO, 
+                        const Ogre::Quaternion &orient = Ogre::Quaternion::IDENTITY, 
+                        const Ogre::Vector3 &scale = Ogre::Vector3::UNIT_SCALE);
+
     //functions to recursivley generate the scene graph from XML
     void createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree);
     void createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree);
