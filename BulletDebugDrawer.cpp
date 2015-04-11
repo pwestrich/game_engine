@@ -15,7 +15,7 @@ BulletDebugDrawer::~BulletDebugDrawer(){}
 		
 void BulletDebugDrawer::drawLine(const btVector3 &from, const btVector3 &to, const btVector3 &color){
 
-	if (count == 2000){
+	if (count == NUM_LINE_SEGMENTS_DRAWN){
 
 		clearLines();
 		count = 0;

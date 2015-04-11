@@ -5,6 +5,8 @@
 #include "GUIManager.h"
 #include "PhysicsManager.h"
 
+#include "BulletConvexHullCreator.h"
+
 using namespace Ogre;
 
 //public methods start here ----------------------------------------------------------------------------------------------------------------------
@@ -1233,9 +1235,11 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 					Vector3 *verticies = NULL;
 					long unsigned *indicies = NULL;
 
-					getMeshInformation(entity->getMesh(), numVerticies, verticies, numIndicies, indicies);
+					getMeshInformation(entity->getMesh(), numVerticies, verticies, numIndicies, indicies, 
+						sceneNode->getPosition(), sceneNode->getOrientation(), sceneNode->getScale());
 
-					cerr << "vertex count: " << numVerticies << endl;
+					BulletConvexHullCreator hull(verticies, numVerticies);
+					physicsManager->createRigidHull(physicsName, values[0], &hull);
 
 					delete [] verticies;
 					delete [] indicies;

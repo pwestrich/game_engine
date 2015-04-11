@@ -6,10 +6,12 @@
 #include <string>
 
 #include "btBulletDynamicsCommon.h"
+#include "BulletMultiThreaded/btParallelConstraintSolver.h"
 
 using namespace std;
 
 class RenderManager;
+class BulletConvexHullCreator;
 
 class PhysicsManager {
 
@@ -22,13 +24,13 @@ private:
 	btBroadphaseInterface 				*broadphaseInterface;
 	btDefaultCollisionConfiguration 	*collisionConfiguration;
 	btCollisionDispatcher 				*collisionDispatcher;
-	btSequentialImpulseConstraintSolver *constraintSolver;
+	btSequentialImpulseConstraintSolver *constraintSolver; //btParallelConstraintSolver btSequentialImpulseConstraintSolver
 	btDiscreteDynamicsWorld 			*world;
 
 	//map to pair rigid bodies and their IDs
 	map<string, btRigidBody*> rigidBodies;
 
-	void createRigidBody(const string &nodeName, btCollisionShape *shape, const float &mass);
+	void createRigidBody(const string &nodeName, btCollisionShape *shape, const float mass);
 
 public:
 
@@ -40,16 +42,17 @@ public:
 	void updateRigidBodies();
 
 	//methods to change the world's parameters
-	void setGravity(const float &x, const float &y, const float &z);
+	void setGravity(const float x, const float y, const float z);
 
 	//methods to move an object
 	void applyTorque(const string &nodeName, const float x, const float y, const float z);
 	void applyForce(const string &nodeName, const float x, const float y, const float z);
 
 	//methods to create an object
-	void createRigidSphere(const string &nodeName, const float &mass, const float &r);
-	void createRigidBox(const string &nodeName, const float &mass, const float &x, const float &y, const float &z);
-	void createRigidCylinderX(const string &nodeName, const float &mass, const float &x, const float &y, const float &z);
+	void createRigidSphere(const string &nodeName, const float mass, const float r);
+	void createRigidBox(const string &nodeName, const float mass, const float x, const float y, const float z);
+	void createRigidCylinderX(const string &nodeName, const float mass, const float x, const float y, const float z);
+	void createRigidHull(const string &nodeName, const float mass, BulletConvexHullCreator *hull);
 
 };
 

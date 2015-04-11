@@ -7,6 +7,8 @@
 #include "btBulletDynamicsCommon.h"
 #include "LinearMath/btIDebugDraw.h"
 
+#define NUM_LINE_SEGMENTS_DRAWN 9000
+
 using namespace std;
 
 class RenderManager;

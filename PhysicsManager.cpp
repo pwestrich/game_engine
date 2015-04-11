@@ -3,6 +3,7 @@
 #include "PhysicsManager.h"
 #include "BulletMotionState.h"
 #include "BulletDebugDrawer.h"
+#include "BulletConvexHullCreator.h"
 
 using namespace std;
 
@@ -16,7 +17,11 @@ PhysicsManager::PhysicsManager(RenderManager *rm){
 	broadphaseInterface 	= new btDbvtBroadphase();
 	collisionConfiguration	= new btDefaultCollisionConfiguration();
 	collisionDispatcher		= new btCollisionDispatcher(collisionConfiguration);
-	constraintSolver		= new btSequentialImpulseConstraintSolver();
+
+	//set up the multithreaded thing
+
+
+	constraintSolver		= new /*btParallelConstraintSolver();*/ btSequentialImpulseConstraintSolver();
 	world					= new btDiscreteDynamicsWorld(collisionDispatcher, broadphaseInterface, constraintSolver, collisionConfiguration);
 
 	//create debug grawer
@@ -37,7 +42,7 @@ PhysicsManager::~PhysicsManager(){
 
 }
 
-void PhysicsManager::setGravity(const float &x, const float &y, const float &z){
+void PhysicsManager::setGravity(const float x, const float y, const float z){
 
 	world->setGravity(btVector3(x, y, z));
 
@@ -100,29 +105,37 @@ void PhysicsManager::updateRigidBodies(){
 
 }
 
-void PhysicsManager::createRigidSphere(const string &nodeName, const float &mass, const float &r){
+void PhysicsManager::createRigidSphere(const string &nodeName, const float mass, const float r){
 
 	btCollisionShape *shape = new btSphereShape(btScalar(r));
 	createRigidBody(nodeName, shape, mass);
 
 }
 
-void PhysicsManager::createRigidBox(const string &nodeName, const float &mass, const float &x, const float &y, const float &z){
+void PhysicsManager::createRigidBox(const string &nodeName, const float mass, const float x, const float y, const float z){
 
 	btCollisionShape *shape = new btBoxShape(btVector3(x, y, z));
 	createRigidBody(nodeName, shape, mass);
 
 }
 
-void PhysicsManager::createRigidCylinderX(const string &nodeName, const float &mass, const float &x, const float &y, const float &z){
+void PhysicsManager::createRigidCylinderX(const string &nodeName, const float mass, const float x, const float y, const float z){
 
 	btCollisionShape *shape = new btCylinderShapeX(btVector3(x, y, z));
 	createRigidBody(nodeName, shape, mass);
 
 }
 
+void PhysicsManager::createRigidHull(const string &nodeName, const float mass, BulletConvexHullCreator *hull){
+
+	assert(hull != NULL);
+
+	createRigidBody(nodeName, hull->getShape(), mass);
+
+}
+
 //private methods below here ----------------------------------------------------------------------
-void PhysicsManager::createRigidBody(const string &nodeName, btCollisionShape *shape, const float &mass){
+void PhysicsManager::createRigidBody(const string &nodeName, btCollisionShape *shape, const float mass){
 
 	renderManager->logInfo("Creating rigid body: " + nodeName);
 
