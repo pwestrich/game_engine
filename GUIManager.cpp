@@ -74,6 +74,7 @@ void GUIManager::buttonPressed(MyGUI::Widget *sender, int left, int top, MyGUI::
 
 		string script = scriptMap.at(button);
 
+		//give the script the button's name
 		renderManager->writeString("buttonName", button->getName());
 		renderManager->execute(script);
 
@@ -93,6 +94,7 @@ void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI:
 
 		string script = scriptMap.at(bar);
 
+		//give the script the button's name and the bar's position
 		renderManager->writeString("scrollBarName", bar->getName());
 		renderManager->writeInt("position", bar->getScrollPosition());
 		renderManager->execute(script);

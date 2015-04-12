@@ -34,22 +34,11 @@ private:
 	Ogre::RenderWindow *window;
     Ogre::SceneManager* sceneManager;
 
-    //the camera, viewport, and window we're rendering in
-    Ogre::Camera *camera;
-    Ogre::Viewport *viewport;
+    //window we're rendering in
     size_t windowHandle;
 
-    //the animation states andthe time since last frame
-    Ogre::Real frameTimeElapsed;
+    //the animation states
     vector<Ogre::AnimationState*> animationStates;
-
-    //variables for keeping track of movement
-    float wheelRotateAmount;
-    Ogre::Vector3 cameraMovement;
-    Ogre::Vector3 truckMovement;
-
-    //come back here after physics
-    //map<string, Vector3> velocityMap;
 
 	void getMeshInformation(const Ogre::MeshPtr& mesh, size_t &vertex_count,
                         Ogre::Vector3* &vertices,  size_t &index_count, unsigned long* &indices,
@@ -93,6 +82,8 @@ public:
 
 	void applyTorque(const string &name, const float x, const float y, const float z);
 	void applyForce(const string &name, const float x, const float y, const float z);
+	void setLinearVelocity(const string &name, const float x, const float y, const float z);
+	void setAngularVelocity(const string &name, const float x, const float y, const float z);
 
 	//methods to make a manual object
 	void createManualObject(const string &name, const string &materialName);
@@ -111,7 +102,6 @@ public:
 	//and actions
     void processAnimations(const float timeStep);
     void checkForInput(const float timeStep);
-    void updateMovement(const float timeStep);
     void updatePhysics(const float timeStep);
     void updateAudio(const float timeStep);
 

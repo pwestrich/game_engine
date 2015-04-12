@@ -9,8 +9,7 @@
 #include "AudioResource.h"
 #include "ScriptManager.h"
 
-//I'm not happy with this, but it's what I ahve to do
-//#include "luainc.h"
+//I'm not happy with this, but it's what I have to do
 #include "LuaContext.hpp"
 
 using namespace std;
@@ -50,15 +49,19 @@ GameManager::GameManager(){
 	lua->registerFunction("logDebug", &GameManager::logDebug);
 	lua->writeVariable("Game", this);
 
-	//RenderManager stuff
+	//scene stuff
 	lua->registerFunction("rotateNode", &RenderManager::rotateNode);
 	lua->registerFunction("translateNode", &RenderManager::translateNode);
 	lua->registerFunction("scaleNode", &RenderManager::scaleNode);
 	lua->registerFunction("orientNode", &RenderManager::setRotation);
 	lua->registerFunction("positionNode", &RenderManager::setTranslation);
 	lua->registerFunction("setScale", &RenderManager::setScale);
+
+	//physics stuff
 	lua->registerFunction("applyForce", &RenderManager::applyForce);
 	lua->registerFunction("applyTorque", &RenderManager::applyTorque);
+	lua->registerFunction("setLinearVelocity", &RenderManager::setLinearVelocity);
+	lua->registerFunction("setAngularVelocity", &RenderManager::setAngularVelocity);
 	lua->writeVariable("Scene", renderManager);
 
 	//start drawing

@@ -35,11 +35,9 @@ bool RenderListener::frameStarted(const Ogre::FrameEvent &event){
 	//calculate time since last frame
 	float timeStep = event.timeSinceLastFrame;
 
-	//check for input and advance any animations
-	renderManager->setTimeSinceLastFrame(timeStep);
+	//update the game
 	renderManager->checkForInput(timeStep);
 	renderManager->processAnimations(timeStep);
-	renderManager->updateMovement(timeStep);
 	renderManager->updatePhysics(timeStep);
 	renderManager->updateAudio(timeStep);
 

@@ -4,7 +4,6 @@
 #include "RenderListener.h"
 #include "GUIManager.h"
 #include "PhysicsManager.h"
-
 #include "BulletConvexHullCreator.h"
 
 using namespace Ogre;
@@ -18,16 +17,9 @@ RenderManager::RenderManager(GameManager *gman){
 	gameManager->logInfo("Creating RenderManager...");
 
 	//start creating ogre stuff
-	root = NULL;
-	window = NULL;
+	root 		 = NULL;
+	window 		 = NULL;
 	sceneManager = NULL;
-	camera = NULL;
-	viewport = NULL;
-
-	//set the default states
-	cameraMovement = Vector3::ZERO;
-	truckMovement = Vector3::ZERO;
-	wheelRotateAmount = 0.0;
 
 	try {
 
@@ -55,8 +47,9 @@ RenderManager::RenderManager(GameManager *gman){
      	renderListener = new RenderListener(this);
       	root->addFrameListener(renderListener);
 
-      	guiManager = new GUIManager(this);
-      	physicsManager = new PhysicsManager(this);
+      	//create the submanagers
+      	guiManager 		= new GUIManager(this);
+      	physicsManager 	= new PhysicsManager(this);
 
 	} catch (Ogre::Exception &it){
 
@@ -108,13 +101,13 @@ size_t RenderManager::getRenderWindowHandle(){
 
 size_t RenderManager::getWindowWidth(){
 
-	return viewport->getActualWidth();
+	return window->getWidth();
 
 }
 
 size_t RenderManager::getWindowHeight(){
 
-	return viewport->getActualHeight();
+	return window->getHeight();
 
 }
 
@@ -130,20 +123,13 @@ Ogre::SceneManager *RenderManager::getSceneManager(){
 
 }
 
-//the setter methods are also pretty self-explanitory
-void RenderManager::setTimeSinceLastFrame(Ogre::Real timeElapsed){
-
-	frameTimeElapsed = timeElapsed;
-
-}
-
 //methods to alter the scene
 void RenderManager::rotateNode(const string &nodeName, const float w, const float x, const float y, const float z){
 
 	try {
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
-		node->rotate(Quaternion(Degree(w), Vector3(x, y, x)));
+		node->rotate(Quaternion(Degree(w), Vector3(x, y, z)));
 
 	} catch (Ogre::Exception &it){
 
@@ -158,7 +144,7 @@ void RenderManager::translateNode(const string &nodeName, const float x, const f
 	try {
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
-		node->translate(Vector3(x, y, x));
+		node->translate(Vector3(x, y, z));
 
 	} catch (Ogre::Exception &it){
 
@@ -173,7 +159,7 @@ void RenderManager::scaleNode(const string &nodeName, const float x, const float
 	try {
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
-		node->scale(Vector3(x, y, x));
+		node->scale(Vector3(x, y, z));
 
 	} catch (Ogre::Exception &it){
 
@@ -188,7 +174,7 @@ void RenderManager::setRotation(const string &nodeName, const float w, const flo
 	try {
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
-		node->setOrientation(Quaternion(Degree(w), Vector3(x, y, x)));
+		node->setOrientation(Quaternion(Degree(w), Vector3(x, y, z)));
 
 	} catch (Ogre::Exception &it){
 
@@ -203,7 +189,7 @@ void RenderManager::setTranslation(const string &nodeName, const float x, const 
 	try {
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
-		node->setPosition(Vector3(x, y, x));
+		node->setPosition(Vector3(x, y, z));
 
 	} catch (Ogre::Exception &it){
 
@@ -218,7 +204,7 @@ void RenderManager::setScale(const string &nodeName, const float x, const float 
 	try {
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
-		node->setScale(Vector3(x, y, x));
+		node->setScale(Vector3(x, y, z));
 
 	} catch (Ogre::Exception &it){
 
@@ -301,6 +287,18 @@ void RenderManager::applyTorque(const string &name, const float x, const float y
 void RenderManager::applyForce(const string &name, const float x, const float y, const float z){
 
 	physicsManager->applyForce(name, x, y, z);
+
+}
+
+void RenderManager::setLinearVelocity(const string &name, const float x, const float y, const float z){
+
+	physicsManager->setLinearVelocity(name, x, y, z);
+
+}
+
+void RenderManager::setAngularVelocity(const string &name, const float x, const float y, const float z){
+
+	physicsManager->setAngularVelocity(name, x, y, z);
 
 }
 
@@ -416,24 +414,6 @@ void RenderManager::processAnimations(const float timeStep){
 void RenderManager::checkForInput(const float timeStep){
 
 	gameManager->checkForInput(timeStep);
-
-}
-
-//update the movement after input is checked and processed
-void RenderManager::updateMovement(const float timeStep){
-
-	SceneNode *truck = sceneManager->getSceneNode("entire_truck_node");
-
-	//because the camera is attached to the truck, it must play a part
-	camera->setPosition(camera->getPosition() + (truck->getOrientation() * cameraMovement));
-
-	//only move/rotate the truck if it is moving
-	if (truckMovement != Vector3::ZERO){
-
-		truck->setPosition(truck->getPosition() + (truck->getOrientation() * truckMovement));
-		truck->rotate(Quaternion(Degree(wheelRotateAmount), Vector3::UNIT_Y));
-
-	}
 
 }
 
@@ -577,8 +557,6 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 							//build every camera
 							for (TiXmlNode *cameraItem = cameraTree->FirstChild("camera"); cameraItem; cameraItem = cameraItem->NextSibling()){
 
-								if (camera) break; //only allow one camera for the moment
-
 								TiXmlElement *cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("name"));
 								string cameraName;
 
@@ -592,7 +570,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 								}
 
-								camera = sceneManager->createCamera(cameraName);
+								Camera *camera = sceneManager->createCamera(cameraName);
 								float values[] = {0.0,0.0,0.0,0.0,0.0,0.0};
 
 								cameraElement = static_cast<TiXmlElement*>(cameraItem->FirstChild("location"));
@@ -647,7 +625,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 									string temp = cameraElement->GetText();
 									parseFloats(temp, values);
 
-									viewport = window->addViewport(camera, values[0], values[1], values[2], values[3], values[4]);
+									Viewport *viewport = window->addViewport(camera, values[0], values[1], values[2], values[3], values[4]);
 									viewport->setOverlaysEnabled(true);
 									camera->setAspectRatio((float)(viewport->getActualWidth() / viewport->getActualHeight()));
 
@@ -1236,7 +1214,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 					long unsigned *indicies = NULL;
 
 					getMeshInformation(entity->getMesh(), numVerticies, verticies, numIndicies, indicies, 
-						sceneNode->getPosition(), sceneNode->getOrientation(), sceneNode->getScale());
+						sceneNode->getPosition() - Vector3(0,2,0), Quaternion(Degree(180), Vector3(1,0,0)) * sceneNode->getOrientation(), sceneNode->getScale());
 
 					BulletConvexHullCreator hull(verticies, numVerticies);
 					physicsManager->createRigidHull(physicsName, values[0], &hull);

@@ -6,11 +6,18 @@
 		<gravity>0,-1,0</gravity>
 		<cameras>
 			<camera>
-				<name>Camera1</name>
-				<location>-7,15,0</location>
+				<name>AirCmaera</name>
+				<location>100,100,100</location>
 				<lookAt>0,0,0</lookAt>
-				<clip>1,1200</clip>
-				<viewport>0,0,0,1,1</viewport>
+				<clip>1,2000</clip>
+				<viewport>0,0,0,1,0.5</viewport>
+			</camera>
+			<camera>
+				<name>TruckCamera</name>
+				<location>0,0,0</location>
+				<lookAt>0,0,0</lookAt>
+				<clip>1,2000</clip>
+				<viewport>1,0,0.5,1,1</viewport>
 			</camera>
 		</cameras>
 		<lights>
@@ -24,7 +31,7 @@
 		</lights>
 		<nodes>
 			<node>
-				<name>ground_entity</name>
+				<name>ground</name>
 				<type>scene</type>
 				<scale>500,1,500</scale>
 				<entity>
@@ -33,7 +40,7 @@
 					<material>ground</material>
 				</entity>
 				<physics>
-					<name>ground_entity</name>
+					<name>ground</name>
 					<mass>0.0</mass>
 					<shape>box</shape>
 					<parameters>500,2,500</parameters>
@@ -51,7 +58,7 @@
 					<material>ground</material>
 				</entity>
 				<physics>
-					<name>ground_entity</name>
+					<name>wall_x+</name>
 					<mass>0.0</mass>
 					<shape>box</shape>
 					<parameters>500,2,500</parameters>
@@ -69,7 +76,7 @@
 					<material>ground</material>
 				</entity>
 				<physics>
-					<name>ground_entity</name>
+					<name>wall_x-</name>
 					<mass>0.0</mass>
 					<shape>box</shape>
 					<parameters>500,2,500</parameters>
@@ -87,7 +94,7 @@
 					<material>ground</material>
 				</entity>
 				<physics>
-					<name>ground_entity</name>
+					<name>wall_z+</name>
 					<mass>0.0</mass>
 					<shape>box</shape>
 					<parameters>500,2,500</parameters>
@@ -105,7 +112,7 @@
 					<material>ground</material>
 				</entity>
 				<physics>
-					<name>ground_entity</name>
+					<name>wall_z-</name>
 					<mass>0.0</mass>
 					<shape>box</shape>
 					<parameters>500,2,500</parameters>
@@ -114,18 +121,19 @@
 			<node>
 				<name>entire_truck_node</name>
 				<type>scene</type>
-				<translate>0,1000,0</translate>
-				<!--<physics>
+				<translate>0,100,0</translate>
+				<physics>
 					<name>entire_truck_node</name>
-					<mass>1</mass>
+					<mass>0</mass>
 					<shape>box</shape>
 					<parameters>6,2,2</parameters>
-				</physics>-->
+				</physics>
 				<children>
 					<node>
 						<name>camera_node</name>
+						<camera>TruckCamera</camera>
 						<type>scene</type>
-						<camera>Camera1</camera>
+						<translate>-7,15,0</translate>
 					</node>
 					<node>
 						<name>truck_node</name>
@@ -137,12 +145,12 @@
 							<mesh>truck.mesh</mesh>
 							<material>Truck</material>
 						</entity>
-						<physics>
+						<!--<physics>
 							<name>entire_truck_node</name>
-							<mass>1</mass>
+							<mass>8</mass>
 							<shape>hull</shape>
 							<parameters>truck</parameters>
-						</physics>
+						</physics>-->
 					</node>
 					<node>
 						<name>rear_pass_wheel</name>

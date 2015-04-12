@@ -16,6 +16,7 @@
 #include "BulletMultiThreaded/SpuNarrowPhaseCollisionTask/SpuGatheringCollisionTask.h"
 
 #define MAX_OUTSTANDING_TASKS	2
+#define DEBUG_DRAW				1	//1 is on, 0 is off
 
 using namespace std;
 
@@ -32,13 +33,12 @@ inline btThreadSupportInterface* createSolverThreadSupport(int maxNumThreads){
 PhysicsManager::PhysicsManager(RenderManager *rm){
 
 	assert(rm != NULL);
-
 	renderManager = rm;
 
 	//create phyiscs stuff
 	broadphaseInterface 	= new btDbvtBroadphase();
 
-	//set up the multithreaded thing
+	//set up multithreaded stuff
 	collisionThreadSupport 	= new Win32ThreadSupport(Win32ThreadSupport::Win32ThreadConstructionInfo(
 									"collision",
 									processCollisionTask,
@@ -46,13 +46,16 @@ PhysicsManager::PhysicsManager(RenderManager *rm){
 									MAX_OUTSTANDING_TASKS));
 	solverThreadSupport 	= createSolverThreadSupport(MAX_OUTSTANDING_TASKS);
 
+	//set up the collision detector
 	btDefaultCollisionConstructionInfo cci;
 	cci.m_defaultMaxPersistentManifoldPoolSize = 32768;
 	collisionConfiguration	= new btDefaultCollisionConfiguration(cci);
 	collisionDispatcher		= new SpuGatheringCollisionDispatcher(collisionThreadSupport, MAX_OUTSTANDING_TASKS ,collisionConfiguration);//btCollisionDispatcher(collisionConfiguration);
 
+	//constaint solver, whatever that is
 	constraintSolver = new btParallelConstraintSolver(solverThreadSupport); //btSequentialImpulseConstraintSolver();
 	
+	//and the world itself
 	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadphaseInterface, constraintSolver, collisionConfiguration);
 	world->getSimulationIslandManager()->setSplitIslands(false);
 	world->getSolverInfo().m_numIterations = 4;
@@ -61,7 +64,7 @@ PhysicsManager::PhysicsManager(RenderManager *rm){
 
 	//create debug grawer
 	BulletDebugDrawer *debug = new BulletDebugDrawer(renderManager);
-	debug->setDebugMode(0); 	//1 is on, 0 is off
+	debug->setDebugMode(DEBUG_DRAW);
 	world->setDebugDrawer(debug);
 
 }
@@ -94,7 +97,7 @@ void PhysicsManager::applyTorque(const string &nodeName, const float x, const fl
 
 	} catch (out_of_range &it){
 
-		renderManager->logWarn("Attempt to apply force to nonexistant node: " + nodeName);
+		renderManager->logWarn("Attempt to apply torque to nonexistant node: " + nodeName);
 
 	}
 
@@ -104,7 +107,6 @@ void PhysicsManager::applyForce(const string &nodeName, const float x, const flo
 
 	try {
 
-		renderManager->logInfo("Applying force to: " + nodeName);
 		btRigidBody *body = rigidBodies.at(nodeName);
 		body->applyCentralImpulse(btVector3(x, y, z));
 
@@ -116,9 +118,39 @@ void PhysicsManager::applyForce(const string &nodeName, const float x, const flo
 
 }
 
+void PhysicsManager::setLinearVelocity(const string &nodeName, const float x, const float y, const float z){
+
+	try {
+
+		btRigidBody *body = rigidBodies.at(nodeName);
+		body->setLinearVelocity(btVector3(x, y, z));
+
+	} catch (out_of_range &it){
+
+		renderManager->logWarn("Attempt to set velocity of nonexistant node: " + nodeName);
+
+	}
+
+}
+
+void PhysicsManager::setAngularVelocity(const string &nodeName, const float x, const float y, const float z){
+
+	try {
+
+		btRigidBody *body = rigidBodies.at(nodeName);
+		body->setAngularVelocity(btVector3(x, y, z));
+
+	} catch (out_of_range &it){
+
+		renderManager->logWarn("Attempt to set angular velocity of nonexistant node: " + nodeName);
+
+	}
+
+}
+
 void PhysicsManager::updatePhysics(const float timeStep){
 
-	world->stepSimulation(btScalar(timeStep), btScalar(5.0));
+	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
 	world->debugDrawWorld();
 	updateRigidBodies();
 
@@ -131,6 +163,7 @@ void PhysicsManager::updateRigidBodies(){
 	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){	
 
 		btRigidBody *body = btRigidBody::upcast(bodies[i]);
+		body->activate(true);
 		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
 
 		btTransform currentTransform;
@@ -190,6 +223,8 @@ void PhysicsManager::createRigidBody(const string &nodeName, btCollisionShape *s
 
 	body->setDamping(0.5, 0.5);
 	body->setActivationState(DISABLE_DEACTIVATION);
+	body->activate(true);
+	body->setSleepingThresholds(1.0, 1.0);
 
 	//add it to the worls and our map
 	rigidBodies[nodeName] = body;
