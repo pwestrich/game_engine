@@ -14,8 +14,8 @@
 			</camera>
 			<camera>
 				<name>TruckCamera</name>
-				<location>0,0,0</location>
-				<lookAt>0,0,0</lookAt>
+				<location>-7,15,0</location>
+				<lookAt>5,0,0</lookAt>
 				<clip>1,2000</clip>
 				<viewport>1,0,0.5,1,1</viewport>
 			</camera>
@@ -122,18 +122,11 @@
 				<name>entire_truck_node</name>
 				<type>scene</type>
 				<translate>0,100,0</translate>
-				<physics>
-					<name>entire_truck_node</name>
-					<mass>0</mass>
-					<shape>box</shape>
-					<parameters>6,2,2</parameters>
-				</physics>
 				<children>
 					<node>
 						<name>camera_node</name>
 						<camera>TruckCamera</camera>
 						<type>scene</type>
-						<translate>-7,15,0</translate>
 					</node>
 					<node>
 						<name>truck_node</name>
@@ -145,12 +138,12 @@
 							<mesh>truck.mesh</mesh>
 							<material>Truck</material>
 						</entity>
-						<!--<physics>
+						<physics>
 							<name>entire_truck_node</name>
-							<mass>8</mass>
+							<mass>0.0010</mass>
 							<shape>hull</shape>
 							<parameters>truck</parameters>
-						</physics>-->
+						</physics>
 					</node>
 					<node>
 						<name>rear_pass_wheel</name>

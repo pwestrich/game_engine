@@ -16,7 +16,9 @@
 #include "BulletMultiThreaded/SpuNarrowPhaseCollisionTask/SpuGatheringCollisionTask.h"
 
 #define MAX_OUTSTANDING_TASKS	2
-#define DEBUG_DRAW				1	//1 is on, 0 is off
+//turning on the debug lines seriously slows down the game
+//I don't reccomend it
+#define DEBUG_DRAW	0	//1 is on, 0 is off
 
 using namespace std;
 
