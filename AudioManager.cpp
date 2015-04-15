@@ -181,11 +181,30 @@ void AudioManager::updateAudio(){
 
 }
 
-void AudioManager::playAudio(AudioResourceInfo *info, const int numRepeats){
+void AudioManager::playAudio(AudioResourceInfo *info, const int numRepeats, const uint32_t id){
 
 	assert(info != NULL);
 	assert(numRepeats > 0);
 	//make a new player and store it
-	players.push_back(new AudioPlayer(info, numRepeats));
+	players.push_back(new AudioPlayer(info, numRepeats, id));
+
+}
+
+void AudioManager::stopAudioByID(const uint32_t id){
+
+	for (int i = 0; i < players.size(); ++i){
+
+		if (players[i]->getID() == id){
+
+			//stop sound
+			BASS_ChannelStop(players[i]->getResourceInfo()->channelData);
+
+			//remove from list
+			players.erase(players.begin() + i);
+			i--; //decrement counter
+
+		}
+
+	}
 
 }

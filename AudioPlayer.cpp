@@ -3,11 +3,12 @@
 
 using namespace std;
 
-AudioPlayer::AudioPlayer(AudioResourceInfo *newInfo, const int playCount){
+AudioPlayer::AudioPlayer(AudioResourceInfo *newInfo, const int playCount, uint32_t _id){
 
 	assert(newInfo != NULL);
 	assert(playCount > 0);
 
+	id = _id;
 	info = newInfo;
 	repeatCount = 0;
 	numRepeats = playCount;
@@ -15,6 +16,12 @@ AudioPlayer::AudioPlayer(AudioResourceInfo *newInfo, const int playCount){
 }
 
 AudioPlayer::~AudioPlayer(){}
+
+uint32_t AudioPlayer::getID(){
+
+	return id;
+
+}
 
 int AudioPlayer::getNumRepeats(){
 

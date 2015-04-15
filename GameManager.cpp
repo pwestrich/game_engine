@@ -33,7 +33,7 @@ GameManager::GameManager(){
 	loadResources("0");
 	buildSceneFromXML("./assets/xml/scene.xml", "0");
 	
-	//play the background muxic
+	//play the starting background muxic
 	playAudioByID(8, 8);
 	startAudio();
 	setVolume(0.40);
@@ -44,6 +44,7 @@ GameManager::GameManager(){
 
 	//GameManager stuff
 	lua->registerFunction("playAudioByID", &GameManager::playAudioByID);
+	lua->registerFunction("stopAudioByID", &GameManager::stopAudioByID);
 	lua->registerFunction("logInfo", &GameManager::logInfo);
 	lua->registerFunction("logWarn", &GameManager::logWarn);
 	lua->registerFunction("logDebug", &GameManager::logDebug);
@@ -71,7 +72,7 @@ GameManager::GameManager(){
 
 GameManager::~GameManager(){
 
-	//delete everything
+	//delete everything in the opposite order they were delcared
 	delete scriptManager;
 	delete inputManager;
 	delete resourceManager;
@@ -273,7 +274,7 @@ void GameManager::playAudioByID(const uint32_t id, const int numRepeats){
 
 	if (music && music->getInfo()){
 
-		playAudio(music->getInfo(), numRepeats);
+		playAudio(music->getInfo(), numRepeats, id);
 
 	} else {
 
@@ -283,9 +284,15 @@ void GameManager::playAudioByID(const uint32_t id, const int numRepeats){
 
 }
 
-void GameManager::playAudio(AudioResourceInfo *info, const int numRepeats){
+void GameManager::stopAudioByID(const uint32_t id){
 
-	audioManager->playAudio(info, numRepeats);
+	audioManager->stopAudioByID(id);
+
+}
+
+void GameManager::playAudio(AudioResourceInfo *info, const int numRepeats, const uint32_t id){
+
+	audioManager->playAudio(info, numRepeats, id);
 
 }
 

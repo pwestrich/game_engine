@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <cstdint>
 #include <cassert>
 
 #include "bass.h"
@@ -56,7 +57,8 @@ public:
 
 	//methods for playing audio
 	void updateAudio();
-	void playAudio(AudioResourceInfo *info, const int numRepeats);
+	void playAudio(AudioResourceInfo *info, const int numRepeats, const uint32_t id);
+	void stopAudioByID(const uint32_t id);
 
 };
 
