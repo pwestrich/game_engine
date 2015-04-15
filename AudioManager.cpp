@@ -69,7 +69,7 @@ void AudioManager::loadAudioSample(const string &filename, AudioResourceInfo *in
 
 	} else {
 
-		gameManager->logFatal("Error loading audio resource.", __LINE__, __FILE__);
+		gameManager->logFatal("Error loading audio resource: " + filename, __LINE__, __FILE__);
 
 	}
 
@@ -86,7 +86,7 @@ void AudioManager::loadAudioStream(const string &filename, AudioResourceInfo *in
 
 	} else {
 
-		gameManager->logFatal("Error loading audio resource.", __LINE__, __FILE__);
+		gameManager->logFatal("Error loading audio resource: " + filename, __LINE__, __FILE__);
 
 	}
 
