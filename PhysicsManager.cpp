@@ -206,6 +206,13 @@ void PhysicsManager::createRigidHull(const string &nodeName, const float mass, B
 
 }
 
+void PhysicsManager::createRigidPlane(const string &nodeName, const float mass, const float x, const float y, const float z, const float planeConstant){
+
+	btCollisionShape *shape = new btStaticPlaneShape(btVector3(x, y, z), btScalar(planeConstant));
+	createRigidBody(nodeName, shape, mass);
+
+}
+
 //private methods below here ----------------------------------------------------------------------
 void PhysicsManager::createRigidBody(const string &nodeName, btCollisionShape *shape, const float mass){
 

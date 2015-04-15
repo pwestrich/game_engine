@@ -1179,7 +1179,7 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 
 				nodeElement = static_cast<TiXmlElement*>(physicsTree->FirstChild("mass"));
 				string massString = nodeElement->GetText();
-				parseFloats(massString, values);
+				values[0] = atof(massString.c_str()); //parseFloats(massString, values);
 
 				nodeElement = static_cast<TiXmlElement*>(physicsTree->FirstChild("name"));
 				string physicsName = nodeElement->GetText();
@@ -1222,6 +1222,11 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 					delete [] verticies;
 					delete [] indicies;
 
+
+				} else if (shape == "plane"){
+
+					parseFloats(parameterString, values + 1);
+					physicsManager->createRigidPlane(physicsName, values[0], values[1], values[2], values[3], values[4]);
 
 				} else {
 
