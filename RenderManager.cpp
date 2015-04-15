@@ -886,10 +886,19 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 
 						//gui
 						TiXmlNode *guiNode = scenes->FirstChild("gui");
-						TiXmlElement *guiElement = guiNode->ToElement();
-						string guiFile = guiElement->GetText();
 
-						guiManager->loadResourceGroup(guiFile, sceneName);
+						if (guiNode){
+
+							TiXmlElement *guiElement = guiNode->ToElement();
+							string guiFile = guiElement->GetText();
+
+							guiManager->loadResourceGroup(guiFile, sceneName);
+
+						} else {
+
+							logInfo("No GUI in this scene.");
+
+						}
 
 					}
 
