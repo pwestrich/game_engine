@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="List">
+	<List file="MyGUI_OnePieceImages.xml"/>
+	<List file="MyGUI_OnePieceSkins.xml"/>
+	<List file="MyGUI_OnePieceTemplates.xml"/>
+</MyGUI>

@@ -1,0 +1,78 @@
+
+<gui>
+
+   <windows>
+   <window>
+
+      <name>Window1</name>
+      <caption>Mini Merry Adventures!</caption>
+      <skin>WindowC</skin>
+      <position>250,450</position>
+      <size>310,150</size>
+      <align>Default</align>
+      <layer>Overlapped</layer>
+
+   <buttons>
+
+      <button>
+         <name>DodgeLeft</name>
+         <caption>Left</caption>
+         <skin>Button</skin>
+         <position>5,10</position>
+         <size>95,40</size>
+         <align>Default</align>
+         <font>20</font>
+      </button>
+
+      <button>
+         <name>MerryAnimation</name>
+         <caption>Start</caption>
+         <skin>Button</skin>
+         <position>105,10</position>
+         <size>95,40</size>
+         <align>Default</align>
+         <font>20</font>
+      </button>
+
+      <button>
+         <name>DodgeRight</name>
+         <caption>Right</caption>
+         <skin>Button</skin>
+         <position>205,10</position>
+         <size>95,40</size>
+         <align>Default</align>
+         <font>20</font>
+      </button>
+
+   </buttons>
+
+   <combo_boxes>
+
+      <combo_box>
+
+         <name>SelectMusic</name>
+         <skin>ComboBox</skin>
+         <position>5,60</position>
+         <size>290,30</size>
+         <align>Default</align>
+         <font>20</font>
+         <selected_index>0</selected_index>
+
+         <selections>
+            <selection>Bink's Sake - Default</selection>
+            <selection>Opening 5: Kokoro No Chizu</selection>
+            <selection>Opening 10: We Are!</selection>
+            <selection>Opening 11: Share the World</selection>
+            <selection>Opening 13: One Day</selection>
+            <selection>Opening 14: Fight Together</selection>
+            <selection>Opening 16: Hands Up!</selection>
+         </selections>
+           
+      </combo_box>
+
+   </combo_boxes>
+
+   </window>
+   </windows>
+   
+</gui>
