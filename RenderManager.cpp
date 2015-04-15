@@ -1222,8 +1222,49 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 					Vector3 *verticies = NULL;
 					long unsigned *indicies = NULL;
 
+					Vector3 t = Vector3::ZERO;
+					Quaternion r = Quaternion::IDENTITY;
+					Vector3 s = Vector3::ZERO;
+
+					TiXmlNode *adjustNode = physicsTree->FirstChild("translate");
+					if (adjustNode){
+
+						nodeElement = static_cast<TiXmlElement*>(adjustNode);
+						string transSttring = nodeElement->GetText();
+						parseFloats(transSttring, values + 1);
+						t.x = values[1];
+						t.y = values[2];
+						t.z = values[3];
+
+					}
+
+					adjustNode = physicsTree->FirstChild("rotate");
+					if (adjustNode){
+
+						nodeElement = static_cast<TiXmlElement*>(adjustNode);
+						string transSttring = nodeElement->GetText();
+						parseFloats(transSttring, values + 1);
+						r.w = values[4];
+						r.x = values[1];
+						r.y = values[2];
+						r.z = values[3];
+
+					}
+
+					adjustNode = physicsTree->FirstChild("scale");
+					if (adjustNode){
+
+						nodeElement = static_cast<TiXmlElement*>(adjustNode);
+						string transSttring = nodeElement->GetText();
+						parseFloats(transSttring, values + 1);
+						s.x = values[1];
+						s.y = values[2];
+						s.z = values[3];
+
+					}
+
 					getMeshInformation(entity->getMesh(), numVerticies, verticies, numIndicies, indicies, 
-						sceneNode->getPosition() - Vector3(0,2,0), Quaternion(Degree(180), Vector3(1,0,0)) * sceneNode->getOrientation(), sceneNode->getScale());
+						sceneNode->getPosition() + t, r * sceneNode->getOrientation(), sceneNode->getScale() + s);
 
 					BulletConvexHullCreator hull(verticies, numVerticies);
 					physicsManager->createRigidHull(physicsName, values[0], &hull);

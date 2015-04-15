@@ -34,7 +34,7 @@ GameManager::GameManager(){
 	buildSceneFromXML("./assets/xml/scene.xml", "0");
 	
 	//play the starting background muxic
-	playAudioByID(8, 8);
+	//playAudioByID(8, 8);
 	startAudio();
 	setVolume(0.40);
 
