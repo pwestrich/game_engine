@@ -2,7 +2,7 @@
 <scenes>
 	<scene>
 		<name>0</name>
-		<!--<gui>./assets/xml/gui.xml</gui>-->
+		<gui>./assets/xml/gui.xml</gui>
 		<gravity>0,-1,0</gravity>
 		<cameras>
 			<camera>
