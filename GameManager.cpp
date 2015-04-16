@@ -33,8 +33,6 @@ GameManager::GameManager(){
 	loadResources("0");
 	buildSceneFromXML("./assets/xml/scene.xml", "0");
 	
-	//play the starting background muxic
-	//playAudioByID(8, 8);
 	startAudio();
 	setVolume(0.40);
 
@@ -45,6 +43,7 @@ GameManager::GameManager(){
 	//GameManager stuff
 	lua->registerFunction("playAudioByID", &GameManager::playAudioByID);
 	lua->registerFunction("stopAudioByID", &GameManager::stopAudioByID);
+	lua->registerFunction("setVolume", &GameManager::setVolume);
 	lua->registerFunction("logInfo", &GameManager::logInfo);
 	lua->registerFunction("logWarn", &GameManager::logWarn);
 	lua->registerFunction("logDebug", &GameManager::logDebug);
@@ -64,6 +63,9 @@ GameManager::GameManager(){
 	lua->registerFunction("setLinearVelocity", &RenderManager::setLinearVelocity);
 	lua->registerFunction("setAngularVelocity", &RenderManager::setAngularVelocity);
 	lua->writeVariable("Scene", renderManager);
+
+	//run the startup script
+	execute("./assets/lua/startup.lua");
 
 	//start drawing
 	startRendering();

@@ -15,6 +15,7 @@
 					<size>100,20</size>
 					<font>100</font>
 					<selected>1</selected>
+					<script>./assets/lua/comboBox.lua</script>
 					<options>
 						<option>test1</option>
 						<option>test2</option>

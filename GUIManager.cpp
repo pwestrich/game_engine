@@ -107,6 +107,27 @@ void GUIManager::scrollBarMoved(MyGUI::Widget *sender, int left, int top, MyGUI:
 
 }
 
+void GUIManager::comboBoxClicked(MyGUI::Widget *sender, int left, int top, MyGUI::MouseButton id){
+
+	MyGUI::ComboBox *box = static_cast<MyGUI::ComboBox*>(sender);
+
+	try {
+
+		string script = scriptMap.at(box);
+
+		//give the script a few variables.
+		renderManager->writeString("name", box->getName());
+		renderManager->writeInt("option", box->getIndexSelected());
+		renderManager->execute(script);
+
+	} catch (out_of_range &it){
+
+		renderManager->logInfo("No script for this scroll bar.");
+
+	}
+
+}
+
 //InputListener methods ---------------------------------------------------------------------------
 void GUIManager::keyPressed(const KeyboardKey key){}
 void GUIManager::keyReleased(const KeyboardKey key){}
@@ -243,7 +264,6 @@ void GUIManager::buildGUIFromXML(const string &filename){
 
 								if (windowElement){
 
-									renderManager->logInfo("Adding script for GUI scroll bar...");
 									string script = windowElement->GetText();
 									scriptMap[s] = script;
 
@@ -255,7 +275,6 @@ void GUIManager::buildGUIFromXML(const string &filename){
 
 								if (windowElement){
 
-									renderManager->logInfo("Adding script for GUI button...");
 									string script = windowElement->GetText();
 									scriptMap[b] = script;
 
@@ -304,6 +323,7 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							MyGUI::ComboBox *c = win->createWidget<MyGUI::ComboBox>(skin, values[0], values[1], values[2], values[3], MyGUI::Align::Default, name);
 							c->setFontHeight(values[4]);
 							c->setTextColour(MyGUI::Colour(0,0,0));
+							c->eventMouseButtonPressed += newDelegate(this, &GUIManager::comboBoxClicked);
 
 							TiXmlNode *optionsNode = comboNode->FirstChild("options");
 
@@ -323,6 +343,16 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							}
 
 							c->setIndexSelected(atoi(selected.c_str()));
+
+							//check for a script
+							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("script"));
+
+							if (windowElement){
+
+								string script = windowElement->GetText();
+								scriptMap[c] = script;
+
+							}
 
 						}
 
