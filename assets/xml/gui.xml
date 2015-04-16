@@ -6,9 +6,22 @@
 			<skin>WindowC</skin>
 			<position>250,450</position>
 			<size>310,150</size>
-			<layer>Overlapped</layer>	
+			<layer>Overlapped</layer>
+			<combos>
+				<combo>
+					<name>test</name>
+					<skin>ComboBox</skin>
+					<position>50,50</position>
+					<size>100,20</size>
+					<font>100</font>
+					<selected>1</selected>
+					<options>
+						<option>test1</option>
+						<option>test2</option>
+						<option>test3></option>
+					</options>
+				</combo>
+			</combos>
 		</window>
 	</windows>
 </gui>
-
-
