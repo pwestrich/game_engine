@@ -26,7 +26,7 @@
 			<node>
 				<name>Ocean</name>
 				<type>scene</type>
-				<scale>2000,0,2000</scale>
+				<scale>10000,0,10000</scale>
 				<entity>
 					<name>Ocean</name>
 					<mesh>Ocean.mesh</mesh>
