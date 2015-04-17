@@ -1,86 +1,54 @@
-2015/04/15 23:44:42: INFO: Creating RenderManager...
-2015/04/15 23:44:43: INFO: RenderManager initialized successfully!
-2015/04/15 23:44:43: INFO: Detecting input devices...
-2015/04/15 23:44:43: INFO: Name: Speakers (Realtek High Definition Audio)Driver: {0.0.0.00000000}.{ea029ff1-0b71-4d3f-9593-c3a598b7168e}
+2015/04/16 22:09:50: INFO: Creating RenderManager...
+2015/04/16 22:09:50: INFO: RenderManager initialized successfully!
+2015/04/16 22:09:50: INFO: Detecting input devices...
+2015/04/16 22:09:50: INFO: Name: Speakers (VIA High Definition Audio)Driver: {0.0.0.00000000}.{e98aefe8-ebc8-4e07-863e-0c13cd4d44ad}
 
-2015/04/15 23:44:43: INFO: AudioManager initialized successfully!
-2015/04/15 23:44:43: INFO: Loading resources...
-2015/04/15 23:44:43: INFO: Loading PathResource
-2015/04/15 23:44:43: INFO: Loading PathResource
-2015/04/15 23:44:43: INFO: Loading PathResource
-2015/04/15 23:44:43: INFO: Loading PathResource
-2015/04/15 23:44:43: INFO: Loading PathResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading MeshResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Loading AudioResource
-2015/04/15 23:44:43: INFO: Initalizing Ogre resource group...
-2015/04/15 23:44:43: INFO: Loading Ogre resources...
-2015/04/15 23:44:50: INFO: Resources loaded!
-2015/04/15 23:44:50: INFO: Building scene...
-2015/04/15 23:44:50: INFO: Creating rigid body: Ocean
-2015/04/15 23:44:50: INFO: Loading GUI...
-2015/04/15 23:44:50: INFO: Building GUI...
-2015/04/15 23:44:50: INFO: No buttons in this GUI.
-2015/04/15 23:44:50: INFO: GUI built.
-2015/04/15 23:44:50: INFO: Scene built successfully!
-2015/04/15 23:44:50: WARNING: Script could not be run.
-2015/04/15 23:44:50: WARNING: ./assets/lua/startup.lua
-2015/04/15 23:44:50: INFO: Starting renderer...
-2015/04/15 23:44:59: WARNING: Script could not be run.
-2015/04/15 23:44:59: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:44:59: WARNING: Script could not be run.
-2015/04/15 23:44:59: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:00: WARNING: Script could not be run.
-2015/04/15 23:45:00: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:00: WARNING: Script could not be run.
-2015/04/15 23:45:00: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:02: WARNING: Script could not be run.
-2015/04/15 23:45:02: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:02: WARNING: Script could not be run.
-2015/04/15 23:45:02: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:09: WARNING: Script could not be run.
-2015/04/15 23:45:09: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:09: WARNING: Script could not be run.
-2015/04/15 23:45:09: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:09: WARNING: Script could not be run.
-2015/04/15 23:45:09: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:09: WARNING: Script could not be run.
-2015/04/15 23:45:09: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:09: WARNING: Script could not be run.
-2015/04/15 23:45:09: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:09: WARNING: Script could not be run.
-2015/04/15 23:45:09: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:10: WARNING: Script could not be run.
-2015/04/15 23:45:10: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:10: WARNING: Script could not be run.
-2015/04/15 23:45:10: WARNING: ./assets/lua/comboBox.lua
-2015/04/15 23:45:13: INFO: Stopping render process...
-2015/04/15 23:45:13: INFO: Stopped.
-2015/04/15 23:45:13: INFO: Exiting program...
+2015/04/16 22:09:50: INFO: AudioManager initialized successfully!
+2015/04/16 22:09:50: INFO: Loading resources...
+2015/04/16 22:09:50: INFO: Loading PathResource
+2015/04/16 22:09:50: INFO: Loading PathResource
+2015/04/16 22:09:50: INFO: Loading PathResource
+2015/04/16 22:09:50: INFO: Loading PathResource
+2015/04/16 22:09:50: INFO: Loading PathResource
+2015/04/16 22:09:50: INFO: Loading PathResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading MeshResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Loading AudioResource
+2015/04/16 22:09:50: INFO: Initalizing Ogre resource group...
+2015/04/16 22:09:50: INFO: Loading Ogre resources...
+2015/04/16 22:09:57: INFO: Resources loaded!
+2015/04/16 22:09:57: INFO: Building scene...
+2015/04/16 22:09:57: INFO: Loading GUI...
+2015/04/16 22:09:57: INFO: Building GUI...
+2015/04/16 22:09:57: INFO: No buttons in this GUI.
+2015/04/16 22:09:57: INFO: GUI built.
+2015/04/16 22:09:57: INFO: Scene built successfully!
+2015/04/16 22:09:57: WARNING: Script could not be run.
+2015/04/16 22:09:57: WARNING: ./assets/lua/startup.lua
+2015/04/16 22:09:57: INFO: Starting renderer...
+2015/04/16 22:10:01: INFO: Stopping render process...
+2015/04/16 22:10:01: INFO: Stopped.
+2015/04/16 22:10:01: INFO: Exiting program...

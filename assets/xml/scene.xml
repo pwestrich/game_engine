@@ -7,8 +7,8 @@
 		<cameras>
 			<camera>
 				<name>AirCmaera</name>
-				<location>30,30,30</location>
-				<lookAt>0,0,0</lookAt>
+				<location>-50,5,0</location>
+				<lookAt>0,5,0</lookAt>
 				<clip>1,2000</clip>
 				<viewport>0,0,0,1,1</viewport>
 			</camera>
@@ -24,20 +24,108 @@
 		</lights>
 		<nodes>
 			<node>
-				<name>Ocean</name>
+				<name>MugiwaraNode</name>
 				<type>scene</type>
-				<scale>10000,0,10000</scale>
+				<translate>-2.7,10,5</translate>
+				<scale>.8,1,.8</scale>
 				<entity>
-					<name>Ocean</name>
-					<mesh>Ocean.mesh</mesh>
-					<material>OceanMaterial</material>
+					<name>Mugiwara</name>
+					<mesh>Mugiwara.mesh</mesh>
+					<material>StrawHatMaterial</material>
 				</entity>
-				<physics>
-					<name>Ocean</name>
-					<mass>0.0</mass>
-					<shape>plane</shape>
-					<parameters>0,1,0,0</parameters>
-				</physics>
+			</node>
+			<node>
+				<name>MiniMerryTrasnformNode</name>
+				<type>scene</type>
+				<translate>0,0,0</translate>
+				<children>
+					<node>
+						<name>BoatNode</name>
+						<type>scene</type>
+						<scale>4,.45,5.5</scale>
+						<translate>0,0,-3</translate>
+						<entity>
+							<name>Boat</name>
+							<mesh>Boat.mesh</mesh>
+							<material>BoatMaterial</material>
+						</entity>
+					</node>
+					<node>
+						<name>EngineNode</name>
+						<type>scene</type>
+						<translate>0,0,-3.4</translate>
+						<rotate>0,1,0,180</rotate>
+						<scale>.6,.6,.65</scale>
+						<entity>
+							<name>Engine</name>
+							<mesh>Engine.mesh</mesh>
+							<material>EngineMaterial</material>
+						</entity>
+					</node>
+					<node>
+						<name>BackSeatNode</name>
+						<type>scene</type>
+						<translate>0,-3,-.7</translate>
+						<rotate>1,0,0,90</rotate>
+						<scale>.4,.39,.52</scale>
+						<entity>
+							<name>BackSeat</name>
+							<mesh>BackSeat.mesh</mesh>
+							<material>BoatMaterial</material>
+						</entity>
+					</node>
+					<node>
+						<name>FrontSeatNode</name>
+						<type>scene</type>
+						<translate>0,-8.68,4</translate>
+						<rotate>1,0,0,90</rotate>
+						<scale>.4,.39,.52</scale>
+						<entity>
+							<name>FrontSeat</name>
+							<mesh>FrontSeat.mesh</mesh>
+							<material>BoatMaterial</material>
+						</entity>
+					</node>
+					<node>
+						<name>FigureheadTransformNode</name>
+						<type>scene</type>
+                        <translation>0,0,0</translation>
+                        <rotation>0,1,0,180</rotation>
+                        <children>
+                         	<node>
+								<name>FigureheadNode</name>
+								<type>scene</type>
+								<translate>0,-8.68,4</translate>
+								<rotate>1,0,0,90</rotate>
+								<scale>.4,.41,.3</scale>
+								<entity>
+									<name>Figurehead</name>
+									<mesh>Figurehead.mesh</mesh>
+									<material>FigureheadMaterial</material>
+								</entity>
+							</node>
+						</children>
+					</node>
+					<node>
+						<name>RightPaddleCoverTransformNode</name>
+						<type>scene</type>
+                        <translation>0,0,0</translation>
+                        <children>
+                         	<node>
+								<name>RightPaddleCoverNode</name>
+								<type>scene</type>
+								<translate>4.7,-3.6,-3.4</translate>
+								<rotate>0,0,1,-90</rotate>
+								<scale>3.1,3.1,2.6</scale>
+								<entity>
+									<name>RightPaddleCover</name>
+									<mesh>PaddleCover_2.mesh</mesh>
+									<material>PaddleMaterial</material>
+								</entity>
+							</node>
+						</children>
+					</node>
+				</children>
 			</node>
 		</nodes>
 	</scene>

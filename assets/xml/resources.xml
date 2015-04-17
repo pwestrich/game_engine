@@ -22,143 +22,127 @@
 				<name>./assets/mygui</name>
 				<id>4</id>
 			</path>
+			<path>
+				<name>./assets/skybox</name>
+				<id>5</id>
+			</path>
 		</paths>
 		<meshes>
 			<mesh>
 				<name>BackSeat.mesh</name>
-				<id>5</id>
-			</mesh>
-			<mesh>
-				<name>Boat.mesh</name>
 				<id>6</id>
 			</mesh>
 			<mesh>
-				<name>Cannonball.mesh</name>
+				<name>Boat.mesh</name>
 				<id>7</id>
 			</mesh>
 			<mesh>
-				<name>Engine.mesh</name>
+				<name>Cannonball.mesh</name>
 				<id>8</id>
 			</mesh>
 			<mesh>
-				<name>Figurehead.mesh</name>
+				<name>Engine.mesh</name>
 				<id>9</id>
 			</mesh>
 			<mesh>
-				<name>FrontSeat.mesh</name>
+				<name>Figurehead.mesh</name>
 				<id>10</id>
 			</mesh>
 			<mesh>
-				<name>Mugiwara.mesh</name>
+				<name>FrontSeat.mesh</name>
 				<id>11</id>
 			</mesh>
 			<mesh>
-				<name>Ocean.mesh</name>
+				<name>Mugiwara.mesh</name>
 				<id>12</id>
 			</mesh>
 			<mesh>
-				<name>Paddle_1.mesh</name>
+				<name>Ocean.mesh</name>
 				<id>13</id>
 			</mesh>
 			<mesh>
-				<name>Paddle_2.mesh</name>
+				<name>Paddle_1.mesh</name>
 				<id>14</id>
 			</mesh>
 			<mesh>
-				<name>PaddleCover_1.mesh</name>
+				<name>Paddle_2.mesh</name>
 				<id>15</id>
 			</mesh>
 			<mesh>
-				<name>PaddleCover_2.mesh</name>
+				<name>PaddleCover_1.mesh</name>
 				<id>16</id>
 			</mesh>
 			<mesh>
-				<name>Rock.mesh</name>
+				<name>PaddleCover_2.mesh</name>
 				<id>17</id>
 			</mesh>
 			<mesh>
-				<name>Rock_2.mesh</name>
+				<name>Rock.mesh</name>
 				<id>18</id>
 			</mesh>
 			<mesh>
-				<name>Rock_3.mesh</name>
+				<name>Rock_2.mesh</name>
 				<id>19</id>
 			</mesh>
 			<mesh>
-				<name>Rudder.mesh</name>
+				<name>Rock_3.mesh</name>
 				<id>20</id>
+			</mesh>
+			<mesh>
+				<name>Rudder.mesh</name>
+				<id>21</id>
 			</mesh>
 		</meshes>
 		<audios>
 			<audio>
 				<file>./assets/audio/BinksSake.mp3</file>
 				<type>stream</type>
-				<id>21</id>
-			</audio>
-			<audio>
-				<file>./assets/audio/Brook_1.mp3</file>
-				<type>sample</type>
 				<id>22</id>
-			</audio>
-			<audio>
-				<file>./assets/audio/Brook_Funny_1.mp3</file>
-				<type>sample</type>
-				<id>23</id>
-			</audio>
-			<audio>
-				<file>./assets/audio/Brook_Serious_1.mp3</file>
-				<type>sample</type>
-				<id>24</id>
-			</audio>
-			<audio>
-				<file>./assets/audio/Luffy_Loves_Danger.mp3</file>
-				<type>stream</type>
-				<id>25</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/OceanAmbient.mp3</file>
 				<type>stream</type>
-				<id>26</id>
+				<id>24</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/OP5_KokoroNoChizu.mp3</file>
 				<type>stream</type>
-				<id>27</id>
+				<id>25</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/OP10_WeAre.mp3</file>
 				<type>stream</type>
-				<id>28</id>
+				<id>26</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/OP11_ShareTheWorld.mp3</file>
 				<type>stream</type>
-				<id>29</id>
+				<id>27</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/OP13_OneDay.mp3</file>
 				<type>stream</type>
-				<id>30</id>
+				<id>28</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/OP14_FightTogether.mp3</file>
 				<type>stream</type>
-				<id>31</id>
+				<id>29</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/OP16_HandsUp.mp3</file>
 				<type>stream</type>
-				<id>32</id>
+				<id>30</id>
 			</audio>
 			<audio>
 				<file>./assets/audio/WindGust.mp3</file>
 				<type>sample</type>
-				<id>33</id>
+				<id>31</id>
 			</audio>
 			<audio>
-				<file>./assets/audio/Zoro_Chopper_Coat.mp3</file>
+				<file>./assets/audio/WelcomeFromUsopp.mp3</file>
 				<type>sample</type>
-				<id>34</id>
+				<id>32</id>
 			</audio>
 		</audios>
 	</group>

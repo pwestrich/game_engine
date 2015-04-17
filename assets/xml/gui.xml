@@ -4,7 +4,7 @@
 			<name>controlWindow</name>
 			<caption>Mini Merry Adventures</caption>
 			<skin>WindowC</skin>
-			<position>250,450</position>
+			<position>350,600</position>
 			<size>310,150</size>
 			<layer>Overlapped</layer>
 			<combos>

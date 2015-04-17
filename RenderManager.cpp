@@ -923,6 +923,7 @@ void RenderManager::buildSceneFromXML(const std::string &filename, const string 
 	}
 
 	//guiManager->loadResourceGroup("./assets/xml/gui.xml", sceneName);
+	sceneManager->setSkyBox(true, "Skybox", 1000, false);
 
 	gameManager->logInfo("Scene built successfully!");
 
