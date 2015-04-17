@@ -65,7 +65,7 @@ GameManager::GameManager(){
 	lua->writeVariable("Scene", renderManager);
 
 	//run the startup script
-	execute("./assets/lua/startup.lua");
+	execute("./assets/lua/init.lua");
 
 	//start drawing
 	startRendering();
