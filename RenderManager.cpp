@@ -1418,7 +1418,6 @@ void RenderManager::createAnimation(Ogre::SceneNode *node, TiXmlNode *nodeTree){
          animationState->setLoop(false);
 
       }
-
       animationStates.push_back(animationState);
 
    } else {
