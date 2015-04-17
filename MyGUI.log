@@ -1,52 +1,52 @@
-23:35:35  |  Platform  |  Info  |  * Initialise: RenderManager  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreRenderManager.cpp  |  43
-23:35:35  |  Platform  |  Info  |  RenderManager successfully initialized  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreRenderManager.cpp  |  71
-23:35:35  |  Platform  |  Info  |  * Initialise: DataManager  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreDataManager.cpp  |  27
-23:35:35  |  Platform  |  Info  |  DataManager successfully initialized  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreDataManager.cpp  |  35
-23:35:35  |  Core  |  Info  |  * Initialise: Gui  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_Gui.cpp  |  61
-23:35:35  |  Core  |  Info  |  * MyGUI version 3.2.2  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_Gui.cpp  |  66
-23:35:35  |  Core  |  Info  |  * Initialise: ResourceManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  32
-23:35:35  |  Core  |  Info  |  ResourceManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  40
-23:35:35  |  Core  |  Info  |  * Initialise: LayerManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayerManager.cpp  |  33
-23:35:35  |  Core  |  Info  |  LayerManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayerManager.cpp  |  41
-23:35:35  |  Core  |  Info  |  * Initialise: WidgetManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_WidgetManager.cpp  |  53
-23:35:35  |  Core  |  Info  |  WidgetManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_WidgetManager.cpp  |  84
-23:35:35  |  Core  |  Info  |  * Initialise: InputManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_InputManager.cpp  |  46
-23:35:35  |  Core  |  Info  |  InputManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_InputManager.cpp  |  66
-23:35:35  |  Core  |  Info  |  * Initialise: SubWidgetManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SubWidgetManager.cpp  |  36
-23:35:35  |  Core  |  Info  |  SubWidgetManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SubWidgetManager.cpp  |  56
-23:35:35  |  Core  |  Info  |  * Initialise: SkinManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SkinManager.cpp  |  36
-23:35:35  |  Core  |  Info  |  SkinManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SkinManager.cpp  |  46
-23:35:35  |  Core  |  Info  |  * Initialise: FontManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FontManager.cpp  |  32
-23:35:35  |  Core  |  Info  |  FontManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FontManager.cpp  |  42
-23:35:35  |  Core  |  Info  |  * Initialise: ControllerManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ControllerManager.cpp  |  33
-23:35:35  |  Core  |  Info  |  ControllerManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ControllerManager.cpp  |  42
-23:35:35  |  Core  |  Info  |  * Initialise: PointerManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PointerManager.cpp  |  43
-23:35:35  |  Core  |  Info  |  PointerManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PointerManager.cpp  |  62
-23:35:35  |  Core  |  Info  |  * Initialise: ClipboardManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ClipboardManager.cpp  |  32
-23:35:35  |  Core  |  Info  |  ClipboardManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ClipboardManager.cpp  |  39
-23:35:35  |  Core  |  Info  |  * Initialise: LayoutManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayoutManager.cpp  |  28
-23:35:35  |  Core  |  Info  |  LayoutManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayoutManager.cpp  |  35
-23:35:35  |  Core  |  Info  |  * Initialise: DynLibManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_DynLibManager.cpp  |  26
-23:35:35  |  Core  |  Info  |  DynLibManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_DynLibManager.cpp  |  30
-23:35:35  |  Core  |  Info  |  * Initialise: PluginManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PluginManager.cpp  |  30
-23:35:35  |  Core  |  Info  |  PluginManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PluginManager.cpp  |  34
-23:35:35  |  Core  |  Info  |  * Initialise: LanguageManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LanguageManager.cpp  |  30
-23:35:35  |  Core  |  Info  |  LanguageManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LanguageManager.cpp  |  34
-23:35:35  |  Core  |  Info  |  * Initialise: FactoryManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FactoryManager.cpp  |  25
-23:35:35  |  Core  |  Info  |  FactoryManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FactoryManager.cpp  |  27
-23:35:35  |  Core  |  Info  |  * Initialise: ToolTipManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ToolTipManager.cpp  |  33
-23:35:35  |  Core  |  Info  |  ToolTipManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ToolTipManager.cpp  |  45
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_GeneratedFonts.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_Fonts.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  ResourceTrueTypeFont: Font 'DejaVuSansFont_15' using texture size 128 x 256.  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceTrueTypeFont.cpp  |  769
-23:35:35  |  Core  |  Info  |  ResourceTrueTypeFont: Font 'DejaVuSansFont_15' using real height 15 pixels.  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceTrueTypeFont.cpp  |  770
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_CommonSkins.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceTheme.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceImages.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceSkins.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceTemplates.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_PointerImages.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_Pointers.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_Layers.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Load ini file 'MyGUI_Settings.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
-23:35:35  |  Core  |  Info  |  Gui successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_Gui.cpp  |  111
+01:19:45  |  Platform  |  Info  |  * Initialise: RenderManager  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreRenderManager.cpp  |  43
+01:19:45  |  Platform  |  Info  |  RenderManager successfully initialized  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreRenderManager.cpp  |  71
+01:19:45  |  Platform  |  Info  |  * Initialise: DataManager  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreDataManager.cpp  |  27
+01:19:45  |  Platform  |  Info  |  DataManager successfully initialized  |  D:\Ogre\mygui\mygui-master\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreDataManager.cpp  |  35
+01:19:45  |  Core  |  Info  |  * Initialise: Gui  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_Gui.cpp  |  61
+01:19:45  |  Core  |  Info  |  * MyGUI version 3.2.2  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_Gui.cpp  |  66
+01:19:45  |  Core  |  Info  |  * Initialise: ResourceManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  32
+01:19:45  |  Core  |  Info  |  ResourceManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  40
+01:19:45  |  Core  |  Info  |  * Initialise: LayerManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayerManager.cpp  |  33
+01:19:45  |  Core  |  Info  |  LayerManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayerManager.cpp  |  41
+01:19:45  |  Core  |  Info  |  * Initialise: WidgetManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_WidgetManager.cpp  |  53
+01:19:45  |  Core  |  Info  |  WidgetManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_WidgetManager.cpp  |  84
+01:19:45  |  Core  |  Info  |  * Initialise: InputManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_InputManager.cpp  |  46
+01:19:45  |  Core  |  Info  |  InputManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_InputManager.cpp  |  66
+01:19:45  |  Core  |  Info  |  * Initialise: SubWidgetManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SubWidgetManager.cpp  |  36
+01:19:45  |  Core  |  Info  |  SubWidgetManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SubWidgetManager.cpp  |  56
+01:19:45  |  Core  |  Info  |  * Initialise: SkinManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SkinManager.cpp  |  36
+01:19:45  |  Core  |  Info  |  SkinManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_SkinManager.cpp  |  46
+01:19:45  |  Core  |  Info  |  * Initialise: FontManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FontManager.cpp  |  32
+01:19:45  |  Core  |  Info  |  FontManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FontManager.cpp  |  42
+01:19:45  |  Core  |  Info  |  * Initialise: ControllerManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ControllerManager.cpp  |  33
+01:19:45  |  Core  |  Info  |  ControllerManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ControllerManager.cpp  |  42
+01:19:45  |  Core  |  Info  |  * Initialise: PointerManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PointerManager.cpp  |  43
+01:19:45  |  Core  |  Info  |  PointerManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PointerManager.cpp  |  62
+01:19:45  |  Core  |  Info  |  * Initialise: ClipboardManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ClipboardManager.cpp  |  32
+01:19:45  |  Core  |  Info  |  ClipboardManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ClipboardManager.cpp  |  39
+01:19:45  |  Core  |  Info  |  * Initialise: LayoutManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayoutManager.cpp  |  28
+01:19:45  |  Core  |  Info  |  LayoutManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LayoutManager.cpp  |  35
+01:19:45  |  Core  |  Info  |  * Initialise: DynLibManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_DynLibManager.cpp  |  26
+01:19:45  |  Core  |  Info  |  DynLibManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_DynLibManager.cpp  |  30
+01:19:45  |  Core  |  Info  |  * Initialise: PluginManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PluginManager.cpp  |  30
+01:19:45  |  Core  |  Info  |  PluginManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_PluginManager.cpp  |  34
+01:19:45  |  Core  |  Info  |  * Initialise: LanguageManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LanguageManager.cpp  |  30
+01:19:45  |  Core  |  Info  |  LanguageManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_LanguageManager.cpp  |  34
+01:19:45  |  Core  |  Info  |  * Initialise: FactoryManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FactoryManager.cpp  |  25
+01:19:45  |  Core  |  Info  |  FactoryManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_FactoryManager.cpp  |  27
+01:19:45  |  Core  |  Info  |  * Initialise: ToolTipManager  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ToolTipManager.cpp  |  33
+01:19:45  |  Core  |  Info  |  ToolTipManager successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ToolTipManager.cpp  |  45
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_GeneratedFonts.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_Fonts.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  ResourceTrueTypeFont: Font 'DejaVuSansFont_15' using texture size 128 x 256.  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceTrueTypeFont.cpp  |  769
+01:19:45  |  Core  |  Info  |  ResourceTrueTypeFont: Font 'DejaVuSansFont_15' using real height 15 pixels.  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceTrueTypeFont.cpp  |  770
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_CommonSkins.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceTheme.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceImages.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceSkins.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_OnePieceTemplates.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_PointerImages.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_Pointers.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_Layers.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Load ini file 'MyGUI_Settings.xml'  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_ResourceManager.cpp  |  114
+01:19:45  |  Core  |  Info  |  Gui successfully initialized  |  D:\Ogre\mygui\mygui-master\MyGUIEngine\src\MyGUI_Gui.cpp  |  111

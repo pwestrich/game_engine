@@ -1265,7 +1265,8 @@ void RenderManager::createNodes(Ogre::SceneNode *parent, TiXmlNode *nodeTree){
 					}
 
 					getMeshInformation(entity->getMesh(), numVerticies, verticies, numIndicies, indicies, 
-						sceneNode->getPosition() + t, r * sceneNode->getOrientation(), sceneNode->getScale() + s);
+						sceneNode->_getDerivedPosition() - t,  Quaternion(Degree(180), Vector3(0,0,1)) *  r *sceneNode->_getDerivedOrientation(), 
+						sceneNode->_getDerivedScale() + s);
 
 					BulletConvexHullCreator hull(verticies, numVerticies);
 					physicsManager->createRigidHull(physicsName, values[0], &hull);
