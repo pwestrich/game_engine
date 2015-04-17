@@ -304,6 +304,12 @@
 					<mesh>Mugiwara.mesh</mesh>
 					<material>StrawHatMaterial</material>
 				</entity>
+				<physics>
+					<name>MugiwaraNode</name>
+					<shape>box</shape>
+					<mass>0.0</mass>
+					<parameters>8,8,8</parameters>
+				</physics>
 			</node>
 			<node>
 				<name>MiniMerryTrasnformNode</name>
