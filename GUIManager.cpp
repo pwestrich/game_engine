@@ -143,6 +143,7 @@ void GUIManager::mousePressed(const uint32_t x, const uint32_t y, const MouseBut
 
 	MyGUI::InputManager& inputManager = MyGUI::Singleton<MyGUI::InputManager>::getInstance();
 	inputManager.injectMousePress(x, y, MyGUI::MouseButton::Enum(button));
+	inputManager.injectMouseMove(x, y, 0);
 
 }
 
@@ -150,6 +151,7 @@ void GUIManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseBu
 
 	MyGUI::InputManager& inputManager = MyGUI::Singleton<MyGUI::InputManager>::getInstance();
 	inputManager.injectMouseRelease(x, y, MyGUI::MouseButton::Enum(button));
+	inputManager.injectMouseMove(x, y, 0);
 
 }
 
@@ -343,6 +345,7 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							c->setFontHeight(values[4]);
 							c->setTextColour(MyGUI::Colour(0,0,0));
 							c->setComboModeDrop(true);
+							c->setEnabled(true);
 							c->eventMouseButtonPressed += newDelegate(this, &GUIManager::comboBoxClicked);
 
 							//check for a script

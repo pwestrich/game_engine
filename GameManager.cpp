@@ -16,6 +16,9 @@ using namespace std;
 
 GameManager::GameManager(){
 
+	//init my one variable
+	currentBackgroundMusic = 0;
+
 	//create all the managers
 	logManager 		=	new LogManager(this);
 	renderManager 	= 	new RenderManager(this);
@@ -43,6 +46,7 @@ GameManager::GameManager(){
 	//GameManager stuff
 	lua->registerFunction("playAudioByID", &GameManager::playAudioByID);
 	lua->registerFunction("stopAudioByID", &GameManager::stopAudioByID);
+	lua->registerFunction("setBackgroundMusic", &GameManager::setBackgroundMusic);
 	lua->registerFunction("setVolume", &GameManager::setVolume);
 	lua->registerFunction("logInfo", &GameManager::logInfo);
 	lua->registerFunction("logWarn", &GameManager::logWarn);
@@ -289,6 +293,19 @@ void GameManager::playAudioByID(const uint32_t id, const int numRepeats){
 void GameManager::stopAudioByID(const uint32_t id){
 
 	audioManager->stopAudioByID(id);
+
+}
+
+void GameManager::setBackgroundMusic(const uint32_t id){
+
+	if (currentBackgroundMusic != 0){
+
+		stopAudioByID(currentBackgroundMusic);
+
+	}
+
+	playAudioByID(id, 25);
+	currentBackgroundMusic = id;
 
 }
 

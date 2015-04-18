@@ -8,7 +8,7 @@
 			<camera>
 				<name>BoatCamera</name>
 				<location>-10,15,20</location>
-				<lookAt>0,0,0</lookAt>
+				<lookAt>0,-2,500</lookAt>
 				<clip>1,2000</clip>
 				<viewport>0,0,0,1,1</viewport>
 			</camera>
@@ -82,6 +82,8 @@
 				<type>animation</type>
 				<length>19</length>
 				<animationName>Rock4Animation</animationName>
+				<enabled>true</enabled>
+				<loop>true</loop>
 				<keyFrames>
 					 <key>
                         <time>0.0</time>
@@ -443,7 +445,6 @@
 									<material>PaddleMaterial</material>
 								</entity>
 							</node>
-							
 						</children>
 					</node>
 				</children>
