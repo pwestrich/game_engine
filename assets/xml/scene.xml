@@ -305,12 +305,6 @@
 					<mesh>Island.mesh</mesh>
 					<material>IslandMaterial</material>
 				</entity>
-				<physics>
-					<name>Island</name>
-					<mass>0.0</mass>
-					<shape>plane</shape>
-					<parameters>0,1,0,0</parameters>
-				</physics>
 			</node>
 			<node>
 				<name>MugiwaraNode</name>

@@ -85,7 +85,7 @@ void PhysicsManager::applyTorque(const string &nodeName, const float x, const fl
 	try {
 
 		btRigidBody *body = rigidBodies.at(nodeName);
-		body->applyTorque(btVector3(x, y, z));
+		body->applyTorqueImpulse(btVector3(x, y, z));
 
 	} catch (out_of_range &it){
 
