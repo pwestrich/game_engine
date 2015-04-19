@@ -42,6 +42,8 @@ private:
    //maps mouse clicks
    MouseButton mouseMap(const OIS::MouseButtonID id);
 
+   JoystickButton joystickMap(const int button);
+
 public:
 
 	InputManager(GameManager *gman);

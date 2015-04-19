@@ -16,21 +16,12 @@
 #include "BulletMultiThreaded/SpuNarrowPhaseCollisionTask/SpuGatheringCollisionTask.h"
 
 #define MAX_OUTSTANDING_TASKS	2
+
 //turning on the debug lines seriously slows down the game
 //I don't reccomend it
-#define DEBUG_DRAW	0	//1 is on, 0 is off
+#define DEBUG_DRAW	1	//1 is on, 0 is off
 
 using namespace std;
-
-//helper function to create the solver
-inline btThreadSupportInterface* createSolverThreadSupport(int maxNumThreads){
-
-	Win32ThreadSupport::Win32ThreadConstructionInfo threadConstructionInfo("solver",SolverThreadFunc,SolverlsMemoryFunc,maxNumThreads);
-	Win32ThreadSupport* threadSupport = new Win32ThreadSupport(threadConstructionInfo);
-	threadSupport->startSPU();
-
-	return threadSupport;
-}
 
 PhysicsManager::PhysicsManager(RenderManager *rm){
 
@@ -42,21 +33,20 @@ PhysicsManager::PhysicsManager(RenderManager *rm){
 
 	//set up multithreaded stuff
 	collisionThreadSupport 	= new Win32ThreadSupport(Win32ThreadSupport::Win32ThreadConstructionInfo(
-									"collision",
-									processCollisionTask,
-									createCollisionLocalStoreMemory,
-									MAX_OUTSTANDING_TASKS));
-	solverThreadSupport 	= createSolverThreadSupport(MAX_OUTSTANDING_TASKS);
+									"collision", processCollisionTask,
+									createCollisionLocalStoreMemory, MAX_OUTSTANDING_TASKS));
+	solverThreadSupport 	= new Win32ThreadSupport(Win32ThreadSupport::Win32ThreadConstructionInfo(
+									"solver", SolverThreadFunc, SolverlsMemoryFunc, MAX_OUTSTANDING_TASKS));
 
 	//set up the collision detector
 	btDefaultCollisionConstructionInfo cci;
 	cci.m_defaultMaxPersistentManifoldPoolSize = 32768;
 	collisionConfiguration	= new btDefaultCollisionConfiguration(cci);
-	collisionDispatcher		= new SpuGatheringCollisionDispatcher(collisionThreadSupport, MAX_OUTSTANDING_TASKS ,collisionConfiguration);//btCollisionDispatcher(collisionConfiguration);
+	collisionDispatcher		= new SpuGatheringCollisionDispatcher(collisionThreadSupport, MAX_OUTSTANDING_TASKS ,collisionConfiguration);
 
 	//constaint solver, whatever that is
-	constraintSolver = new btParallelConstraintSolver(solverThreadSupport); //btSequentialImpulseConstraintSolver();
-	
+	constraintSolver = new btParallelConstraintSolver(solverThreadSupport);
+
 	//and the world itself
 	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadphaseInterface, constraintSolver, collisionConfiguration);
 	world->getSimulationIslandManager()->setSplitIslands(false);

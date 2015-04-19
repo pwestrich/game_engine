@@ -7,7 +7,7 @@
 			<camera>
 				<name>BoatCamera</name>
 				<location>0,5,-50</location>
-				<lookAt>0,5,500</lookAt>
+				<lookAt>0,5,1000</lookAt>
 				<clip>1,2000</clip>
 				<viewport>0,0,0,1,1</viewport>
 			</camera>
@@ -294,6 +294,26 @@
 					</node>
 				</children>
 			</node>
+
+			<node>
+				<name>Island</name>
+				<type>scene</type>
+				<translate>0,-4.5,900</translate>
+				<rotate>0,1,0,-90</rotate>
+				<scale>100,120,100</scale>
+				<entity>
+					<name>Island</name>
+					<mesh>Island.mesh</mesh>
+					<material>IslandMaterial</material>
+				</entity>
+				<physics>
+					<name>Island</name>
+					<mass>0.0</mass>
+					<shape>plane</shape>
+					<parameters>0,1,0,0</parameters>
+				</physics>
+			</node>
+
 			<node>
 				<name>MugiwaraNode</name>
 				<type>scene</type>

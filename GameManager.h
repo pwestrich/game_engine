@@ -52,7 +52,7 @@ public:
 	void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button);
 	void mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button);
 
-	void joystickAxisMoved(const JoystickAxis axis, const uint32_t amount);
+	void joystickAxisMoved(const int *axes, const int numAxes);
 	void joystickButtonPressed(const JoystickButton button);
 
 	//InputManager methods

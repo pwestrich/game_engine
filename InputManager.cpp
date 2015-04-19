@@ -229,9 +229,42 @@ bool InputManager::mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id
 }
 
 //joystick listener methods
-bool InputManager::buttonPressed (const OIS::JoyStickEvent &arg, int button){ return true; }
+bool InputManager::buttonPressed (const OIS::JoyStickEvent &arg, int button){ 
+
+	for (size_t i = 0; i < listeners.size(); ++i){
+
+		listeners[i]->joystickButtonPressed(joystickMap(button));
+
+	}
+
+	return true;
+
+}
+
 bool InputManager::buttonReleased (const OIS::JoyStickEvent &arg, int button){ return true; }
-bool InputManager::axisMoved (const OIS::JoyStickEvent &arg, int axis){ return true; }
+
+bool InputManager::axisMoved (const OIS::JoyStickEvent &arg, int axis){
+
+	//this array holds the amount in each direction each axis is
+	int *axes = new int[5];
+
+	axes[0] = arg.state.mAxes[0].abs; //left stick N/S
+	axes[1] = arg.state.mAxes[1].abs; //left stick E/W
+	axes[2] = arg.state.mAxes[2].abs; //right stick N/S
+	axes[3] = arg.state.mAxes[3].abs; //right stick E/W
+	axes[4] = arg.state.mAxes[4].abs; //triggers (left < 0, right > 0)
+
+	//notify each listener
+
+	for (size_t i = 0; i < listeners.size(); ++i){
+
+		listeners[i]->joystickAxisMoved(axes, 5);
+
+	}
+
+	return true;
+
+}
 
 //not common, do nothing here
 bool InputManager::sliderMoved (const OIS::JoyStickEvent &, int index){ return true; }
@@ -313,6 +346,26 @@ MouseButton InputManager::mouseMap(const OIS::MouseButtonID id){
       case 3: return M_BACK;
       case 4: return M_SCROLL;
       default: return M_INVALID;
+
    }
+
+}
+
+JoystickButton InputManager::joystickMap(const int button){
+
+	//I don't know the button's values, so these might need to be edited
+	switch (button) {
+
+		case 1: return JB_1;
+		case 2: return JB_2;
+		case 3: return JB_3;
+		case 4: return JB_4;
+		case 5: return JB_5;
+		case 6: return JB_6;
+		case 7: return JB_7;
+		case 8: return JB_8;
+		default: return JB_INVALID;
+
+	}
 
 }

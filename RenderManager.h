@@ -85,6 +85,9 @@ public:
 	void setLinearVelocity(const string &name, const float x, const float y, const float z);
 	void setAngularVelocity(const string &name, const float x, const float y, const float z);
 
+	void translateCamera(const string &name, const float x, const float y, const float z, const float amount);
+	void rotateCamera(const string &name, const float w, const float x, const float y, const float z);
+
 	//methods to make a manual object
 	void createManualObject(const string &name, const string &materialName);
 	void clearManualObject(const string &name);
@@ -130,7 +133,7 @@ public:
 	void mousePressed(const uint32_t x, const uint32_t y, const MouseButton button);
 	void mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button);
 
-	void joystickAxisMoved(const JoystickAxis axis, const uint32_t amount);
+	void joystickAxisMoved(const int *axes, const int numAxes);
 	void joystickButtonPressed(const JoystickButton button);
 
 	//methods to build the scene

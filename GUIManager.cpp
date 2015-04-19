@@ -155,7 +155,7 @@ void GUIManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseBu
 
 }
 
-void GUIManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount){}
+void GUIManager::joystickAxisMoved(const int *axes, const int numAxes){}
 void GUIManager::joystickButtonPressed(const JoystickButton button){}
 
 //private methods below here ----------------------------------------------------------------------

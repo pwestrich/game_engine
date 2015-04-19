@@ -8,9 +8,9 @@ material OceanMaterial
     {
         pass OceanMaterial
         {
-            ambient 0.00754205696284771 0.022839363664388657 0.7615382671356201 0.784948468208313
-            diffuse 0.00754205696284771 0.022839363664388657 0.7615382671356201 0.784948468208313
-            specular 0.0004420757755631971 0.10763255128037663 0.6396907567977905 0.784948468208313 7.25
+            ambient 0.03250282257795334 0.52303147315979 0.7615382671356201 0.784948468208313
+            diffuse 0.03250282257795334 0.52303147315979 0.7615382671356201 0.784948468208313
+            specular 0.0037984444230526604 0.20764423682036792 0.6396907567977905 0.784948468208313 7.25
             emissive 0.0 0.0 0.0 0.784948468208313
 
             alpha_to_coverage off
@@ -32,7 +32,7 @@ material OceanMaterial
 
             texture_unit 
             {
-                texture bg_calm_ocen_water.jpg
+                texture Water_texture_1380389_Nevit.jpg
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
