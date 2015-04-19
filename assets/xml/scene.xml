@@ -1,4 +1,3 @@
-
 <scenes>
 	<scene>
 		<name>0</name>
@@ -6,9 +5,9 @@
 		<gravity>0,-1,0</gravity>
 		<cameras>
 			<camera>
-				<name>AirCmaera</name>
+				<name>BoatCamera</name>
 				<location>0,5,-50</location>
-				<lookAt>0,5,0</lookAt>
+				<lookAt>0,5,500</lookAt>
 				<clip>1,2000</clip>
 				<viewport>0,0,0,1,1</viewport>
 			</camera>
@@ -33,6 +32,13 @@
 					<mesh>Rock.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
+				<physics>
+					<name>RockNode1</name>
+					<mass>0.0</mass>
+					<shape>hull</shape>
+					<parameters>Rock1</parameters>
+					<translate>0,-2,80</translate>
+				</physics>
 			</node>
 			<node>
 				<name>RockNode2</name>
@@ -44,6 +50,13 @@
 					<mesh>Rock_2.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
+				<physics>
+					<name>RockNode2</name>
+					<mass>0.0</mass>
+					<shape>hull</shape>
+					<parameters>Rock2</parameters>
+					<translate>60,-2,145</translate>
+				</physics>
 			</node>
 			<node>
 				<name>RockNode3</name>
@@ -55,12 +68,21 @@
 					<mesh>Rock_3.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
+				<physics>
+					<name>RockNode3</name>
+					<mass>0.0</mass>
+					<shape>hull</shape>
+					<parameters>Rock3</parameters>
+					<translate>-65,-2,295</translate>
+				</physics>
 			</node>
 			<node>
 				<name>RockAnimation</name>
 				<type>animation</type>
 				<length>19</length>
 				<animationName>Rock4Animation</animationName>
+				<enabled>true</enabled>
+				<loop>true</loop>
 				<keyFrames>
 					 <key>
                         <time>0.0</time>
@@ -282,16 +304,40 @@
 					<mesh>Mugiwara.mesh</mesh>
 					<material>StrawHatMaterial</material>
 				</entity>
+				<physics>
+					<name>MugiwaraNode</name>
+					<shape>box</shape>
+					<mass>0.0</mass>
+					<parameters>8,8,8</parameters>
+				</physics>
+			</node>
+			<node>
+				<name>Ocean</name>
+				<type>scene</type>
+				<translate>0,-4.8,0</translate>
+				<scale>10000,0,10000</scale>
+				<entity>
+					<name>Ocean</name>
+					<mesh>Ocean.mesh</mesh>
+					<material>OceanMaterial</material>
+				</entity>
+				<physics>
+					<name>Ocean</name>
+					<mass>0.0</mass>
+					<shape>plane</shape>
+					<parameters>0,1,0,0</parameters>
+				</physics>
 			</node>
 			<node>
 				<name>MiniMerryTrasnformNode</name>
 				<type>scene</type>
 				<translate>0,0,0</translate>
+				<camera>BoatCamera</camera>
 				<children>
 					<node>
 						<name>BoatNode</name>
 						<type>scene</type>
-						<scale>4,.45,5.5</scale>
+						<scale>3.2,.36,4.35</scale>
 						<translate>0,0,-3</translate>
 						<entity>
 							<name>Boat</name>
@@ -304,7 +350,7 @@
 						<type>scene</type>
 						<translate>0,0,-3.4</translate>
 						<rotate>0,1,0,180</rotate>
-						<scale>.6,.6,.65</scale>
+						<scale>.5,.5,.55</scale>
 						<entity>
 							<name>Engine</name>
 							<mesh>Engine.mesh</mesh>
@@ -314,9 +360,9 @@
 					<node>
 						<name>BackSeatNode</name>
 						<type>scene</type>
-						<translate>0,-3,-.7</translate>
+						<translate>.02,-2.5,-1.8</translate>
 						<rotate>1,0,0,90</rotate>
-						<scale>.4,.39,.52</scale>
+						<scale>.33,.25,.44</scale>
 						<entity>
 							<name>BackSeat</name>
 							<mesh>BackSeat.mesh</mesh>
@@ -326,9 +372,9 @@
 					<node>
 						<name>FrontSeatNode</name>
 						<type>scene</type>
-						<translate>0,-8.68,4</translate>
+						<translate>0,-7.4,2.6</translate>
 						<rotate>1,0,0,90</rotate>
-						<scale>.4,.39,.52</scale>
+						<scale>.31,.25,.44</scale>
 						<entity>
 							<name>FrontSeat</name>
 							<mesh>FrontSeat.mesh</mesh>
@@ -344,9 +390,9 @@
                          	<node>
 								<name>FigureheadNode</name>
 								<type>scene</type>
-								<translate>0,-8.68,4</translate>
-								<rotate>1,0,0,90</rotate>
-								<scale>.4,.41,.3</scale>
+								<translate>0,-1.14,4.06</translate>
+								<rotate>-.0000000309,.707107,-.707107,180</rotate>
+								<scale>.26,.29,.27</scale>
 								<entity>
 									<name>Figurehead</name>
 									<mesh>Figurehead.mesh</mesh>
@@ -363,7 +409,7 @@
                          	<node>
 								<name>RightPaddleCoverNode</name>
 								<type>scene</type>
-								<translate>4.7,-3.6,-3.4</translate>
+								<translate>5.45,-3.6,-3.4</translate>
 								<rotate>0,0,1,-90</rotate>
 								<scale>3.1,3.1,2.6</scale>
 								<entity>
@@ -375,7 +421,7 @@
 							<node>
 								<name>LeftPaddleCoverNode</name>
 								<type>scene</type>
-								<translate>4.1,-3.6,-3.4</translate>
+								<translate>3.35,-3.6,-3.4</translate>
 								<rotate>0,0,1,-90</rotate>
 								<scale>3.1,3.1,2.6</scale>
 								<entity>
@@ -392,25 +438,25 @@
                         <translation>0,0,0</translation>
                         <children>
                          	<node>
-								<name>RightPaddleNode</name>
+								<name>LeftPaddleNode</name>
 								<type>scene</type>
-								<translate>5.9,-3.6,-3.4</translate>
+								<translate>5.2,-3.6,-3.4</translate>
 								<rotate>1,0,0,45</rotate>
 								<scale>1.3,2.5,.3</scale>
 								<entity>
-									<name>RightPaddle</name>
+									<name>LeftPaddle</name>
 									<mesh>Paddle_2.mesh</mesh>
 									<material>PaddleMaterial</material>
 								</entity>
 							</node>
 							<node>
-								<name>LeftPaddleNode</name>
+								<name>RightPaddleNode</name>
 								<type>scene</type>
-								<translate>-19.1,-3.6,-3.4</translate>
+								<translate>-18.5,-3.6,-3.4</translate>
 								<rotate>1,0,0,45</rotate>
 								<scale>1.3,2.5,.3</scale>
 								<entity>
-									<name>LeftPaddle</name>
+									<name>RightPaddle</name>
 									<mesh>Paddle_1.mesh</mesh>
 									<material>PaddleMaterial</material>
 								</entity>

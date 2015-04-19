@@ -7,14 +7,24 @@
 			<position>350,600</position>
 			<size>310,150</size>
 			<layer>Overlapped</layer>
+			<buttons>
+				<button>
+					<name>TestButton</name>
+					<caption>TEST</caption>
+					<position>50,25</position>
+					<skin>Button</skin>
+					<size>150,20</size>
+					<font>100</font>
+				</button>
+			</buttons>
 			<combos>
 				<combo>
 					<name>test</name>
 					<skin>ComboBox</skin>
 					<position>50,50</position>
-					<size>100,20</size>
+					<size>150,20</size>
 					<font>100</font>
-					<selected>1</selected>
+					<selected>0</selected>
 					<script>./assets/lua/comboBox.lua</script>
 					<options>
 						<option>test1</option>

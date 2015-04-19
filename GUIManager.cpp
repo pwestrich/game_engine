@@ -143,6 +143,7 @@ void GUIManager::mousePressed(const uint32_t x, const uint32_t y, const MouseBut
 
 	MyGUI::InputManager& inputManager = MyGUI::Singleton<MyGUI::InputManager>::getInstance();
 	inputManager.injectMousePress(x, y, MyGUI::MouseButton::Enum(button));
+	inputManager.injectMouseMove(x, y, 0);
 
 }
 
@@ -150,6 +151,7 @@ void GUIManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseBu
 
 	MyGUI::InputManager& inputManager = MyGUI::Singleton<MyGUI::InputManager>::getInstance();
 	inputManager.injectMouseRelease(x, y, MyGUI::MouseButton::Enum(button));
+	inputManager.injectMouseMove(x, y, 0);
 
 }
 
@@ -321,10 +323,7 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							parseInts(font, values + 4);
 
 							MyGUI::ComboBox *c = win->createWidget<MyGUI::ComboBox>(skin, values[0], values[1], values[2], values[3], MyGUI::Align::Default, name);
-							c->setFontHeight(values[4]);
-							c->setTextColour(MyGUI::Colour(0,0,0));
-							c->eventMouseButtonPressed += newDelegate(this, &GUIManager::comboBoxClicked);
-
+							
 							TiXmlNode *optionsNode = comboNode->FirstChild("options");
 
 							if (optionsNode){
@@ -343,6 +342,11 @@ void GUIManager::buildGUIFromXML(const string &filename){
 							}
 
 							c->setIndexSelected(atoi(selected.c_str()));
+							c->setFontHeight(values[4]);
+							c->setTextColour(MyGUI::Colour(0,0,0));
+							c->setComboModeDrop(true);
+							c->setEnabled(true);
+							c->eventMouseButtonPressed += newDelegate(this, &GUIManager::comboBoxClicked);
 
 							//check for a script
 							windowElement = static_cast<TiXmlElement*>(comboNode->FirstChild("script"));

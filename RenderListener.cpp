@@ -1,6 +1,4 @@
 
-#include <windows.h>
-
 #include "RenderListener.h"
 #include "RenderManager.h"
 

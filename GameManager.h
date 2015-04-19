@@ -32,6 +32,8 @@ private:
 	AudioManager 	*audioManager;
 	ScriptManager 	*scriptManager;
 
+	uint32_t currentBackgroundMusic;
+
 	//only one copy at a time is allowed
 	GameManager();
 
@@ -90,6 +92,7 @@ public:
 	//methods to tell the AudioManager to do things
 	void playAudioByID(const uint32_t id, const int numRepeats);
 	void stopAudioByID(const uint32_t id);
+	void setBackgroundMusic(const uint32_t id);
 	void playAudio(AudioResourceInfo *info, const int numRepeats, const uint32_t id);
 	void updateAudio(const float timeStep);
 
