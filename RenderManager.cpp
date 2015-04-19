@@ -302,6 +302,40 @@ void RenderManager::setAngularVelocity(const string &name, const float x, const 
 
 }
 
+void RenderManager::translateCamera(const string &name, const float x, const float y, const float z, const float amount){
+
+	try {
+
+		Ogre::Camera *camera = sceneManager->getCamera(name);
+
+		camera->setPosition(camera->getRealPosition() + Vector3(x, y, z));
+
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn("ERROR: Camera not found: " + name);
+
+	}
+
+}
+
+void RenderManager::rotateCamera(const string &name, const float w, const float x, const float y, const float z){
+
+	try {
+
+		Ogre::Camera *camera = sceneManager->getCamera(name);
+
+		camera->rotate(Quaternion(Degree(w), Vector3(x, y, z)));
+
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn("ERROR: Camera not found: " + name);
+
+	}
+
+}
+
 //methods to make a manual object -----------------------------------------------------------------
 void RenderManager::createManualObject(const string &name, const string &materialName){
 
@@ -520,7 +554,7 @@ void RenderManager::mouseReleased(const uint32_t x, const uint32_t y, const Mous
 //not used
 void RenderManager::keyPressed(const KeyboardKey key){}
 void RenderManager::keyReleased(const KeyboardKey key){}
-void RenderManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount) {}
+void RenderManager::joystickAxisMoved(const int *axes, const int numAxes){}
 void RenderManager::joystickButtonPressed(const JoystickButton button){}
 
 //this massive function will build a scene from XML given its filename and a group

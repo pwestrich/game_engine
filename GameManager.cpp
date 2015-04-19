@@ -61,6 +61,10 @@ GameManager::GameManager(){
 	lua->registerFunction("positionNode", &RenderManager::setTranslation);
 	lua->registerFunction("setScale", &RenderManager::setScale);
 
+	//camera stuff
+	lua->registerFunction("translateCamera", &RenderManager::translateCamera);
+	lua->registerFunction("rotateCamera", &RenderManager::rotateCamera);
+
 	//physics stuff
 	lua->registerFunction("applyForce", &RenderManager::applyForce);
 	lua->registerFunction("applyTorque", &RenderManager::applyTorque);
@@ -136,7 +140,7 @@ void GameManager::mousePressed(const uint32_t x, const uint32_t y, const MouseBu
 
 void GameManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){}
 
-void GameManager::joystickAxisMoved(const JoystickAxis axis, const uint32_t amount){}
+void GameManager::joystickAxisMoved(const int *axes, const int numAxes){}
 
 void GameManager::joystickButtonPressed(const JoystickButton button){}
 

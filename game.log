@@ -1,56 +1,56 @@
-2015/04/18 19:10:36: INFO: Creating RenderManager...
-2015/04/18 19:10:36: INFO: RenderManager initialized successfully!
-2015/04/18 19:10:36: INFO: Detecting input devices...
-2015/04/18 19:10:36: INFO: Name: Speakers (VIA High Definition Audio)Driver: {0.0.0.00000000}.{e98aefe8-ebc8-4e07-863e-0c13cd4d44ad}
+2015/04/18 19:42:00: INFO: Creating RenderManager...
+2015/04/18 19:42:01: INFO: RenderManager initialized successfully!
+2015/04/18 19:42:01: INFO: Detecting input devices...
+2015/04/18 19:42:01: INFO: Name: Speakers (Realtek High Definition Audio)Driver: {0.0.0.00000000}.{ea029ff1-0b71-4d3f-9593-c3a598b7168e}
 
-2015/04/18 19:10:36: INFO: AudioManager initialized successfully!
-2015/04/18 19:10:36: INFO: Loading resources...
-2015/04/18 19:10:36: INFO: Loading PathResource
-2015/04/18 19:10:36: INFO: Loading PathResource
-2015/04/18 19:10:36: INFO: Loading PathResource
-2015/04/18 19:10:36: INFO: Loading PathResource
-2015/04/18 19:10:36: INFO: Loading PathResource
-2015/04/18 19:10:36: INFO: Loading PathResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading MeshResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Loading AudioResource
-2015/04/18 19:10:36: INFO: Initalizing Ogre resource group...
-2015/04/18 19:10:36: INFO: Loading Ogre resources...
-2015/04/18 19:10:43: INFO: Resources loaded!
-2015/04/18 19:10:43: INFO: Building scene...
-2015/04/18 19:10:43: INFO: Creating rigid body: RockNode1
-2015/04/18 19:10:43: INFO: Creating rigid body: RockNode2
-2015/04/18 19:10:43: INFO: Creating rigid body: RockNode3
-2015/04/18 19:10:43: INFO: Creating rigid body: MugiwaraNode
-2015/04/18 19:10:43: INFO: Creating rigid body: Ocean
-2015/04/18 19:10:43: INFO: Loading GUI...
-2015/04/18 19:10:44: INFO: Building GUI...
-2015/04/18 19:10:44: INFO: GUI built.
-2015/04/18 19:10:44: INFO: Scene built successfully!
-2015/04/18 19:10:44: INFO: Starting renderer...
-2015/04/18 19:10:49: INFO: Stopping render process...
-2015/04/18 19:10:49: INFO: Stopped.
-2015/04/18 19:10:49: INFO: Exiting program...
+2015/04/18 19:42:01: INFO: AudioManager initialized successfully!
+2015/04/18 19:42:01: INFO: Loading resources...
+2015/04/18 19:42:01: INFO: Loading PathResource
+2015/04/18 19:42:01: INFO: Loading PathResource
+2015/04/18 19:42:01: INFO: Loading PathResource
+2015/04/18 19:42:01: INFO: Loading PathResource
+2015/04/18 19:42:01: INFO: Loading PathResource
+2015/04/18 19:42:01: INFO: Loading PathResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading MeshResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Loading AudioResource
+2015/04/18 19:42:01: INFO: Initalizing Ogre resource group...
+2015/04/18 19:42:01: INFO: Loading Ogre resources...
+2015/04/18 19:42:07: INFO: Resources loaded!
+2015/04/18 19:42:07: INFO: Building scene...
+2015/04/18 19:42:07: INFO: Creating rigid body: RockNode1
+2015/04/18 19:42:07: INFO: Creating rigid body: RockNode2
+2015/04/18 19:42:07: INFO: Creating rigid body: RockNode3
+2015/04/18 19:42:07: INFO: Creating rigid body: MugiwaraNode
+2015/04/18 19:42:07: INFO: Creating rigid body: Ocean
+2015/04/18 19:42:07: INFO: Loading GUI...
+2015/04/18 19:42:07: INFO: Building GUI...
+2015/04/18 19:42:07: INFO: GUI built.
+2015/04/18 19:42:07: INFO: Scene built successfully!
+2015/04/18 19:42:07: INFO: Starting renderer...
+2015/04/18 19:42:11: INFO: Stopping render process...
+2015/04/18 19:42:11: INFO: Stopped.
+2015/04/18 19:42:11: INFO: Exiting program...
