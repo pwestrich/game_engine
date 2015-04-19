@@ -32,13 +32,13 @@
 					<mesh>Rock.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
-				<physics>
+				<!--<physics>
 					<name>RockNode1</name>
 					<mass>0.0</mass>
 					<shape>hull</shape>
 					<parameters>Rock1</parameters>
 					<translate>0,-2,80</translate>
-				</physics>
+				</physics>-->
 			</node>
 			<node>
 				<name>RockNode2</name>
@@ -50,13 +50,13 @@
 					<mesh>Rock_2.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
-				<physics>
+				<!--<physics>
 					<name>RockNode2</name>
 					<mass>0.0</mass>
 					<shape>hull</shape>
 					<parameters>Rock2</parameters>
 					<translate>60,-2,145</translate>
-				</physics>
+				</physics>-->
 			</node>
 			<node>
 				<name>RockNode3</name>
@@ -68,13 +68,13 @@
 					<mesh>Rock_3.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
-				<physics>
+				<!--<physics>
 					<name>RockNode3</name>
 					<mass>0.0</mass>
 					<shape>hull</shape>
 					<parameters>Rock3</parameters>
 					<translate>-65,-2,295</translate>
-				</physics>
+				</physics>-->
 			</node>
 			<node>
 				<name>RockAnimation</name>
@@ -294,7 +294,6 @@
 					</node>
 				</children>
 			</node>
-
 			<node>
 				<name>Island</name>
 				<type>scene</type>
@@ -313,7 +312,6 @@
 					<parameters>0,1,0,0</parameters>
 				</physics>
 			</node>
-
 			<node>
 				<name>MugiwaraNode</name>
 				<type>scene</type>
@@ -324,12 +322,6 @@
 					<mesh>Mugiwara.mesh</mesh>
 					<material>StrawHatMaterial</material>
 				</entity>
-				<physics>
-					<name>MugiwaraNode</name>
-					<shape>box</shape>
-					<mass>0.0</mass>
-					<parameters>8,8,8</parameters>
-				</physics>
 			</node>
 			<node>
 				<name>Ocean</name>
@@ -345,7 +337,7 @@
 					<name>Ocean</name>
 					<mass>0.0</mass>
 					<shape>plane</shape>
-					<parameters>0,1,0,0</parameters>
+					<parameters>0,1,0,-3</parameters>
 				</physics>
 			</node>
 			<node>
@@ -353,6 +345,12 @@
 				<type>scene</type>
 				<translate>0,0,0</translate>
 				<camera>BoatCamera</camera>
+				<physics>
+					<name>MiniMerryTrasnformNode</name>
+					<shape>box</shape>
+					<mass>1.0</mass>
+					<parameters>8,8,8</parameters>
+				</physics>
 				<children>
 					<node>
 						<name>BoatNode</name>
@@ -481,7 +479,6 @@
 									<material>PaddleMaterial</material>
 								</entity>
 							</node>
-							
 						</children>
 					</node>
 				</children>

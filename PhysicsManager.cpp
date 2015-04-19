@@ -51,7 +51,7 @@ PhysicsManager::PhysicsManager(RenderManager *rm){
 	world = new btDiscreteDynamicsWorld(collisionDispatcher, broadphaseInterface, constraintSolver, collisionConfiguration);
 	world->getSimulationIslandManager()->setSplitIslands(false);
 	world->getSolverInfo().m_numIterations = 4;
-	world->getSolverInfo().m_solverMode = SOLVER_SIMD+SOLVER_USE_WARMSTARTING;//+SOLVER_RANDMIZE_ORDER;
+	world->getSolverInfo().m_solverMode = SOLVER_SIMD + SOLVER_USE_WARMSTARTING;//+SOLVER_RANDMIZE_ORDER;
 	world->getDispatchInfo().m_enableSPU = true;
 
 	//create debug grawer
@@ -142,6 +142,7 @@ void PhysicsManager::setAngularVelocity(const string &nodeName, const float x, c
 
 void PhysicsManager::updatePhysics(const float timeStep){
 
+	updateRigidBodies();
 	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
 	world->debugDrawWorld();
 	updateRigidBodies();

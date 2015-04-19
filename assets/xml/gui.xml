@@ -4,25 +4,71 @@
 			<name>controlWindow</name>
 			<caption>Mini Merry Adventures</caption>
 			<skin>WindowC</skin>
-			<position>350,600</position>
-			<size>310,150</size>
+			<position>360,600</position>
+			<size>310,160</size>
 			<layer>Overlapped</layer>
 			<buttons>
 				<button>
-					<name>TestButton</name>
-					<caption>TEST</caption>
-					<position>50,25</position>
+					<name>forward</name>
+					<caption>Forward</caption>
+					<position>10,10</position>
 					<skin>Button</skin>
-					<size>150,20</size>
+					<size>60,25</size>
 					<font>100</font>
+					<script>./assets/lua/buttonForward.lua</script>
+				</button>
+				<button>
+					<name>reverse</name>
+					<caption>Reverse</caption>
+					<position>80,10</position>
+					<skin>Button</skin>
+					<size>60,25</size>
+					<font>100</font>
+					<script>./assets/lua/buttonReverse.lua</script>
+				</button>
+				<button>
+					<name>left</name>
+					<caption>Left</caption>
+					<position>10,45</position>
+					<skin>Button</skin>
+					<size>60,25</size>
+					<font>100</font>
+					<script>./assets/lua/buttonLeft.lua</script>
+				</button>
+				<button>
+					<name>right</name>
+					<caption>Right</caption>
+					<position>80,45</position>
+					<skin>Button</skin>
+					<size>60,25</size>
+					<font>100</font>
+					<script>./assets/lua/buttonRight.lua</script>
+				</button>
+				<button>
+					<name>rotateLeft</name>
+					<caption>Rotate Left</caption>
+					<position>10,80</position>
+					<skin>Button</skin>
+					<size>60,25</size>
+					<font>100</font>
+					<script>./assets/lua/buttonRotateLeft.lua</script>
+				</button>
+				<button>
+					<name>rotateRight</name>
+					<caption>Rotate Right</caption>
+					<position>80,80</position>
+					<skin>Button</skin>
+					<size>60,25</size>
+					<font>100</font>
+					<script>./assets/lua/buttonRotateRight.lua</script>
 				</button>
 			</buttons>
-			<combos>
+			<!--<combos>
 				<combo>
 					<name>test</name>
 					<skin>ComboBox</skin>
-					<position>50,50</position>
-					<size>150,20</size>
+					<position>60,60</position>
+					<size>160,20</size>
 					<font>100</font>
 					<selected>0</selected>
 					<script>./assets/lua/comboBox.lua</script>
@@ -32,7 +78,7 @@
 						<option>test3></option>
 					</options>
 				</combo>
-			</combos>
+			</combos>-->
 		</window>
 	</windows>
 </gui>
