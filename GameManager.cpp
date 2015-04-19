@@ -302,7 +302,7 @@ void GameManager::stopAudioByID(const uint32_t id){
 
 void GameManager::setBackgroundMusic(const uint32_t id){
 
-	if (currentBackgroundMusic != 0){
+	if (currentBackgroundMusic != 0 && id != currentBackgroundMusic){
 
 		stopAudioByID(currentBackgroundMusic);
 
