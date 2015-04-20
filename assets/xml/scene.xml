@@ -309,8 +309,8 @@
 			<node>
 				<name>MugiwaraNode</name>
 				<type>scene</type>
-				<translate>-2.2,15,12</translate>
-				<scale>.8,1,.8</scale>
+				<translate>-1,4.7,771</translate>
+				<scale>.3,.4,.3</scale>
 				<entity>
 					<name>Mugiwara</name>
 					<mesh>Mugiwara.mesh</mesh>
@@ -323,6 +323,50 @@
 					<parameters>Mugiwara</parameters>
 					<translate>-6.5,13,0</translate>
 				</physics>
+			</node>
+			<node>
+				<name>TableNode</name>
+				<type>scene</type>
+				<translate>0,5,770</translate>
+				<scale>1.2,1.2,1.2</scale>
+				<entity>
+					<name>Table</name>
+					<mesh>RobinsTable.mesh</mesh>
+					<material>WhiteWood</material>
+				</entity>
+			</node>
+			<node>
+				<name>AcesSakeCupNode</name>
+				<type>scene</type>
+				<translate>.5,5.27,769.5</translate>
+				<scale>.05,.05,.05</scale>
+				<entity>
+					<name>AcesSakeCup</name>
+					<mesh>RedSakeCup.mesh</mesh>
+					<material>SakeCupMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>SabosSakeCupNode</name>
+				<type>scene</type>
+				<translate>0,5.27,769.5</translate>
+				<scale>.05,.05,.05</scale>
+				<entity>
+					<name>SabosSakeCup</name>
+					<mesh>RedSakeCup.mesh</mesh>
+					<material>SakeCupMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>LuffysSakeCupNode</name>
+				<type>scene</type>
+				<translate>-.5,5.27,769.5</translate>
+				<scale>.05,.05,.05</scale>
+				<entity>
+					<name>LuffysSakeCup</name>
+					<mesh>RedSakeCup.mesh</mesh>
+					<material>SakeCupMaterial</material>
+				</entity>
 			</node>
 			<node>
 				<name>Ocean</name>
