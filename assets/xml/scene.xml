@@ -312,6 +312,13 @@
 					<mesh>Island.mesh</mesh>
 					<material>IslandMaterial</material>
 				</entity>
+				<physics>
+					<name>Island</name>
+					<mass>0.0</mass>
+					<shape>hull</shape>
+					<parameters>Island</parameters>
+					<translate>0,-4.5,900</translate>
+				</physics>
 			</node>
 			<node>
 				<name>MugiwaraNode</name>
