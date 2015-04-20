@@ -130,6 +130,7 @@ void RenderManager::rotateNode(const string &nodeName, const float w, const floa
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
 		node->rotate(Quaternion(Degree(w), Vector3(x, y, z)));
+		cerr << "roatating: " << nodeName << ": " << w << ", " << x << ", " << y << ", " << z << endl;
 
 	} catch (Ogre::Exception &it){
 
@@ -145,6 +146,7 @@ void RenderManager::translateNode(const string &nodeName, const float x, const f
 
 		SceneNode *node = sceneManager->getSceneNode(nodeName);
 		node->translate(Vector3(x, y, z));
+		cerr << "translating: " << nodeName << ": " << x << ", " << y << ", " << z << endl;
 
 	} catch (Ogre::Exception &it){
 
