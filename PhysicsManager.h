@@ -69,7 +69,6 @@ public:
 	void createRigidBox(const string &nodeName, const float mass, const float x, const float y, const float z);
 	void createRigidCylinderX(const string &nodeName, const float mass, const float x, const float y, const float z);
 	void createRigidHull(const string &nodeName, const float mass, BulletConvexHullCreator *hull);
-	void createRigidPlane(const string &nodeName, const float mass, const float x, const float y, const float z, const float planeConstant);
 
 };
 

@@ -19,7 +19,7 @@
 
 //turning on the debug lines seriously slows down the game
 //I don't reccomend it
-#define DEBUG_DRAW	1	//1 is on, 0 is off
+#define DEBUG_DRAW	0	//1 is on, 0 is off
 
 using namespace std;
 
@@ -143,7 +143,7 @@ void PhysicsManager::setAngularVelocity(const string &nodeName, const float x, c
 void PhysicsManager::updatePhysics(const float timeStep){
 
 	//getWorldTransform();	//get any scene changes that may have happened since last tick
-	world->stepSimulation(btScalar(timeStep), btScalar(60.0));
+	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
 	world->debugDrawWorld();
 	setWorldTransform(); 	//set the results of the physics calculations
 
@@ -209,13 +209,6 @@ void PhysicsManager::createRigidHull(const string &nodeName, const float mass, B
 	assert(hull != NULL);
 
 	createRigidBody(nodeName, hull->getShape(), mass);
-
-}
-
-void PhysicsManager::createRigidPlane(const string &nodeName, const float mass, const float x, const float y, const float z, const float planeConstant){
-
-	btCollisionShape *shape = new btStaticPlaneShape(btVector3(x, y, z), btScalar(planeConstant));
-	createRigidBody(nodeName, shape, mass);
 
 }
 

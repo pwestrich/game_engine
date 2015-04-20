@@ -26,13 +26,10 @@ void BulletMotionState::getWorldTransform(btTransform &worldTrans) const {
 
 void BulletMotionState::setWorldTransform(const btTransform &worldTrans){
 
-	transform = worldTrans;
+	transform = worldTrans; //THIS ONE LINE
 
 	btQuaternion rotation = transform.getRotation();
 	btVector3 position = transform.getOrigin();
-
-	cerr << "rotation: " << rotation.w() << ", " << rotation.x() << ", " << rotation.y() << ", " << rotation.z() << endl;
-	cerr << "position: " << position.x() << ", " << position.y() << ", " << position.z() << endl;
 
 	renderManager->setRotation(sceneNodeName, rotation.w(), rotation.x(), rotation.y(), rotation.z());
 	renderManager->setTranslation(sceneNodeName, position.x(), position.y(), position.z());
