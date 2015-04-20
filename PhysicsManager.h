@@ -32,7 +32,7 @@ private:
 	btBroadphaseInterface 				*broadphaseInterface;
 	btDefaultCollisionConfiguration 	*collisionConfiguration;
 	btCollisionDispatcher 				*collisionDispatcher;
-	btSequentialImpulseConstraintSolver *constraintSolver; //btParallelConstraintSolver btSequentialImpulseConstraintSolver
+	btSequentialImpulseConstraintSolver *constraintSolver;
 	btDiscreteDynamicsWorld 			*world;
 
 	//stuff for the multithreadedness
@@ -52,7 +52,8 @@ public:
 
 	//methods to update the world
 	void updatePhysics(const float timeStep);
-	void updateRigidBodies();
+	void getWorldTransform();
+	void setWorldTransform();
 
 	//methods to change the world's parameters
 	void setGravity(const float x, const float y, const float z);

@@ -19,7 +19,7 @@
 
 //turning on the debug lines seriously slows down the game
 //I don't reccomend it
-#define DEBUG_DRAW	0	//1 is on, 0 is off
+#define DEBUG_DRAW	1	//1 is on, 0 is off
 
 using namespace std;
 
@@ -142,14 +142,30 @@ void PhysicsManager::setAngularVelocity(const string &nodeName, const float x, c
 
 void PhysicsManager::updatePhysics(const float timeStep){
 
-	updateRigidBodies();
-	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
+	//getWorldTransform();	//get any scene changes that may have happened since last tick
+	world->stepSimulation(btScalar(timeStep), btScalar(60.0));
 	world->debugDrawWorld();
-	updateRigidBodies();
+	setWorldTransform(); 	//set the results of the physics calculations
 
 }
 
-void PhysicsManager::updateRigidBodies(){
+void PhysicsManager::getWorldTransform(){
+
+	btAlignedObjectArray<btCollisionObject*> bodies = world->getCollisionObjectArray();
+
+	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){	
+
+		btRigidBody *body = btRigidBody::upcast(bodies[i]);
+		body->activate(true);
+		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
+
+		motionState->getCurrentTransform();
+
+	}
+
+
+}
+void PhysicsManager::setWorldTransform(){
 
 	btAlignedObjectArray<btCollisionObject*> bodies = world->getCollisionObjectArray();
 
@@ -160,7 +176,6 @@ void PhysicsManager::updateRigidBodies(){
 		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
 
 		btTransform currentTransform;
-		motionState->getCurrentTransform();
 		motionState->getWorldTransform(currentTransform);
 		body->setWorldTransform(currentTransform);
 

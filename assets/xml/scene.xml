@@ -32,13 +32,13 @@
 					<mesh>Rock.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
-				<physics>
+				<!--<physics>
 					<name>RockNode1</name>
 					<mass>0.0</mass>
 					<shape>hull</shape>
 					<parameters>Rock1</parameters>
 					<translate>0,-2,80</translate>
-				</physics>
+				</physics>-->
 			</node>
 			<node>
 				<name>RockNode2</name>
@@ -50,13 +50,13 @@
 					<mesh>Rock_2.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
-				<physics>
+				<!--<physics>
 					<name>RockNode2</name>
 					<mass>0.0</mass>
 					<shape>hull</shape>
 					<parameters>Rock2</parameters>
 					<translate>60,-2,145</translate>
-				</physics>
+				</physics>-->
 			</node>
 			<node>
 				<name>RockNode3</name>
@@ -68,13 +68,13 @@
 					<mesh>Rock_3.mesh</mesh>
 					<material>RockMaterial</material>
 				</entity>
-				<physics>
+				<!--<physics>
 					<name>RockNode3</name>
 					<mass>0.0</mass>
 					<shape>hull</shape>
 					<parameters>Rock3</parameters>
 					<translate>-65,-2,295</translate>
-				</physics>
+				</physics>-->
 			</node>
 			<node>
 				<name>RockAnimation</name>
@@ -316,13 +316,13 @@
 					<mesh>Mugiwara.mesh</mesh>
 					<material>StrawHatMaterial</material>
 				</entity>
-				<physics>
+				<!--<physics>
 					<name>MugiwaraNode</name>
 					<mass>0.10</mass>
 					<shape>hull</shape>
 					<parameters>Mugiwara</parameters>
 					<translate>-6.5,13,0</translate>
-				</physics>
+				</physics>-->
 			</node>
 			<node>
 				<name>TableNode</name>
@@ -393,7 +393,7 @@
 				<physics>
 					<name>MiniMerryTrasnformNode</name>
 					<shape>box</shape>
-					<mass>1.0</mass>
+					<mass>10.0</mass>
 					<parameters>8,8,8</parameters>
 				</physics>
 				<children>
