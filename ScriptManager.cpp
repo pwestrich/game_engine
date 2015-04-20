@@ -12,12 +12,6 @@
 
 using namespace std;
 
-void stuff(){
-
-	cerr << "worked" << endl;
-
-}
-
 ScriptManager::ScriptManager(GameManager *gm){
 
 	assert(gm != NULL);
