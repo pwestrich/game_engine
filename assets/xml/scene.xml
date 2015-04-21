@@ -400,6 +400,38 @@
 				</physics>
 			</node>
 			<node>
+				<name>Cannonball1</name>
+				<type>scene</type>
+				<translate>3,10,5</translate>
+				<entity>
+					<name>Cannonball</name>
+					<mesh>Cannonball.mesh</mesh>
+					<material>CannonballMaterial</material>
+				</entity>
+				<physics>
+					<name>Cannonball1</name>
+					<mass>5.0</mass>
+					<shape>sphere</shape>
+					<parameters>1</parameters>
+				</physics>
+			</node>
+			<node>
+				<name>Cannonball2</name>
+				<type>scene</type>
+				<translate>10,10,0</translate>
+				<entity>
+					<name>Cannonball2</name>
+					<mesh>Cannonball.mesh</mesh>
+					<material>CannonballMaterial</material>
+				</entity>
+				<physics>
+					<name>Cannonball2</name>
+					<mass>5.0</mass>
+					<shape>sphere</shape>
+					<parameters>1</parameters>
+				</physics>
+			</node>
+			<node>
 				<name>MiniMerryTrasnformNode</name>
 				<type>scene</type>
 				<translate>0,0,0</translate>

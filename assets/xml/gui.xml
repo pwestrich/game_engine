@@ -117,7 +117,7 @@
 					<font>100</font>
 					<script>./assets/lua/buttonRight.lua</script>
 				</button>
-				<button>
+				<!--<button>
 					<name>rotateLeft</name>
 					<caption>Rotate Left</caption>
 					<position>10,80</position>
@@ -134,7 +134,7 @@
 					<size>60,25</size>
 					<font>100</font>
 					<script>./assets/lua/buttonRotateRight.lua</script>
-				</button>
+				</button>-->
 			</buttons>
 			<!--<combos>
 				<combo>
