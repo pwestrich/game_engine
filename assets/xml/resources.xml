@@ -100,6 +100,10 @@
 				<name>RobinsTable.mesh</name>
 				<id>34</id>
 			</mesh>
+			<mesh>
+				<name>PalmTree.mesh</name>
+				<id>35</id>
+			</mesh>
 		</meshes>
 		<audios>
 			<audio>
