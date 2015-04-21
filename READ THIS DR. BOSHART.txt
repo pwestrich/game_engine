@@ -2,21 +2,41 @@
 Dr. Boshart,
 
 My game is in the same place: https://github.com/pwestrich/game_engine.
-This time, use version 0.3. It should compile just the same as the last did.
+This time, use version 0.4. It should compile just the same as the last did.
 
-Like I said the other day, the controls are now in the GUI, and should be easy enough
-to figure out. 
-In the left GUI, the wheels are turned by the bottom left to right scroll bar, and the 
-truck is moved by the left bar. Down is forward, up is backwards. Don't ask me why.
-The three other buttons will stop the truck, straighten the wheels, and sound the horn.
+Things added this time:
 
-The right GUI controls the camera. It doesn't work how I want it to, but it's close enough.
-The X scroll bar rotates the camera up and down. The Y bar does left to right. There is a 
-button to reset the cameara's position and direction too. The camera can be moved in the world 
-by using WASD, LSHIFT and SPACE like in the last assignment too.
+	* Heather and her models! (she's my partner now)
+	* Physics! (finally fixed it)
+	* Applying forces to things rather than teleporting them short distances!
+	* Lots of scripting! (plan on even more later)
+	* Multithreaded physics!
+	* Convex hulls!
 
-There is one special sound effect for you to find. I made it myself, just for you. 
-Here's a hint: it's a keyboard button that's also the average grade you give on exams.
+Turns out I was missing the part where I saved the new world transform. Whoops.
+Falling though the world was fixed by making the ground substantially thicker.
+
+You'll need all of the BulletMultithreaded libraries built and in your paths, libs, and 
+include directories. If you have trouble building them, let me know.
+
+You will run into a compiler bug of sorts. When building, the compiler will complain about
+an _hypot() function in <math.h>. Simply remove the underscore from the function on the 
+line it is complaining about, and that should fix it.
+
+All input is performed by scripts that can be changed while the game is running. Makes for
+a lot less compiling. As it stands, I believe all of the game content is completley seperate 
+from the engine. Next, I plan on working on functions that return values (ran out of time
+for that this time around) so that I can make scripts do much more complex things. Should 
+make AI interesting.
+
+Controls need some work; that'll be part of what we do for next assignment, since the 
+majority of our time was spent moving all of Heather's models (she made a lot of them)
+over to my project and fixing physics.
+
+The game will take a while to load; it tkaes time calculating all those convex hulls. I'll 
+consider saving them to disk in the future, or maybe actually using the btComplexShape next
+time. You said my convex hulls would count as a complex shape, so you better not skimp out 
+on the points!
 
 If you have any trouble building or running it, let me know. I'll lend you my flash drive.
 
