@@ -392,12 +392,6 @@
 					<mesh>Ocean.mesh</mesh>
 					<material>OceanMaterial</material>
 				</entity>
-				<!--<physics>
-					<name>Ocean</name>
-					<mass>0.0</mass>
-					<shape>plane</shape>
-					<parameters>0,1,0,-3</parameters>
-				</physics>-->
 				<physics>
 					<name>Ocean</name>
 					<mass>0.0</mass>
@@ -413,7 +407,7 @@
 				<physics>
 					<name>MiniMerryTrasnformNode</name>
 					<shape>box</shape>
-					<mass>100.0</mass>
+					<mass>2000.0</mass>
 					<parameters>8,8,8</parameters>
 				</physics>
 				<children>

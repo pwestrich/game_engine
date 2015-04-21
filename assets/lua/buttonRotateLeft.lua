@@ -1,2 +1,2 @@
 
-Scene:applyTorque("MiniMerryTrasnformNode", 0, -100000, 0)
+Scene:applyTorque("MiniMerryTrasnformNode", 0, -99999, 0)

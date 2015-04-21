@@ -1,2 +1,2 @@
 
-Scene:applyForce("MiniMerryTrasnformNode", 0, 0, -1000)
+Scene:applyForce("MiniMerryTrasnformNode", 0, 0, -99999)
