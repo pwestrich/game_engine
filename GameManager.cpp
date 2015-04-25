@@ -8,6 +8,7 @@
 #include "GameResource.h"
 #include "AudioResource.h"
 #include "ScriptManager.h"
+#include "NetworkManager.h"
 
 //I'm not happy with this, but it's what I have to do
 #include "LuaContext.hpp"
@@ -20,12 +21,13 @@ GameManager::GameManager(){
 	currentBackgroundMusic = 0;
 
 	//create all the managers
-	logManager 		=	new LogManager(this);
-	renderManager 	= 	new RenderManager(this);
-	resourceManager = 	new ResourceManager(this);
-	inputManager 	= 	new InputManager(this);
-	audioManager 	= 	new AudioManager(this);
-	scriptManager 	= 	new ScriptManager(this);
+	logManager 		= new LogManager(this);
+	renderManager 	= new RenderManager(this);
+	resourceManager = new ResourceManager(this);
+	inputManager 	= new InputManager(this);
+	audioManager 	= new AudioManager(this);
+	scriptManager 	= new ScriptManager(this);
+	networkManager 	= new NetworkManager(this, "localhost", 12345); //use command line args later?
 
 	//set input listeners
 	inputManager->addListener(this);
@@ -83,6 +85,7 @@ GameManager::GameManager(){
 GameManager::~GameManager(){
 
 	//delete everything in the opposite order they were delcared
+	delete networkManager;
 	delete scriptManager;
 	delete inputManager;
 	delete resourceManager;

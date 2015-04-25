@@ -17,6 +17,7 @@ class InputManager;
 class AudioManager;
 class GameResource;
 class ScriptManager;
+class NetworkManager;
 
 struct AudioResourceInfo;
 
@@ -31,6 +32,7 @@ private:
 	InputManager 	*inputManager;
 	AudioManager 	*audioManager;
 	ScriptManager 	*scriptManager;
+	NetworkManager 	*networkManager;
 
 	uint32_t currentBackgroundMusic;
 

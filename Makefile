@@ -1,21 +1,21 @@
 ﻿AutomatedMakefile = am
 CC = g++ -std=c++11
 
-GAME_PATH=/$(GAME_DRIVE_LETTER)/game_engine-heather
+GAME_PATH=./
 
-INC_DIRS=-I./ -I$(GAME_DRIVE_LETTER)/Ogre/include/ -I$(GAME_DRIVE_LETTER)/boost/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/OIS -I$(GAME_DRIVE_LETTER)/bullet_physics_2.82/include -I$(GAME_PATH)
+INC_DIRS=-I./ -I$(GAME_DRIVE_LETTER)/Ogre/include/ -I$(GAME_DRIVE_LETTER)/boost/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/OIS -I$(GAME_PATH)
 LIB_DIRS=-L./ -L$(GAME_DRIVE_LETTER)/Ogre/lib/ -L$(GAME_DRIVE_LETTER)/boost/lib/ -L$(GAME_DRIVE_LETTER)/Ogre/ogredeps/lib/
-LIBS=-lboost_system-mgw48-mt-1_57 -lboost_chrono-mgw48-1_57 -lboost_thread-mgw48-mt-1_57 -ltinyxml -lOIS -lbass -llua -lMyGUI.OgrePlatform -lMyGUIEngine -lOgreMain -lBulletMultiThreaded -lBulletDynamics -lBulletCollision -lLinearMath -lfreetype
+LIBS=-lboost_system-mgw48-mt-1_57 -lboost_chrono-mgw48-1_57 -lboost_thread-mgw48-mt-1_57 -ltinyxml -lOIS -lbass -llua -lMyGUI.OgrePlatform -lMyGUIEngine -lOgreMain -lBulletMultiThreaded -lBulletDynamics -lBulletCollision -lLinearMath -lPocoNet -lPocoFoundation -lWS2_32 -lfreetype
 
 COMPILE = $(CC) $(INC_DIRS) -g -O3 -c 
 LINK = $(CC) $(LIB_DIRS) -g -O3 -o
 RM = del
 
-GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h GameResource.h PathResource.h MeshResource.h AudioResource.h GUIManager.h ScriptManager.h PhysicsManager.h BulletMotionState.h BulletDebugDrawer.h BulletConvexHullCreator.h
-GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp AudioPlayer.cpp GameResource.cpp PathResource.cpp MeshResource.cpp AudioResource.cpp GUIManager.cpp ScriptManager.cpp PhysicsManager.cpp BulletMotionState.cpp BulletDebugDrawer.cpp BulletConvexHullCreator.cpp
-GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o AudioPlayer.o GameResource.o PathResource.o MeshResource.o AudioResource.o GUIManager.o ScriptManager.o PhysicsManager.o BulletMotionState.o BulletDebugDrawer.o BulletConvexHullCreator.o
+GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h GameResource.h PathResource.h MeshResource.h AudioResource.h GUIManager.h ScriptManager.h PhysicsManager.h BulletMotionState.h BulletDebugDrawer.h BulletConvexHullCreator.h NetworkManager.h
+GAME_SOURCE = main.cpp GameManager.cpp RenderManager.cpp utilities.cpp RenderListener.cpp LogManager.cpp ResourceManager.cpp InputManager.cpp AudioManager.cpp AudioPlayer.cpp GameResource.cpp PathResource.cpp MeshResource.cpp AudioResource.cpp GUIManager.cpp ScriptManager.cpp PhysicsManager.cpp BulletMotionState.cpp BulletDebugDrawer.cpp BulletConvexHullCreator.cpp NetworkManager.cpp
+GAME_OBJ = main.o GameManager.o RenderManager.o utilities.o RenderListener.o LogManager.o ResourceManager.o InputManager.o AudioManager.o AudioPlayer.o GameResource.o PathResource.o MeshResource.o AudioResource.o GUIManager.o ScriptManager.o PhysicsManager.o BulletMotionState.o BulletDebugDrawer.o BulletConvexHullCreator.o NetworkManager.o
 
-.PHONY: run_quat run_game all clean
+.PHONY: run_quat run all clean
 
 all: link_game
 
@@ -23,7 +23,7 @@ clean:
 
 	$(RM) $(GAME_OBJ) game.exe
 
-run_game: link_game
+run: link_game
 
 	./game.exe
 
@@ -106,6 +106,10 @@ BulletDebugDrawer.o: BulletDebugDrawer.cpp $(GAME_HEADER)
 BulletConvexHullCreator.o: BulletConvexHullCreator.cpp $(GAME_HEADER)
 
 	$(COMPILE) BulletConvexHullCreator.cpp
+
+NetworkManager.o: NetworkManager.cpp $(GAME_HEADER)
+
+	$(COMPILE) NetworkManager.cpp
 
 utilities.o: utilities.cpp utilities.h
 
