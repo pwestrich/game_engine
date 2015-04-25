@@ -36,7 +36,16 @@ NetworkManager::NetworkManager(GameManager *gm, const string &_serverAddress, co
 
 	//set up the network connection
 	address = new Poco::Net::SocketAddress(serverAddress, serverPort);
-	socket = new Poco::Net::StreamSocket(*address);
+
+	try {
+
+		socket = new Poco::Net::StreamSocket(*address);
+
+	} catch (...){
+
+		gameManager->logFatal("Could not make a connection to the server.", __LINE__, __FILE__);
+
+	}
 
 	//set up data sender and getter
 	getter = new DataGetThread(this);
