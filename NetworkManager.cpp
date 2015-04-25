@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include "GameManager.h"
 #include "NetworkManager.h"
 
@@ -29,6 +31,13 @@ NetworkManager::NetworkManager(GameManager *gm, const string &_serverAddress, co
 	sendBufferLength = 0;
 	receiveBufferLength = 0;
 
+	//set up the network connection
+	address = new Poco::Net::SocketAddress(serverAddress, serverPort);
+	socket = new Poco::Net::StreamSocket(*address);
+
+	//start listening
+	thread = new Poco::Thread("Network Thread");
+	thread->start(*this);
 
 }
 
@@ -57,6 +66,11 @@ void *NetworkManager::receive(int &dataSize){
 //required by Poco::Runnable
 void NetworkManager::run(){
 
+	while (true){
 
+		cerr << "Checking for network data..." << endl;
+		thread->sleep(1000);
+
+	}
 
 }

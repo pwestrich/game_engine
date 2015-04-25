@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "Poco/Net/StreamSocket.h"
+#include "Poco/Net/SocketAddress.h"
 #include "Poco/Runnable.h"
 #include "Poco/Thread.h"
 
@@ -33,6 +35,11 @@ private:
 	//server information
 	string serverAddress;
 	int serverPort;
+
+	Poco::Net::StreamSocket *socket;
+	Poco::Net::SocketAddress *address;
+
+	Poco::Thread *thread;
 
 public:
 
