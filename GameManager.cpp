@@ -117,6 +117,12 @@ void GameManager::keyPressed(const KeyboardKey key){
 
 	} else {
 
+		//send the key press over the network
+		stringstream ss;
+		ss << "Key:" << key;
+		send(ss.str().c_str(), strlen(ss.str().c_str()));
+
+		//determine what to do by means of script
 		scriptManager->writeInt("keyPressed", static_cast<int>(key));
 		scriptManager->execute("./assets/lua/input.lua");
 
@@ -149,8 +155,6 @@ void GameManager::joystickButtonPressed(const JoystickButton button){}
 
 void GameManager::checkForInput(const float timeStep){
 
-	//message from the render listener each frame
-	//tell the input manager to check for input
 	inputManager->checkForInput(timeStep);
 
 }
@@ -392,5 +396,26 @@ void GameManager::writeFloat(const string &name, const float value){
 void GameManager::writeString(const string &name, const string &value){
 
 	scriptManager->writeString(name, value);
+
+}
+
+//methods to make the NetworkManager do things ----------------------------------------------------
+bool GameManager::send(const void *data, const int dataSize){
+
+	return networkManager->send(data, dataSize);
+
+}
+
+void GameManager::checkNetwork(const float timeStep){
+
+	int messageLength = 0;
+	char *message = static_cast<char*>(networkManager->receive(messageLength));
+
+	if (message){
+
+		logInfo(string("Message received: ") + message);
+		delete [] message;
+
+	}
 
 }

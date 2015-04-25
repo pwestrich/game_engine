@@ -115,6 +115,10 @@ public:
 	void writeFloat(const string &name, const float value);
 	void writeString(const string &name, const string &value);
 
+	//methods to make the NetworkManager do things
+	bool send(const void *data, const int dataSize);
+	void checkNetwork(const float timeStep);
+
 };
 
 #endif

@@ -451,6 +451,12 @@ void RenderManager::checkForInput(const float timeStep){
 
 }
 
+void RenderManager::checkNetwork(const float timeStep){
+
+	gameManager->checkNetwork(timeStep);
+
+}
+
 void RenderManager::updatePhysics(const float timeStep){
 
 	physicsManager->updatePhysics(timeStep);

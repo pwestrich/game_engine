@@ -35,6 +35,7 @@ bool RenderListener::frameStarted(const Ogre::FrameEvent &event){
 
 	//update the game
 	renderManager->checkForInput(timeStep);
+	renderManager->checkNetwork(timeStep);
 	renderManager->processAnimations(timeStep);
 	renderManager->updatePhysics(timeStep);
 	renderManager->updateAudio(timeStep);

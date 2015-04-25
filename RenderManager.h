@@ -105,6 +105,7 @@ public:
 	//and actions
     void processAnimations(const float timeStep);
     void checkForInput(const float timeStep);
+    void checkNetwork(const float timeStep);
     void updatePhysics(const float timeStep);
     void updateAudio(const float timeStep);
 
