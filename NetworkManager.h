@@ -13,9 +13,38 @@ using namespace std;
 
 class GameManager;
 
-class NetworkManager : public Poco::Runnable {
+class NetworkManager {
 
 private:
+
+	class DataSendThread : public Poco::Runnable {
+
+	private:
+
+		NetworkManager *networkManager;
+
+	public:
+
+		DataSendThread(NetworkManager *nm) { networkManager = nm; };
+		void run();
+
+	};
+
+	class DataGetThread : public Poco::Runnable {
+	
+	private:
+
+		NetworkManager *networkManager;
+
+	public:
+
+		DataGetThread(NetworkManager *nm) { networkManager = nm; };
+		void run();
+
+	};
+
+	friend class DataGetThread;
+	friend class DataSendThread;
 
 	//reference to GameManager
 	GameManager *gameManager;
@@ -39,7 +68,14 @@ private:
 	Poco::Net::StreamSocket *socket;
 	Poco::Net::SocketAddress *address;
 
-	Poco::Thread *thread;
+	Poco::Thread *sendThread;
+	Poco::Thread *getThread;
+
+	DataGetThread *getter;
+	DataSendThread *sender;
+
+	bool sendLocked;
+	bool receiveLocked;
 
 public:
 
@@ -48,14 +84,11 @@ public:
 	~NetworkManager();
 
 	//adds a piece of data to the send buffer
-	void send(const void *data, const int dataSize);
+	bool send(const void *data, const int dataSize);
 
 	//gets the contents of the recieve buffer and clears it
 	//returns NULL if no data in buffer, and dataSize will be set to zero
 	void *receive(int &dataSize);
-
-	//required by Poco::Runnable
-	void run();
 
 };
 
