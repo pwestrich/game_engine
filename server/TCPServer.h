@@ -8,10 +8,10 @@
 #include "Poco/Net/SocketAddress.h"
 #include "Poco/Net/StreamSocket.h"
 #include "Poco/Net/ServerSocket.h"
-#include "Poco/Runnable.h"
-#include "Poco/Thread.h"
 
 using namespace std;
+
+class TCPConnectionThread;
 
 class TCPServer {
 
@@ -26,7 +26,9 @@ private:
 	vector<Poco::Net::SocketAddress*> clientAddresses;
 
 	//and the threads that they run in
-	vector<Poco::Thread*> clientThreads;
+	vector<TCPConnectionThread*> clientThreads;
+
+	string nextThreadName();
 
 public:
 
@@ -36,6 +38,9 @@ public:
 
 	//starts the server
 	void start();
+
+	//sends data to all connected clients
+	void broadcast(char *data, int dataSize, Poco::Net::StreamSocket *exclude = NULL);
 
 };
 

@@ -2,8 +2,10 @@
 #include <cassert>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 #include "TCPServer.h"
+#include "TCPConnectionThread.h"
 
 using namespace std;
 
@@ -32,18 +34,45 @@ void TCPServer::start(){
 
 	Poco::Net::SocketAddress *newClientAddress = NULL;
 	Poco::Net::StreamSocket *newClientSocket = NULL;
-	Poco::Thread *newClientThread = NULL;
+	int numThreads = 0;
 
 	while (true) {
 
+		//wait for a connection
 		cout << "Awaiting connection..." << endl;
-
 		newClientAddress = new Poco::Net::SocketAddress();
 		newClientSocket = new Poco::Net::StreamSocket(serverSocket->acceptConnection(*newClientAddress));
 
-		cout << "Connection established: " << newClientAddress->host().toString() << endl;
-
+		//now set up a new thread for that connection 
+		cout << "Connection established from: " << newClientAddress->host().toString() << ":" << newClientAddress->port() << endl;
+		clientSockets.push_back(newClientSocket);
+		clientAddresses.push_back(newClientAddress);
+		clientThreads.push_back(new TCPConnectionThread(nextThreadName(), this, newClientSocket));
+		clientThreads.back()->start();
 
 	}
+
+}
+
+void TCPServer::broadcast(char *data, int dataSize, Poco::Net::StreamSocket *exclude){
+
+	for (size_t i = 0; i < clientSockets.size(); ++i){
+
+		if (clientSockets[i] == exclude) continue;
+
+		clientSockets[i]->sendBytes(data, dataSize);
+
+	}
+
+}
+
+//private methods below here ----------------------------------------------------------------------
+string TCPServer::nextThreadName(){
+
+	static int threadNum = 0;
+	stringstream ss;
+
+	ss << "Client thread #" << threadNum++;
+	return ss.str();
 
 }

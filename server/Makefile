@@ -12,9 +12,9 @@ LIBS= -lPocoNet -lPocoFoundation -lWS2_32
 COMPILE = $(CC) $(INC_DIRS) -c 
 LINK = $(CC) $(LIB_DIRS) -o
 
-SERVER_FILES = main.cpp TCPServer.cpp
-SERVER_HEADER = TCPServer.h
-SERVER_OBJ = main.o TCPServer.o
+SERVER_FILES = main.cpp TCPServer.cpp TCPConnectionThread.cpp
+SERVER_HEADER = TCPServer.h TCPConnectionThread.h
+SERVER_OBJ = main.o TCPServer.o TCPConnectionThread.o
 
 .PHONY: all run clean
 
@@ -37,3 +37,7 @@ main.o: main.cpp $(SERVER_HEADER)
 TCPServer.o: TCPServer.cpp $(SERVER_HEADER)
 
 	$(COMPILE) TCPServer.cpp
+
+TCPConnectionThread.o: TCPConnectionThread.cpp $(SERVER_HEADER)
+
+	$(COMPILE) TCPConnectionThread.cpp
