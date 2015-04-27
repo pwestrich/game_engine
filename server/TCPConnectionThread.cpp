@@ -6,7 +6,7 @@
 
 using namespace std;
 
-TCPConnectionThread::TCPConnectionThread(const string &name, TCPServer *_server, Poco::Net::StreamSocket *_mySocket) :
+TCPConnectionThread::TCPConnectionThread(const string &name, TCPServer *_server, Poco::Net::StreamSocket *_mySocket, int _index) :
 					Poco::Thread(name){
 
 	assert(_server);
@@ -14,6 +14,7 @@ TCPConnectionThread::TCPConnectionThread(const string &name, TCPServer *_server,
 
 	server = _server;
 	mySocket = _mySocket;
+	index = _index;
 
 	bufferSize = 1025;
 	bufferLength = 0;
@@ -31,6 +32,7 @@ TCPConnectionThread::~TCPConnectionThread(){
 	mySocket = NULL;
 	bufferLength = 0;
 	bufferSize = 0;
+	index = 0;
 
 }
 
@@ -51,12 +53,7 @@ void TCPConnectionThread::run(){
 		//wait for some data to come in
 		bufferLength = mySocket->receiveBytes(buffer,  bufferSize - bufferLength);
 
-		if (bufferLength <= 0){
-
-			//connection closed, quit
-			break;
-
-		}
+		if (bufferLength <= 0) break; //connection closed, quit listening.
 
 		//print message and clear buffer for now.
 		cerr << getName() << ": message recived: " << buffer << endl;
@@ -67,6 +64,6 @@ void TCPConnectionThread::run(){
 	}
 
 	cout << getName() << " closed." << endl;
-	delete this;
+	server->removeConnection(index);
 
 }

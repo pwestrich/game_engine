@@ -28,10 +28,11 @@ private:
 	char *buffer;
 	int bufferSize;
 	int bufferLength;
+	int index;
 
 public:
 
-	TCPConnectionThread(const string &name, TCPServer *_server, Poco::Net::StreamSocket *_mySocket);
+	TCPConnectionThread(const string &name, TCPServer *_server, Poco::Net::StreamSocket *_mySocket, int _index);
 	~TCPConnectionThread();
 
 	//overloading the run method in Thread

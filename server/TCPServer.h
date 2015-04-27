@@ -28,6 +28,7 @@ private:
 	//and the threads that they run in
 	vector<TCPConnectionThread*> clientThreads;
 
+	//function to make thread names
 	string nextThreadName();
 
 public:
@@ -41,6 +42,9 @@ public:
 
 	//sends data to all connected clients
 	void broadcast(char *data, int dataSize, Poco::Net::StreamSocket *exclude = NULL);
+
+	//removes a connection and its thread from the list
+	void removeConnection(const int index);
 
 };
 

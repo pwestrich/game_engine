@@ -47,7 +47,7 @@ void TCPServer::start(){
 		cout << "Connection established from: " << newClientAddress->host().toString() << ":" << newClientAddress->port() << endl;
 		clientSockets.push_back(newClientSocket);
 		clientAddresses.push_back(newClientAddress);
-		clientThreads.push_back(new TCPConnectionThread(nextThreadName(), this, newClientSocket));
+		clientThreads.push_back(new TCPConnectionThread(nextThreadName(), this, newClientSocket, clientThreads.size()));
 		clientThreads.back()->start();
 
 	}
@@ -63,6 +63,14 @@ void TCPServer::broadcast(char *data, int dataSize, Poco::Net::StreamSocket *exc
 		clientSockets[i]->sendBytes(data, dataSize);
 
 	}
+
+}
+
+void TCPServer::removeConnection(const int index){
+
+	clientAddresses.erase(clientAddresses.begin() + index);
+	clientSockets.erase(clientSockets.begin() + index);
+	clientThreads.erase(clientThreads.begin() + index);
 
 }
 

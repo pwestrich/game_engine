@@ -8,8 +8,8 @@ INC_DIRS=-I./ -I$(GAME_DRIVE_LETTER)/Ogre/include/ -I$(GAME_DRIVE_LETTER)/boost/
 LIB_DIRS=-L./ -L$(GAME_DRIVE_LETTER)/Ogre/lib/ -L$(GAME_DRIVE_LETTER)/boost/lib/ -L$(GAME_DRIVE_LETTER)/Ogre/ogredeps/lib/
 LIBS=-lboost_system-mgw48-mt-1_57 -lboost_chrono-mgw48-1_57 -lboost_thread-mgw48-mt-1_57 -ltinyxml -lOIS -lbass -llua -lMyGUI.OgrePlatform -lMyGUIEngine -lOgreMain -lBulletMultiThreaded -lBulletDynamics -lBulletCollision -lLinearMath -lPocoNet -lPocoFoundation -lWS2_32 -lfreetype
 
-COMPILE = $(CC) $(INC_DIRS) -g -O3 -c 
-LINK = $(CC) $(LIB_DIRS) -g -O3 -o
+COMPILE = $(CC) $(INC_DIRS) -O3 -c 
+LINK = $(CC) $(LIB_DIRS) -s -O3 -o
 
 GAME_NAME = game.exe
 GAME_HEADER = GameManager.h RenderManager.h utilities.h RenderListener.h LogManager.h ResourceManager.h InputManager.h InputListener.h AudioManager.h AudioPlayer.h GameResource.h PathResource.h MeshResource.h AudioResource.h GUIManager.h ScriptManager.h PhysicsManager.h BulletMotionState.h BulletDebugDrawer.h BulletConvexHullCreator.h NetworkManager.h
