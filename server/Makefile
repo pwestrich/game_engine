@@ -1,8 +1,8 @@
 AutomatedMakefile = am
-CC = g++ -std=c++11 -O3
+CC = g++ -std=c++11 -g -O0
 RM = del
 
-GAME_PATH=/$(GAME_DRIVE_LETTER)/game_project
+GAME_PATH=/$(GAME_DRIVE_LETTER)/game_project/server
 PROJ_NAME = server.exe
 
 INC_DIRS=-I./ -I$(GAME_DRIVE_LETTER)/Ogre/include/ -I$(GAME_DRIVE_LETTER)/boost/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/ -I$(GAME_DRIVE_LETTER)/Ogre/ogredeps/include/OIS -I$(GAME_PATH)
@@ -12,9 +12,9 @@ LIBS= -lPocoNet -lPocoFoundation -lWS2_32
 COMPILE = $(CC) $(INC_DIRS) -c 
 LINK = $(CC) $(LIB_DIRS) -o
 
-SERVER_FILES = main.cpp
-SERVER_HEADER =
-SERVER_OBJ = main.o
+SERVER_FILES = main.cpp TCPServer.cpp
+SERVER_HEADER = TCPServer.h
+SERVER_OBJ = main.o TCPServer.o
 
 .PHONY: all run clean
 
@@ -33,3 +33,7 @@ all: $(SERVER_OBJ)
 main.o: main.cpp $(SERVER_HEADER)
 
 	$(COMPILE) main.cpp
+
+TCPServer.o: TCPServer.cpp $(SERVER_HEADER)
+
+	$(COMPILE) TCPServer.cpp

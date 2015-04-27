@@ -12,13 +12,13 @@ GAME_PATH=./
 
 all: link_game link_server link_quat
 
-run_game: link_game
+run_game:
 
 	mingw32-make -C client run
 
-run_server: link_server
+run_server:
 
-	./server/server.exe
+	mingw32-make -C server run
 
 run_quat: link_quat
 
