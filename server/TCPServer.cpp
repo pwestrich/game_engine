@@ -56,6 +56,8 @@ void TCPServer::start(){
 
 void TCPServer::broadcast(char *data, int dataSize, Poco::Net::StreamSocket *exclude){
 
+	cout << "Broadcasting message: " << data << endl;
+
 	for (size_t i = 0; i < clientSockets.size(); ++i){
 
 		if (clientSockets[i] == exclude) continue;
@@ -64,10 +66,13 @@ void TCPServer::broadcast(char *data, int dataSize, Poco::Net::StreamSocket *exc
 
 	}
 
+	cout << "message sent." << endl;
+
 }
 
 void TCPServer::removeConnection(const int index){
 
+	cout << "removing connection #" << index << endl;
 	clientAddresses.erase(clientAddresses.begin() + index);
 	clientSockets.erase(clientSockets.begin() + index);
 	clientThreads.erase(clientThreads.begin() + index);

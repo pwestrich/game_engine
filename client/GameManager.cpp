@@ -77,6 +77,8 @@ GameManager::GameManager(){
 	//run the startup script
 	execute("./assets/lua/init.lua");
 
+	networkManager->startListening();
+
 	//start drawing
 	startRendering();
 
@@ -134,8 +136,10 @@ void GameManager::keyReleased(const KeyboardKey key){}
 
 void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
 
-	//tell the render manager to deal with it
-	//mouse movement should rotate the camera
+	//tell the render manager to deal with it and send it over the newtwork
+	stringstream ss;
+	ss << "Move:" << x << "," << y << "," << dx << "," << dy;
+	networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
 	renderManager->mouseMoved(x, y, dx, dy);
 
 }
@@ -143,11 +147,21 @@ void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t d
 void GameManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){
 
 	//tell the render manager to do something with it
+	stringstream ss;
+	ss << "Click:" << x << "," << y << "," << button;
+	networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
 	renderManager->mousePressed(x, y, button);
 
 }
 
-void GameManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){}
+void GameManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){
+	
+	stringstream ss;
+	ss << "Release:" << x << "," << y << "," << button;
+	networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
+	renderManager->mouseReleased(x, y, button);
+
+}
 
 void GameManager::joystickAxisMoved(const int *axes, const int numAxes){}
 
@@ -400,22 +414,14 @@ void GameManager::writeString(const string &name, const string &value){
 }
 
 //methods to make the NetworkManager do things ----------------------------------------------------
-bool GameManager::send(const void *data, const int dataSize){
+void GameManager::send(const char *data, const int dataSize){
 
-	return networkManager->send(data, dataSize);
+	networkManager->send(data, dataSize);
 
 }
 
-void GameManager::checkNetwork(const float timeStep){
+void GameManager::messageReceived(const char *message, const int messageLength){
 
-	int messageLength = 0;
-	char *message = static_cast<char*>(networkManager->receive(messageLength));
-
-	if (message){
-
-		logInfo(string("Message received: ") + message);
-		delete [] message;
-
-	}
+	logManager->logInfo(string("Message received: ") + message);
 
 }
