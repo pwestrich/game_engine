@@ -422,6 +422,38 @@ void GameManager::send(const char *data, const int dataSize){
 
 void GameManager::messageReceived(const char *message, const int messageLength){
 
+	//log that a message was received and interpret it
 	logManager->logInfo(string("Message received: ") + message);
+
+	int values[] = {0,0,0,0,0};
+
+	if (strncmp(message, "Key:", 4) == 0){
+
+		parseInts(message, values);
+		scriptManager->writeInt("keyPressed", static_cast<int>(values[0]));
+		scriptManager->execute("./assets/lua/input.lua");
+
+
+	} else if (strncmp(message, "Move:", 5) == 0){
+
+		parseInts(message, values);
+		renderManager->mouseMoved(values[0], values[1], values[2], values[3]);
+
+
+	} else if (strncmp(message, "Click:", 6) == 0){
+
+		parseInts(message, values);
+		renderManager->mousePressed(values[0], values[1], static_cast<MouseButton>(values[2]));
+
+	} else if (strncmp(message, "Release:", 8) == 0){
+
+		parseInts(message, values);
+		renderManager->mouseReleased(values[0], values[1], static_cast<MouseButton>(values[2]));
+
+	} else {
+
+		logManager->logDebug("Bad network message received");
+
+	}
 
 }
