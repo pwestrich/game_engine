@@ -13,6 +13,8 @@
 //I'm not happy with this, but it's what I have to do
 #include "LuaContext.hpp"
 
+//#define USE_NETWORK
+
 using namespace std;
 
 GameManager::GameManager(){
@@ -27,7 +29,10 @@ GameManager::GameManager(){
 	inputManager 	= new InputManager(this);
 	audioManager 	= new AudioManager(this);
 	scriptManager 	= new ScriptManager(this);
-	networkManager 	= new NetworkManager(this, "localhost", 12345); //use command line args later?
+
+	#ifdef USE_NETWORK
+		networkManager 	= new NetworkManager(this, "localhost", 12345); //use command line args later?
+	#endif
 
 	//set input listeners
 	inputManager->addListener(this);
@@ -39,7 +44,7 @@ GameManager::GameManager(){
 	buildSceneFromXML("./assets/xml/scene.xml", "0");
 	
 	startAudio();
-	setVolume(0.40);
+	//setVolume(0.40); //I think this sets the system volume...
 
 	//register various functions with the ScriptManager so that lua scripts can use them
 	//I'm not happy witht he class cohesino going on here, but it won't work otherwise
@@ -76,8 +81,9 @@ GameManager::GameManager(){
 
 	//run the startup script
 	execute("./assets/lua/init.lua");
-
-	networkManager->startListening();
+	#ifdef USE_NETWORK
+		networkManager->startListening();
+	#endif
 
 	//start drawing
 	startRendering();
@@ -87,7 +93,10 @@ GameManager::GameManager(){
 GameManager::~GameManager(){
 
 	//delete everything in the opposite order they were delcared
-	delete networkManager;
+	#ifdef USE_NETWORK
+		delete networkManager;
+	#endif
+
 	delete scriptManager;
 	delete inputManager;
 	delete resourceManager;
@@ -137,29 +146,35 @@ void GameManager::keyReleased(const KeyboardKey key){}
 void GameManager::mouseMoved(const uint32_t x, const uint32_t y, const int32_t dx, const int32_t dy){
 
 	//tell the render manager to deal with it and send it over the newtwork
-	stringstream ss;
-	ss << "Move:" << x << "," << y << "," << dx << "," << dy;
-	networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
-	renderManager->mouseMoved(x, y, dx, dy);
+	#ifdef USE_NETWORK
+		stringstream ss;
+		ss << "Move:" << x << "," << y << "," << dx << "," << dy;
+		networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
+		renderManager->mouseMoved(x, y, dx, dy);
+	#endif
 
 }
 
 void GameManager::mousePressed(const uint32_t x, const uint32_t y, const MouseButton button){
 
 	//tell the render manager to do something with it
-	stringstream ss;
-	ss << "Click:" << x << "," << y << "," << button;
-	networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
-	renderManager->mousePressed(x, y, button);
+	#ifdef USE_NETWORK
+		stringstream ss;
+		ss << "Click:" << x << "," << y << "," << button;
+		networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
+		renderManager->mousePressed(x, y, button);
+	#endif
 
 }
 
 void GameManager::mouseReleased(const uint32_t x, const uint32_t y, const MouseButton button){
 	
-	stringstream ss;
-	ss << "Release:" << x << "," << y << "," << button;
-	networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
-	renderManager->mouseReleased(x, y, button);
+	#ifdef USE_NETWORK
+		stringstream ss;
+		ss << "Release:" << x << "," << y << "," << button;
+		networkManager->send(ss.str().c_str(), strlen(ss.str().c_str()));
+		renderManager->mouseReleased(x, y, button);
+	#endif
 
 }
 
@@ -416,7 +431,9 @@ void GameManager::writeString(const string &name, const string &value){
 //methods to make the NetworkManager do things ----------------------------------------------------
 void GameManager::send(const char *data, const int dataSize){
 
-	networkManager->send(data, dataSize);
+	#ifdef USE_NETWORK
+		networkManager->send(data, dataSize);
+	#endif
 
 }
 
