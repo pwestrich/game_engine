@@ -23,6 +23,23 @@
 
 using namespace std;
 
+struct CustomMovementInfo {
+
+	btRigidBody *body;
+
+	btVector3 startGravity;
+	btVector3 a0;
+	btVector3 a1;
+	
+	float vx;
+	float vy;
+	float vz;
+
+	float currentTime;
+	float endTime;
+
+};
+
 PhysicsManager::PhysicsManager(RenderManager *rm){
 
 	assert(rm != NULL);
@@ -140,49 +157,107 @@ void PhysicsManager::setAngularVelocity(const string &nodeName, const float x, c
 
 }
 
+void PhysicsManager::getLinearVelocity(const string &nodeName, float &x, float &y, float &z){
+
+	try {
+
+		btRigidBody *body = rigidBodies.at(nodeName);
+		btVector3 velocity = body->getLinearVelocity();
+
+		x = velocity.x();
+		y = velocity.y();
+		z = velocity.z();
+
+	} catch (out_of_range &it){
+
+		renderManager->logWarn("Attempt to get velocity of nonexistant node: " + nodeName);
+
+	}
+
+}
+
+void PhysicsManager::getAngularVelocity(const string & nodeName, float &x, float &y, float &z){
+
+	try {
+
+		btRigidBody *body = rigidBodies.at(nodeName);
+		btVector3 velocity = body->getAngularVelocity();
+
+		x = velocity.x();
+		y = velocity.y();
+		z = velocity.z();
+
+	} catch (out_of_range &it){
+
+		renderManager->logWarn("Attempt to get velocity of nonexistant node: " + nodeName);
+
+	}
+
+}
+
+//methods for custom object movement
+void PhysicsManager::addCustomMovingObject(const string &objectName, const float time, const float ax0, const float ay0, const float az0, 
+											const float ax1, const float ay1, const float az1){
+
+	try {
+
+		//attempt to find a body by name
+		btRigidBody *body = rigidBodies.at(objectName);
+		btVector3 velocity = body->getLinearVelocity();
+
+		//create and set up information
+		CustomMovementInfo *info = new CustomMovementInfo;
+
+		info->body = body;
+		btVector3 startGravity;
+		info->a0 = btVector3(ax0, ay0, az0);
+		info->a1 = btVector3(ax1, ay1, az1);
+	
+		info->vx = velocity.x();
+		info->vy = velocity.y();
+		info->vz = velocity.z();
+
+		info->currentTime = 0.0;
+		info->endTime = time;
+
+		//save for later
+		customMovement[objectName] = info;
+
+	} catch (out_of_range &it){
+
+		renderManager->logWarn("Attempt to create custom moving object for nonexistant object: " + objectName);
+
+	}
+
+}
+
+void PhysicsManager::removeCustomMovingObject(const string &objectName){
+
+	try {
+
+		customMovement.at(objectName); 		//see if the object is actually there first
+		customMovement.erase(objectName);	//then delete it
+
+	} catch (out_of_range &it){
+
+		renderManager->logWarn("Attempt to delete nonexistant custom movement info: " + objectName);
+
+	}
+
+}
+
+//method to update physics every tick
 void PhysicsManager::updatePhysics(const float timeStep){
 
-	//getWorldTransform();	//get any scene changes that may have happened since last tick
+	getWorldTransform();	//get any scene changes that may have happened since last tick
+	tickCustomMovement(timeStep);
 	world->stepSimulation(btScalar(timeStep), btScalar(10.0));
 	world->debugDrawWorld();
 	setWorldTransform(); 	//set the results of the physics calculations
 
 }
 
-void PhysicsManager::getWorldTransform(){
-
-	btAlignedObjectArray<btCollisionObject*> bodies = world->getCollisionObjectArray();
-
-	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){	
-
-		btRigidBody *body = btRigidBody::upcast(bodies[i]);
-		body->activate(true);
-		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
-
-		motionState->getCurrentTransform();
-
-	}
-
-
-}
-void PhysicsManager::setWorldTransform(){
-
-	btAlignedObjectArray<btCollisionObject*> bodies = world->getCollisionObjectArray();
-
-	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){	
-
-		btRigidBody *body = btRigidBody::upcast(bodies[i]);
-		body->activate(true);
-		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
-
-		btTransform currentTransform;
-		motionState->getWorldTransform(currentTransform);
-		body->setWorldTransform(currentTransform);
-
-	}
-
-}
-
+//methods to set physics objects
 void PhysicsManager::createRigidSphere(const string &nodeName, const float mass, const float r){
 
 	btCollisionShape *shape = new btSphereShape(btScalar(r));
@@ -237,5 +312,81 @@ void PhysicsManager::createRigidBody(const string &nodeName, btCollisionShape *s
 	//add it to the worls and our map
 	rigidBodies[nodeName] = body;
 	world->addRigidBody(body);
+
+}
+
+void PhysicsManager::getWorldTransform(){
+
+	btAlignedObjectArray<btCollisionObject*> bodies = world->getCollisionObjectArray();
+
+	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){	
+
+		btRigidBody *body = btRigidBody::upcast(bodies[i]);
+		body->activate(true);
+		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
+
+		motionState->getCurrentTransform();
+
+	}
+
+
+}
+void PhysicsManager::setWorldTransform(){
+
+	btAlignedObjectArray<btCollisionObject*> bodies = world->getCollisionObjectArray();
+
+	for (int i = world->getNumCollisionObjects() - 1; i >= 0; --i){	
+
+		btRigidBody *body = btRigidBody::upcast(bodies[i]);
+		body->activate(true);
+		BulletMotionState *motionState = static_cast<BulletMotionState*>(body->getMotionState());
+
+		btTransform currentTransform;
+		motionState->getWorldTransform(currentTransform);
+		body->setWorldTransform(currentTransform);
+
+	}
+
+}
+
+void PhysicsManager::tickCustomMovement(const float timeStep){
+
+	for (auto it = customMovement.begin(); it != customMovement.end(); ++it){
+
+		//calculate accelleration at beginning of time interval
+		float ax0 = it->second->a0.x() + it->second->startGravity.x() + it->second->a1.x() * it->second->currentTime;
+		float ay0 = it->second->a0.y() + it->second->startGravity.y() + it->second->a1.y() * it->second->currentTime;
+		float az0 = it->second->a0.z() + it->second->startGravity.z() + it->second->a1.z() * it->second->currentTime;
+
+		//increm,ent time and check if done
+		it->second->currentTime += timeStep;
+
+		if (it->second->currentTime > it->second->endTime){
+
+			it->second->body->setGravity(it->second->startGravity);
+			customMovement.erase(it);
+			continue;
+
+		}
+
+		//calculate ending accelleration for the frame
+		float ax1 = ax0 + it->second->a1.x() * timeStep;
+		float ay1 = ay0 + it->second->a1.y() * timeStep;
+		float az1 = az0 + it->second->a1.z() * timeStep;
+
+		//calculate average accelleration over time step
+		float ax = (ax0 + ax1) / 2.0;
+		float ay = (ay0 + ay1) / 2.0;
+		float az = (az0 + az1) / 2.0;
+
+		//integrate them
+		it->second->vx += ax * timeStep;
+		it->second->vy += ay * timeStep;
+		it->second->vz += az * timeStep;
+
+		//set valocity
+		it->second->body->setLinearVelocity(btVector3(it->second->vx, it->second->vy, it->second->vz));
+
+	}
 
 }

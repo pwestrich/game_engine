@@ -21,6 +21,8 @@ class btCollisionShape;
 class btRigidBody;
 struct btCollisionAlgorithmCreateFunc;
 
+struct CustomMovementInfo;
+
 class PhysicsManager {
 
 private:
@@ -42,8 +44,12 @@ private:
 
 	//map to pair rigid bodies and their IDs
 	map<string, btRigidBody*> rigidBodies;
+	map<string, CustomMovementInfo*> customMovement;
 
 	void createRigidBody(const string &nodeName, btCollisionShape *shape, const float mass);
+	void getWorldTransform();
+	void setWorldTransform();
+	void tickCustomMovement(const float timeStep);
 
 public:
 
@@ -52,8 +58,6 @@ public:
 
 	//methods to update the world
 	void updatePhysics(const float timeStep);
-	void getWorldTransform();
-	void setWorldTransform();
 
 	//methods to change the world's parameters
 	void setGravity(const float x, const float y, const float z);
@@ -63,6 +67,14 @@ public:
 	void applyForce(const string &nodeName, const float x, const float y, const float z);
 	void setLinearVelocity(const string &nodeName, const float x, const float y, const float z);
 	void setAngularVelocity(const string &nodeName, const float x, const float y, const float z);
+
+	void getLinearVelocity(const string &nodeName, float &x, float &y, float &z);
+	void getAngularVelocity(const string & nodeName, float &x, float &y, float &z);
+
+	//methods for custom object movement
+	void addCustomMovingObject(const string &objectName, const float time, const float ax0, const float ay0, 
+								const float az0, const float ax1, const float ay1, const float az1);
+	void removeCustomMovingObject(const string &objectName);
 
 	//methods to create an object
 	void createRigidSphere(const string &nodeName, const float mass, const float r);

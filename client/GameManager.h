@@ -115,6 +115,10 @@ public:
 	void writeFloat(const string &name, const float value);
 	void writeString(const string &name, const string &value);
 
+	int readInt(const string &name);
+	float readFloat(const string &name);
+	string readString(const string &name);
+
 	//methods to make the NetworkManager do things
 	void send(const char *data, const int dataSize);
 	void messageReceived(const char *message, const int messageLength);

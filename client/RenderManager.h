@@ -88,6 +88,9 @@ public:
 	void translateCamera(const string &name, const float x, const float y, const float z, const float amount);
 	void rotateCamera(const string &name, const float w, const float x, const float y, const float z);
 
+	//methods to do AI stuff
+	void startAutopilot(const string &objectName, const float length, const float vfx, const float vfy, const float vfz, const float lfx, const float lfy, const float lfz);
+
 	//methods to make a manual object
 	void createManualObject(const string &name, const string &materialName);
 	void clearManualObject(const string &name);

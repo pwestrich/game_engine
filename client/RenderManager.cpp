@@ -336,6 +336,59 @@ void RenderManager::rotateCamera(const string &name, const float w, const float 
 
 }
 
+
+//methods to do AI stuff
+void RenderManager::startAutopilot(const string &objectName, const float length, const float vfx, const float vfy, const float vfz, 
+									const float lfx, const float lfy, const float lfz){
+
+	try {
+
+		Ogre::SceneNode *node = sceneManager->getSceneNode(objectName);
+
+		//get the object's current velocity and position
+		float vx = 0.0;
+		float vy = 0.0;
+		float vz = 0.0;
+
+		physicsManager->getLinearVelocity(objectName, vx, vy, vz);
+		Ogre::Vector3 position = node->getPosition();
+
+		//write arguments for the script
+		gameManager->writeString("objectName", objectName);	//objhect's name
+		gameManager->writeFloat("time", length);			//length of animation
+		gameManager->writeFloat("p0x", position.x);			//inital position
+		gameManager->writeFloat("p0y", position.y);
+		gameManager->writeFloat("p0z", position.z);
+		gameManager->writeFloat("p1x", lfx);				//final position
+		gameManager->writeFloat("p1y", lfy);
+		gameManager->writeFloat("p1z", lfz);
+		gameManager->writeFloat("v0x", vx);					//inital velocity
+		gameManager->writeFloat("v0y", vy);
+		gameManager->writeFloat("v0z", vz);
+		gameManager->writeFloat("v1x", vfx);				//final velocity
+		gameManager->writeFloat("v1y", vfy);
+		gameManager->writeFloat("v1z", vfz);
+
+		//run script and get arguments back
+		gameManager->execute("./assets/lua/something.lua");
+
+		float a0x = gameManager->readFloat("a0x");
+		float a0y = gameManager->readFloat("a0y");
+		float a0z = gameManager->readFloat("a0z");
+		float a1x = gameManager->readFloat("a1x");
+		float a1y = gameManager->readFloat("a1y");
+		float a1z = gameManager->readFloat("a1z");
+
+		physicsManager->addCustomMovingObject(objectName, length, a0x, a0y, a0z, a1x, a1y, a1z);
+
+	} catch (Ogre::Exception &it){
+
+		gameManager->logWarn("Attempt to move nonexistant node: " + objectName);
+
+	}
+
+}
+
 //methods to make a manual object -----------------------------------------------------------------
 void RenderManager::createManualObject(const string &name, const string &materialName){
 

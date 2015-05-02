@@ -77,3 +77,28 @@ void ScriptManager::writeString(const string &name, const string &value){
 	lua->writeVariable(name, value);
 
 }
+
+/*template <class T>
+T ScriptManager::readVariable(const string &name){
+
+	return lua->readVariable(name);
+
+}*/
+
+string ScriptManager::readString(const string &name){
+
+	return lua->readVariable<string>(name);
+
+}
+
+float ScriptManager::readFloat(const string &name){
+
+	return lua->readVariable<float>(name);
+
+}
+
+int ScriptManager::readInt(const string &name){
+
+	return lua->readVariable<int>(name);
+
+}

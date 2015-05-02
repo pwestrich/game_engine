@@ -47,7 +47,7 @@ GameManager::GameManager(){
 	//setVolume(0.40); //I think this sets the system volume...
 
 	//register various functions with the ScriptManager so that lua scripts can use them
-	//I'm not happy witht he class cohesino going on here, but it won't work otherwise
+	//I'm not happy witht he class cohesion going on here, but it won't work otherwise
 	LuaContext *lua = scriptManager->getLuaContext();
 
 	//GameManager stuff
@@ -425,6 +425,24 @@ void GameManager::writeFloat(const string &name, const float value){
 void GameManager::writeString(const string &name, const string &value){
 
 	scriptManager->writeString(name, value);
+
+}
+
+int GameManager::readInt(const string &name){
+
+	return scriptManager->readInt(name);
+
+}
+
+float GameManager::readFloat(const string &name){
+
+	return scriptManager->readFloat(name);
+
+}
+
+string GameManager::readString(const string &name){
+
+	return scriptManager->readString(name);
 
 }
 
