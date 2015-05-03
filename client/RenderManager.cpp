@@ -302,7 +302,7 @@ void RenderManager::setAngularVelocity(const string &name, const float x, const 
 
 }
 
-void RenderManager::translateCamera(const string &name, const float x, const float y, const float z, const float amount){
+void RenderManager::translateCamera(const string &name, const float x, const float y, const float z){
 
 	try {
 

@@ -274,7 +274,34 @@ bool InputManager::vector3Moved (const OIS::JoyStickEvent &arg, int index){ retu
 //private methods below here ----------------------------------------------------------------------
 KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
 
-	KeyboardKey key = KB_INVALID;
+	//{KB_INVALID, KB_TAB, KB_ESC, KB_SPACE, KB_LSHIFT, KB_W, KB_A, KB_S, KB_D, 
+    // KB_Q, KB_Z, KB_E, KB_C, KB_F, KB_UP, KB_DOWN, KB_LEFT, KB_RIGHT, KB_RETURN };
+
+	switch (event.key){
+
+		case OIS::KC_TAB:		return KB_TAB;
+		case OIS::KC_ESCAPE: 	return KB_ESC;
+		case OIS::KC_SPACE:		return KB_SPACE;
+		case OIS::KC_LSHIFT:	return KB_LSHIFT;
+		case OIS::KC_W:			return KB_W;
+		case OIS::KC_A:			return KB_A;
+		case OIS::KC_S:			return KB_S;
+		case OIS::KC_D:			return KB_D;
+		case OIS::KC_Q:			return KB_Q;
+		case OIS::KC_Z:			return KB_Z;
+		case OIS::KC_E:			return KB_E;
+		case OIS::KC_C:			return KB_C;
+		case OIS::KC_F:			return KB_F;
+		case OIS::KC_UP:		return KB_UP;
+		case OIS::KC_DOWN:		return KB_DOWN;
+		case OIS::KC_LEFT:		return KB_LEFT;
+		case OIS::KC_RIGHT:		return KB_RIGHT;
+		case OIS::KC_RETURN:	return KB_RETURN;
+		default:				return KB_INVALID;
+
+	}
+
+	/*KeyboardKey key = KB_INVALID;
 	OIS::KeyCode kc = event.key;
 
 	//map keys to our system
@@ -332,7 +359,7 @@ KeyboardKey InputManager::keyMap(const OIS::KeyEvent &event){
 
 	}
 
-	return key;
+	return key;*/
 
 }
 

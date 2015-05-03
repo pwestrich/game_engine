@@ -8,7 +8,7 @@ using namespace std;
 
 //enumerations for the input actions
 enum KeyboardKey : uint32_t {KB_INVALID, KB_TAB, KB_ESC, KB_SPACE, KB_LSHIFT, KB_W, KB_A, KB_S, KB_D, 
-                              KB_Q, KB_Z, KB_F, KB_UP, KB_DOWN, KB_LEFT, KB_RIGHT, KB_RETURN };
+                              KB_Q, KB_Z, KB_E, KB_C, KB_F, KB_UP, KB_DOWN, KB_LEFT, KB_RIGHT, KB_RETURN };
 
 enum MouseButton : uint32_t {M_INVALID, M_LEFT = 0, M_RIGHT = 1, M_MIDDLE = 2, M_BACK = 3, M_SCROLL = 4 };
 enum JoystickButton : uint32_t {JB_INVALID, JB_1, JB_2, JB_3, JB_4, JB_5, JB_6, JB_7, JB_8};

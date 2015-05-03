@@ -85,7 +85,7 @@ public:
 	void setLinearVelocity(const string &name, const float x, const float y, const float z);
 	void setAngularVelocity(const string &name, const float x, const float y, const float z);
 
-	void translateCamera(const string &name, const float x, const float y, const float z, const float amount);
+	void translateCamera(const string &name, const float x, const float y, const float z);
 	void rotateCamera(const string &name, const float w, const float x, const float y, const float z);
 
 	//methods to do AI stuff
