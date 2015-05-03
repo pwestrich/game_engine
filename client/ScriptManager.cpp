@@ -40,8 +40,7 @@ void ScriptManager::execute(const string &filename){
 
 	if (!inFile){
 
-		gameManager->logWarn("Script could not be run.");
-		gameManager->logWarn(filename);
+		gameManager->logWarn("Script" + filename + " could not be run: " + filename);
 		return;
 
 	}
@@ -53,9 +52,13 @@ void ScriptManager::execute(const string &filename){
 
 	} catch (runtime_error &it){
 
-		gameManager->logWarn(it.what());
+		gameManager->logWarn("Runtime error from " + filename + ": " + it.what());
 
-	} 
+	} catch (...){
+
+		gameManager->logFatal("Unexpected exception.", __LINE__, __FILE__);
+
+	}
 
 }
 

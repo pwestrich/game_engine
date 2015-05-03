@@ -77,6 +77,7 @@ GameManager::GameManager(){
 	lua->registerFunction("applyTorque", &RenderManager::applyTorque);
 	lua->registerFunction("setLinearVelocity", &RenderManager::setLinearVelocity);
 	lua->registerFunction("setAngularVelocity", &RenderManager::setAngularVelocity);
+	lua->registerFunction("startAutopilot", &RenderManager::startAutopilot);
 	lua->writeVariable("Scene", renderManager);
 
 	//run the startup script

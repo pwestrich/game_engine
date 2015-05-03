@@ -70,6 +70,7 @@ public:
 
 	void getLinearVelocity(const string &nodeName, float &x, float &y, float &z);
 	void getAngularVelocity(const string & nodeName, float &x, float &y, float &z);
+	void getGravity(float &x, float &y, float &z);
 
 	//methods for custom object movement
 	void addCustomMovingObject(const string &objectName, const float time, const float ax0, const float ay0, 

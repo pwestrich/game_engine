@@ -138,34 +138,34 @@ end
 
 function solveEquationsOfMotion(r_i_x, r_i_y, r_i_z, r_f_x, r_f_y, r_f_z, v_i_x, v_i_y, v_i_z, v_f_x, v_f_y, v_f_z, a_i_x, a_i_y, a_i_z, t_str)
 	r_i = {}
-	r_i[1] = tonumber(r_i_x)
-	r_i[2] = tonumber(r_i_y)
-	r_i[3] = tonumber(r_i_z)
+	r_i[1] = r_i_x
+	r_i[2] = r_i_y
+	r_i[3] = r_i_z
 
 	r_f = {}
-	r_f[1] = tonumber(r_f_x)
-	r_f[2] = tonumber(r_f_y)
-	r_f[3] = tonumber(r_f_z)
+	r_f[1] = r_f_x
+	r_f[2] = r_f_y
+	r_f[3] = r_f_z
 
 	v_i = {}
-	v_i[1] = tonumber(v_i_x)
-	v_i[2] = tonumber(v_i_y)
-	v_i[3] = tonumber(v_i_z)
+	v_i[1] = v_i_x
+	v_i[2] = v_i_y
+	v_i[3] = v_i_z
 
 	v_f = {}
-	v_f[1] = tonumber(v_f_x)
-	v_f[2] = tonumber(v_f_y)
-	v_f[3] = tonumber(v_f_z)
+	v_f[1] = v_f_x
+	v_f[2] = v_f_y
+	v_f[3] = v_f_z
 
 	a_i = {}
-	a_i[1] = tonumber(a_i_x)
-	a_i[2] = tonumber(a_i_y)
-	a_i[3] = tonumber(a_i_z)
+	a_i[1] = a_i_x
+	a_i[2] = a_i_y
+	a_i[3] = a_i_z
 
 	a_min = {}
-	a_min[1] = tonumber(a_min_x)
-	a_min[2] = tonumber(a_min_y)
-	a_min[3] = tonumber(a_min_z)
+	a_min[1] = a_min_x
+	a_min[2] = a_min_y
+	a_min[3] = a_min_z
 
 	a0_init = {}
 	a0_init[1] = -.1
@@ -177,14 +177,14 @@ function solveEquationsOfMotion(r_i_x, r_i_y, r_i_z, r_f_x, r_f_y, r_f_z, v_i_x,
 	a1_init[2] = .01
 	a1_init[3] = .01
 
-	t = tonumber(t_str)
+	t = t_str
 
 	local a0_result = {}
 	local a1_result = {}
 
    	a0_result, a1_result = secantEquationsOfMotion(r_i, r_f, v_i, v_f, a_i, t, a0_init, a1_init)
-   	return tostring(a0_result[1]), tostring(a0_result[2]), tostring(a0_result[3]), tostring(a1_result[1]), tostring(a1_result[2]), tostring(a1_result[3])
+   	return a0_result[1], a0_result[2], a0_result[3], a1_result[1], a1_result[2], a1_result[3]
 end
 
-
-
+--call function with arguments written by game
+a0x, a0y, a0z, a1x, a1y, a1z = solveEquationsOfMotion(p0x, p0y, p0z, p1x, p1y, p1z, v0x, v0y, v0z, v1x, v1y, v1z, gx, gy, gz, time)

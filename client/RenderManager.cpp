@@ -350,6 +350,11 @@ void RenderManager::startAutopilot(const string &objectName, const float length,
 		float vy = 0.0;
 		float vz = 0.0;
 
+		float gx = 0.0;
+		float gy = 0.0;
+		float gz = 0.0;
+
+		physicsManager->getGravity(gx, gy, gz);
 		physicsManager->getLinearVelocity(objectName, vx, vy, vz);
 		Ogre::Vector3 position = node->getPosition();
 
@@ -368,9 +373,12 @@ void RenderManager::startAutopilot(const string &objectName, const float length,
 		gameManager->writeFloat("v1x", vfx);				//final velocity
 		gameManager->writeFloat("v1y", vfy);
 		gameManager->writeFloat("v1z", vfz);
+		gameManager->writeFloat("gx", gx);					//inital gravity
+		gameManager->writeFloat("gy", gy);
+		gameManager->writeFloat("gz", gz);
 
 		//run script and get arguments back
-		gameManager->execute("./assets/lua/something.lua");
+		gameManager->execute("./assets/lua/find_roots.lua");
 
 		float a0x = gameManager->readFloat("a0x");
 		float a0y = gameManager->readFloat("a0y");
@@ -379,11 +387,16 @@ void RenderManager::startAutopilot(const string &objectName, const float length,
 		float a1y = gameManager->readFloat("a1y");
 		float a1z = gameManager->readFloat("a1z");
 
+		//then do custom motion stuff
 		physicsManager->addCustomMovingObject(objectName, length, a0x, a0y, a0z, a1x, a1y, a1z);
 
 	} catch (Ogre::Exception &it){
 
 		gameManager->logWarn("Attempt to move nonexistant node: " + objectName);
+
+	} catch (...){
+
+		gameManager->logFatal("Unexpected exception occured", __LINE__, __FILE__);
 
 	}
 

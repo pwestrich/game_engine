@@ -195,6 +195,16 @@ void PhysicsManager::getAngularVelocity(const string & nodeName, float &x, float
 
 }
 
+void PhysicsManager::getGravity(float &x, float &y, float &z){
+
+	btVector3 gravity = world->getGravity();
+
+	x = gravity.x();
+	y = gravity.y();
+	z = gravity.z();
+
+}
+
 //methods for custom object movement
 void PhysicsManager::addCustomMovingObject(const string &objectName, const float time, const float ax0, const float ay0, const float az0, 
 											const float ax1, const float ay1, const float az1){
@@ -226,6 +236,10 @@ void PhysicsManager::addCustomMovingObject(const string &objectName, const float
 	} catch (out_of_range &it){
 
 		renderManager->logWarn("Attempt to create custom moving object for nonexistant object: " + objectName);
+
+	} catch (...){
+
+		renderManager->logFatal("Unexpected exception.", __LINE__, __FILE__);
 
 	}
 

@@ -77,8 +77,8 @@
 			<name>controlWindow</name>
 			<caption>Mini Merry Adventures</caption>
 			<skin>WindowC</skin>
-			<position>360,600</position>
-			<size>310,160</size>
+			<position>310,600</position>
+			<size>410,160</size>
 			<layer>Overlapped</layer>
 			<buttons>
 				<button>
@@ -116,6 +116,15 @@
 					<size>130,40</size>
 					<font>120</font>
 					<script>./assets/lua/buttonRight.lua</script>
+				</button>
+				<button>
+					<name>navigate</name>
+					<caption>Navigate</caption>
+					<position>300,10</position>
+					<skin>Button</skin>
+					<size>100,40</size>
+					<font>120</font>
+					<script>./assets/lua/buttonNavigate.lua</script>
 				</button>
 			</buttons>
 		</window>
