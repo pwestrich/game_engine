@@ -5,10 +5,10 @@
 		<gravity>0,-9.80,0</gravity>
 		<cameras>
 			<camera>
-				<name>BoatCamera</name>
-				<location>0,5,-50</location>
-				<lookAt>0,5,1000</lookAt>
-				<clip>1,2000</clip>
+				<name>LuffyVision</name>
+				<location>3,10,770</location>
+				<lookAt>0,10,1500</lookAt>
+				<clip>1,9001</clip>
 				<viewport>0,0,0,1,1</viewport>
 			</camera>
 		</cameras>
@@ -17,167 +17,153 @@
 				<name>directional_light</name>
 				<type>directional</type>
 				<diffuse>1,1,1</diffuse>
-				<specular>1,1,1s</specular>
+				<specular>1,1,1</specular>
 				<direction>0,-1,0</direction>
 			</light>
 		</lights>
 		<nodes>
 			<node>
-				<name>RockNode1</name>
+				<name>CenterStone</name>
 				<type>scene</type>
-				<translate>0,-2,80</translate>
-				<scale>3,5,3</scale>
+				<translate>3,3,800</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.8,2,2</scale>
 				<entity>
-					<name>Rock1</name>
-					<mesh>Rock.mesh</mesh>
-					<material>RockMaterial</material>
+					<name>CenterStone</name>
+					<mesh>CenterStone.mesh</mesh>
+					<material>CenterStone</material>
 				</entity>
-				<physics>
-					<name>RockNode1</name>
-					<mass>0.0</mass>
-					<shape>hull</shape>
-					<parameters>Rock1</parameters>
-					<translate>0,-2,80</translate>
-				</physics>
 			</node>
 			<node>
-				<name>RockNode2</name>
+				<name>TributeStone</name>
 				<type>scene</type>
-				<translate>60,-2,180</translate>
-				<scale>3,5,3</scale>
+				<translate>-45,7,580</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>4.4,4.4,4.4</scale>
 				<entity>
-					<name>Rock2</name>
-					<mesh>Rock_2.mesh</mesh>
-					<material>RockMaterial</material>
+					<name>TributeStone</name>
+					<mesh>TributeStone.mesh</mesh>
+					<material>TributeMaterial</material>
 				</entity>
-				<physics>
-					<name>RockNode2</name>
-					<mass>0.0</mass>
-					<shape>hull</shape>
-					<parameters>Rock2</parameters>
-					<translate>60,-2,145</translate>
-				</physics>
 			</node>
 			<node>
-				<name>RockNode3</name>
+				<name>AceTable</name>
 				<type>scene</type>
-				<translate>-60,-2,290</translate>
-				<scale>3,5,3</scale>
+				<translate>5,6.5,795</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
 				<entity>
-					<name>Rock3</name>
-					<mesh>Rock_3.mesh</mesh>
-					<material>RockMaterial</material>
+					<name>AceTable</name>
+					<mesh>AceTable.mesh</mesh>
+					<material>AceTableMaterial</material>
 				</entity>
-				<physics>
-					<name>RockNode3</name>
-					<mass>0.0</mass>
-					<shape>hull</shape>
-					<parameters>Rock3</parameters>
-					<translate>-65,-2,295</translate>
-				</physics>
 			</node>
 			<node>
-				<name>RockNode4</name>
+				<name>NamiTable</name>
 				<type>scene</type>
-				<translate>0,-2,500</translate>
-				<scale>3,5,3</scale>
+				<translate>15,6.5,895</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
 				<entity>
-					<name>Rock</name>
-					<mesh>Rock.mesh</mesh>
-					<material>RockMaterial</material>
+					<name>NamiTable</name>
+					<mesh>NamiTable.mesh</mesh>
+					<material>NamiTableMaterial</material>
 				</entity>
-				<physics>
-					<name>RockNode4</name>
-					<mass>0.0</mass>
-					<shape>hull</shape>
-					<parameters>Rock3</parameters>
-					<translate>0,-2,500</translate>
-				</physics>
+			</node>
+			<node>
+				<name>UsoppTable</name>
+				<type>scene</type>
+				<translate>10,6.5,895</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
+				<entity>
+					<name>UsoppTable</name>
+					<mesh>UsoppTable.mesh</mesh>
+					<material>UsoppTableMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>ZoroTable</name>
+				<type>scene</type>
+				<translate>20,6.5,895</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
+				<entity>
+					<name>ZoroTable</name>
+					<mesh>ZoroTable.mesh</mesh>
+					<material>ZoroTableMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>SanjiTable</name>
+				<type>scene</type>
+				<translate>5,6.5,895</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
+				<entity>
+					<name>SanjiTable</name>
+					<mesh>SanjiTable.mesh</mesh>
+					<material>SanjiTableMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>ChopperTable</name>
+				<type>scene</type>
+				<translate>0,6.5,895</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
+				<entity>
+					<name>ChopperTable</name>
+					<mesh>ChopperTable.mesh</mesh>
+					<material>ChopperTableMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>RobinTable</name>
+				<type>scene</type>
+				<translate>3,2.7,884</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
+				<entity>
+					<name>RobinTable</name>
+					<mesh>RobinTable.mesh</mesh>
+					<material>RobinTableMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>FrankyTable</name>
+				<type>scene</type>
+				<translate>-10,6.5,895</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
+				<entity>
+					<name>FrankyTable</name>
+					<mesh>FrankyTable.mesh</mesh>
+					<material>FrankyTableMaterial</material>
+				</entity>
+			</node>
+			<node>
+				<name>BrookTable</name>
+				<type>scene</type>
+				<translate>-15,6.5,895</translate>
+				<rotate>0,1,0,180</rotate>
+				<scale>1.4,1.4,1.4</scale>
+				<entity>
+					<name>BrookTable</name>
+					<mesh>BrookTable.mesh</mesh>
+					<material>BrookTableMaterial</material>
+				</entity>
 			</node>
 			<node>
 				<name>Island</name>
 				<type>scene</type>
-				<translate>0,-4.5,900</translate>
-				<rotate>0,1,0,-90</rotate>
-				<scale>100,120,100</scale>
+				<translate>0,-4,900</translate>
+				<rotate>0,1,0,0</rotate>
+				<scale>70,40,70</scale>
 				<entity>
 					<name>Island</name>
 					<mesh>Island.mesh</mesh>
 					<material>IslandMaterial</material>
-				</entity>
-				<physics>
-					<name>Island</name>
-					<mass>0.0</mass>
-					<shape>hull</shape>
-					<parameters>Island</parameters>
-					<translate>0,-4.5,900</translate>
-				</physics>
-			</node>
-			<node>
-				<name>PalmTree</name>
-				<type>scene</type>
-				<translate>-4,.5,760</translate>
-				<rotate>0,1,0,90</rotate>
-				<scale>1.7,1.7,1.7</scale>
-				<entity>
-					<name>PalmTree</name>
-					<mesh>PalmTree.mesh</mesh>
-					<material>TreeMaterial</material>
-				</entity>
-			</node>
-			<node>
-				<name>MugiwaraNode</name>
-				<type>scene</type>
-				<translate>-1,4.7,761</translate>
-				<scale>.3,.4,.3</scale>
-				<entity>
-					<name>Mugiwara</name>
-					<mesh>Mugiwara.mesh</mesh>
-					<material>StrawHatMaterial</material>
-				</entity>
-			</node>
-			<node>
-				<name>TableNode</name>
-				<type>scene</type>
-				<translate>0,5,760</translate>
-				<scale>1.2,1.2,1.2</scale>
-				<entity>
-					<name>Table</name>
-					<mesh>RobinsTable.mesh</mesh>
-					<material>WhiteWood</material>
-				</entity>
-			</node>
-			<node>
-				<name>AcesSakeCupNode</name>
-				<type>scene</type>
-				<translate>.5,5.27,759.5</translate>
-				<scale>.05,.05,.05</scale>
-				<entity>
-					<name>AcesSakeCup</name>
-					<mesh>RedSakeCup.mesh</mesh>
-					<material>SakeCupMaterial</material>
-				</entity>
-			</node>
-			<node>
-				<name>SabosSakeCupNode</name>
-				<type>scene</type>
-				<translate>0,5.27,759.5</translate>
-				<scale>.05,.05,.05</scale>
-				<entity>
-					<name>SabosSakeCup</name>
-					<mesh>RedSakeCup.mesh</mesh>
-					<material>SakeCupMaterial</material>
-				</entity>
-			</node>
-			<node>
-				<name>LuffysSakeCupNode</name>
-				<type>scene</type>
-				<translate>-.5,5.27,759.5</translate>
-				<scale>.05,.05,.05</scale>
-				<entity>
-					<name>LuffysSakeCup</name>
-					<mesh>RedSakeCup.mesh</mesh>
-					<material>SakeCupMaterial</material>
 				</entity>
 			</node>
 			<node>
@@ -198,42 +184,9 @@
 				</physics>
 			</node>
 			<node>
-				<name>Cannonball1</name>
-				<type>scene</type>
-				<translate>-10,30,5</translate>
-				<entity>
-					<name>Cannonball</name>
-					<mesh>Cannonball.mesh</mesh>
-					<material>CannonballMaterial</material>
-				</entity>
-				<physics>
-					<name>Cannonball1</name>
-					<mass>5.0</mass>
-					<shape>sphere</shape>
-					<parameters>1</parameters>
-				</physics>
-			</node>
-			<node>
-				<name>Cannonball2</name>
-				<type>scene</type>
-				<translate>10,30,0</translate>
-				<entity>
-					<name>Cannonball2</name>
-					<mesh>Cannonball.mesh</mesh>
-					<material>CannonballMaterial</material>
-				</entity>
-				<physics>
-					<name>Cannonball2</name>
-					<mass>5.0</mass>
-					<shape>sphere</shape>
-					<parameters>1</parameters>
-				</physics>
-			</node>
-			<node>
 				<name>MiniMerryTrasnformNode</name>
 				<type>scene</type>
-				<translate>0,0,0</translate>
-				<camera>BoatCamera</camera>
+				<translate>0,10,0</translate>
 				<physics>
 					<name>MiniMerryTrasnformNode</name>
 					<shape>box</shape>

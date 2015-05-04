@@ -1,11 +1,6 @@
 
---{KB_INVALID, KB_TAB, KB_ESC, KB_SPACE, KB_LSHIFT, KB_W, KB_A, KB_S, KB_D, 
---KB_Q, KB_Z, KB_E, KB_C, KB_F, KB_UP, KB_DOWN, KB_LEFT, KB_RIGHT, KB_RETURN };
-
-print(keyPressed)
-
 CAMERA_NAME = "LuffyVision"	--name of camera to move
-MOVE_AMOUNT = 2				--how far to move it
+MOVE_AMOUNT = 5				--how far to move it
 ROTATE_AMOUNT = 10			--how many degrees to rotate it
 
 if keyPressed == 0 then 	 --INVALID
@@ -24,12 +19,12 @@ elseif keyPressed == 2 then --ESC
 elseif keyPressed == 3 then --SPACE
 
 	--rotate the camera about the y axis
-	Scene:rotateCamera(CAMERA_NAME, ROTATE_AMOUNT, 0, 1, 0)
+	Scene:rotateCamera(CAMERA_NAME, -ROTATE_AMOUNT, 0, 1, 0)
 
 elseif keyPressed == 4 then --LSHIFT
 
 	--rotate the camera about the y axis the other way
-	Scene:rotateCamera(CAMERA_NAME, -ROTATE_AMOUNT, 0, 1, 0)
+	Scene:rotateCamera(CAMERA_NAME, ROTATE_AMOUNT, 0, 1, 0)
 
 elseif keyPressed == 5 then --W
 
@@ -64,12 +59,12 @@ elseif keyPressed == 10 then --Z
 elseif keyPressed == 11 then -- E
 
 	--rotate the camera about the x axis
-	Scene:rotateCamera(CAMERA_NAME, ROTATE_AMOUNT, 1, 0, 0)
+	Scene:rotateCamera(CAMERA_NAME, -ROTATE_AMOUNT, 1, 0, 0)
 
 elseif keyPressed == 12 then --C
 
 	--rotate the camera about the x axis the other way
-	Scene:rotateCamera(CAMERA_NAME, -ROTATE_AMOUNT, 1, 0, 0)
+	Scene:rotateCamera(CAMERA_NAME, ROTATE_AMOUNT, 1, 0, 0)
 
 elseif keyPressed == 13 then --F
 

@@ -97,12 +97,56 @@
 				<id>33</id>
 			</mesh>
 			<mesh>
-				<name>RobinsTable.mesh</name>
+				<name>RobinTable.mesh</name>
 				<id>34</id>
 			</mesh>
 			<mesh>
 				<name>PalmTree.mesh</name>
 				<id>35</id>
+			</mesh>
+			<mesh>
+				<name>ASLTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>BrookTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>ChopperTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>FrankyTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>NamiTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>SanjiTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>UsoppTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>ZoroTable.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>CenterStone.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>TributeStone.mesh</name>
+				<id>36</id>
+			</mesh>
+			<mesh>
+				<name>SmallSpirit.mesh</name>
+				<id>36</id>
 			</mesh>
 		</meshes>
 		<audios>
@@ -152,8 +196,8 @@
 				<id>31</id>
 			</audio>
 			<audio>
-				<file>./assets/audio/WelcomeFromUsopp.mp3</file>
-				<type>sample</type>
+				<file>./assets/audio/SlowBinksSake.mp3</file>
+				<type>stream</type>
 				<id>32</id>
 			</audio>
 		</audios>

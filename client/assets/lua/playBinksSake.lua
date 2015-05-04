@@ -1,1 +1,0 @@
-Game:setBackgroundMusic(22) --background music

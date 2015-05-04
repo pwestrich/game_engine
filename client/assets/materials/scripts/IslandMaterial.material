@@ -9,7 +9,7 @@ material IslandMaterial
         pass IslandMaterial
         {
             ambient 0.800000011920929 0.800000011920929 0.800000011920929 1.0
-            diffuse 0.3115789936718194 0.3115789936718194 0.3115789936718194 1.0
+            diffuse 0.6400000190734865 0.6400000190734865 0.6400000190734865 1.0
             specular 0.0 0.0 0.0 1.0 0.25
             emissive 0.0 0.0 0.0 1.0
 
@@ -32,7 +32,7 @@ material IslandMaterial
 
             texture_unit 
             {
-                texture IslandTexture4.jpg
+                texture IslandTexture5.jpg
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate

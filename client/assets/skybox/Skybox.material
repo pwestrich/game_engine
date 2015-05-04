@@ -9,7 +9,7 @@ material Skybox
 
 			texture_unit
 			{
-				cubic_texture Sunny_front.jpg Sunny_back.jpg Sunny_left.jpg Sunny_right.jpg Sunny_up.jpg Sunny_down.jpg separateUV
+				cubic_texture Dark_front.jpg Dark_back.jpg Dark_left.jpg Dark_right.jpg Dark_up.jpg Dark_down.jpg separateUV
 				tex_address_mode clamp
 			}
 		}

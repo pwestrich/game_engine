@@ -188,3 +188,10 @@ end
 
 --call function with arguments written by game
 a0x, a0y, a0z, a1x, a1y, a1z = solveEquationsOfMotion(p0x, p0y, p0z, p1x, p1y, p1z, v0x, v0y, v0z, v1x, v1y, v1z, gx, gy, gz, time)
+
+print(a0x)
+print(a0y)
+print(a0z)
+print(a1x)
+print(a1y)
+print(a1z)
